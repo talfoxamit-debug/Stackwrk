@@ -5,7 +5,7 @@ import "./globals.css";
 
 const title = "Stackwrk — Bold Websites. Real Results.";
 const description =
-  "Custom web apps and sites that solve real problems, drive bookings, and grow your business. Built fast, built to convert.";
+  "Custom web apps and sites that get you more bookings, leads, and revenue. Built fast, built to convert.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://stackwrk.com"),
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B0616",
+  themeColor: "#1A0F2E",
   colorScheme: "dark",
 };
 
