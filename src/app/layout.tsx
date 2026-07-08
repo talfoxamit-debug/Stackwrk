@@ -3,12 +3,12 @@ import { anton, inter } from "@/lib/fonts";
 import Nav from "@/components/Nav";
 import "./globals.css";
 
-const title = "Fox Solutions — Bold Websites. Real Results.";
+const title = "Stackwrk — Bold Websites. Real Results.";
 const description =
   "Custom web apps and sites that solve real problems, drive bookings, and grow your business. Built fast, built to convert.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://foxsolutions.dev"),
+  metadataBase: new URL("https://stackwrk.com"),
   title,
   description,
   keywords: [
@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    url: "https://foxsolutions.dev",
-    siteName: "Fox Solutions",
+    url: "https://stackwrk.com",
+    siteName: "Stackwrk",
     type: "website",
   },
   twitter: {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     description,
   },
   robots: { index: true, follow: true },
-  alternates: { canonical: "https://foxsolutions.dev" },
+  alternates: { canonical: "https://stackwrk.com" },
 };
 
 export const viewport: Viewport = {

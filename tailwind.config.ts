@@ -7,7 +7,7 @@ const config: Config = {
       colors: {
         // Deep purple / indigo, near-black backgrounds
         ink: {
-          DEFAULT: "#0B0616", // page background (deepest)
+          DEFAULT: "#1A0F2E", // page background (deepest)
           800: "#0F0A1F",
           700: "#140C28",
           600: "#1A1030", // card / panel

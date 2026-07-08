@@ -1,41 +1,34 @@
 /**
- * Single source of truth for all site copy and links.
  * Single source of truth for the Direction B landing page copy.
  * Replace the placeholder links (Calendly, live project URLs) with real values
  * before launch.
  */
 
 export const site = {
-  brand: "FOX SOLUTIONS",
-  domain: "foxsolutions.dev",
+  brand: "STACKWRK",
+  domain: "stackwrk.com",
   legalEntity: "Fox Solutions LLC",
-  email: "hello@foxsolutions.dev",
+  email: "hello@stackwrk.com",
   // TODO: confirm final Calendly link before launch.
   calendlyUrl: "https://calendly.com/",
   socials: {
     linkedin: "https://www.linkedin.com/",
     github: "https://github.com/",
-    email: "mailto:hello@foxsolutions.dev",
+    email: "mailto:hello@stackwrk.com",
   },
 };
 
 export const nav = [
   { label: "Work", href: "#work" },
   { label: "Process", href: "#process" },
-  { label: "Stack", href: "#stack" },
   { label: "About", href: "#about" },
 ];
 
 export const hero = {
   eyebrow: "Web development that delivers",
-  // Hero mascot image (a file under /public). Renders when present; if the
-  // file is missing or fails to load, HeroMedia falls back to the abstract
-  // gradient visual — so this is safe to point at an asset that isn't uploaded
-  // yet. Drop the PNG/SVG into /public at this path and it appears.
-  image: "/fox-solutions-neon-fox-900.png" as string | null,
   titleLines: ["BOLD WEBSITES.", "REAL RESULTS."],
   subtitle:
-    "Custom web apps and sites that solve real problems, drive bookings, and grow your business.",
+    "Custom web apps and sites that get you more bookings, leads, and revenue.",
   primaryCta: "Book a Free Site Audit",
   secondaryCta: "See My Work",
   highlights: [
@@ -73,7 +66,7 @@ export const projects: Project[] = [
     accent: "from-sky-800 via-indigo-900 to-ink-700",
   },
   {
-    name: "FoxStays Docks",
+    name: "Dock Rentals",
     tag: "Premium dock rentals in Fort Lauderdale",
     blurb:
       "Dual-sided dock rental marketplace with real-time booking and blog.",
@@ -97,22 +90,22 @@ export const whatYouGet = {
   items: [
     {
       icon: "code",
-      title: "Custom-Built",
+      title: "100% Custom",
       body: "No templates. Built from scratch for your business.",
     },
     {
       icon: "bolt",
-      title: "Fast Turnaround",
+      title: "Fast Delivery",
       body: "Most projects live in 2–4 weeks. No endless delays.",
     },
     {
       icon: "stack",
-      title: "Modern Stack",
+      title: "Modern Tech",
       body: "Next.js, TypeScript, Tailwind, Supabase & more.",
     },
     {
       icon: "target",
-      title: "Built to Convert",
+      title: "Conversion Focused",
       body: "Strategy, UX, and performance that drive results.",
     },
   ],
@@ -122,7 +115,7 @@ export const investment = {
   eyebrow: "Investment",
   headline: "Projects starting at",
   price: "$2,000",
-  sub: "Quality websites that pay for themselves. Serious projects. Serious results.",
+  sub: "Quality builds that pay for themselves.",
   cta: "Book a Free Site Audit",
 };
 

@@ -47,7 +47,7 @@ export default function FeaturedProjects() {
       <div className="container-content">
         <Reveal className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="eyebrow">Featured case studies</p>
+            <p className="eyebrow">Featured projects</p>
           <h2 className="mt-3 font-display text-4xl uppercase text-white sm:text-5xl">
               Real projects. Real impact.
             </h2>

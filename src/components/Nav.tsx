@@ -25,7 +25,7 @@ export default function Nav() {
       }`}
     >
       <nav className="container-content flex h-[86px] items-center justify-between">
-        <a href="#top" aria-label="Stackwrk — home">
+        <a href="#top" aria-label="Stackwrk home">
           <Logo />
         </a>
 
@@ -99,7 +99,7 @@ export default function Nav() {
             onClick={() => setOpen(false)}
             className="btn-primary mt-2"
           >
-            Book a Free Audit
+            Book a Free Site Audit
             <ArrowRight width={16} height={16} />
           </a>
         </div>
