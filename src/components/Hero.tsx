@@ -37,7 +37,7 @@ export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pb-12 pt-28 sm:pt-36 lg:min-h-[860px] lg:pb-20">
       <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.35]" />
-      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-violet-600/20 blur-[120px]" />
+      <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-violet-600/20 blur-[80px]" />
       <div className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[70vw] bg-[radial-gradient(ellipse_at_70%_70%,rgba(46,107,255,0.55),rgba(162,28,224,0.28)_36%,transparent_68%)] blur-2xl" />
 
       <div className="container-content relative grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">

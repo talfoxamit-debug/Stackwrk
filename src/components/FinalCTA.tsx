@@ -1,5 +1,6 @@
+import AuditForm from "./AuditForm";
 import Reveal from "./Reveal";
-import { ArrowRight, Calendar, Check } from "./icons";
+import { Calendar, Check } from "./icons";
 import { finalCta, site } from "@/lib/content";
 
 const avatarGradients = [
@@ -12,7 +13,7 @@ const avatarGradients = [
 export default function FinalCTA() {
   return (
     <section id="about" className="relative overflow-hidden py-20 sm:py-28">
-      <div className="pointer-events-none absolute -right-32 top-10 h-96 w-96 rounded-full bg-violet-600/15 blur-[130px]" />
+      <div className="pointer-events-none absolute -right-32 top-10 h-80 w-80 rounded-full bg-violet-600/15 blur-[80px]" />
       <div className="container-content relative grid gap-12 lg:grid-cols-2 lg:items-center">
         {/* Left: pitch */}
         <Reveal>
@@ -46,14 +47,15 @@ export default function FinalCTA() {
             </div>
           </div>
 
+          <AuditForm />
+
           <a
             href={site.calendlyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary mt-8 flex w-full !rounded-md"
+            className="mt-5 block text-center text-sm font-medium text-white/60 underline-offset-4 transition-colors hover:text-lime hover:underline"
           >
-            {finalCta.calendlyLabel}
-            <ArrowRight width={18} height={18} />
+            {finalCta.calendlyLabel} →
           </a>
 
           <div className="mt-6 flex items-center gap-3 border-t border-white/[0.08] pt-6">

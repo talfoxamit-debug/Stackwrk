@@ -14,11 +14,21 @@
 
   body {
     @apply bg-ink text-white/90 font-sans antialiased;
+  }
+
+  /* Ambient glow pinned to the viewport via a composited fixed layer — far
+     cheaper on mobile than `background-attachment: fixed`, which repaints on
+     every scroll frame. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
     background-image:
       radial-gradient(60rem 60rem at 78% 5%, rgba(46, 107, 255, 0.18), transparent 58%),
       radial-gradient(54rem 54rem at 100% 20%, rgba(162, 28, 224, 0.2), transparent 62%),
       radial-gradient(50rem 50rem at -10% 10%, rgba(46, 107, 255, 0.1), transparent 55%);
-    background-attachment: fixed;
   }
 
   ::selection {

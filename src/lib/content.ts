@@ -66,7 +66,7 @@ export const projects: Project[] = [
     blurb:
       "Interactive tools that help buyers make smarter decisions with confidence.",
     features: ["Flood zone checker", "ROI calculator", "Home configurator"],
-    href: "#work", // TODO: real live-site URL
+    href: "https://seatophomes.com",
     accent: "from-sky-800 via-indigo-900 to-ink-700",
   },
   {
@@ -75,7 +75,7 @@ export const projects: Project[] = [
     blurb:
       "Dual-sided dock rental marketplace with real-time booking and blog.",
     features: ["Dual-sided booking flow", "Real-time availability", "Blog & local SEO"],
-    href: "#work", // TODO: real live-site URL
+    href: "https://yathub.com",
     accent: "from-teal-800 via-cyan-900 to-ink-700",
   },
   {
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     blurb:
       "Local service website with class scheduling, multi-language and SEO.",
     features: ["Class scheduling system", "English / Português / עברית", "Custom CMS for content"],
-    href: "#work", // TODO: real live-site URL
+    href: "https://capoeira-aue.vercel.app",
     accent: "from-amber-800 via-rose-900 to-ink-700",
   },
 ];
@@ -129,13 +129,13 @@ export const finalCta = {
   body: "Book a free site audit and I’ll show you exactly how we can improve your online presence and drive more results.",
   points: ["Free 30-min audit", "Actionable insights", "No obligation"],
   formTitle: "Book a Free Site Audit",
-  formSub: "Pick a time that works for you.",
+  formSub: "Tell me about your project — I’ll reply within one business day.",
   formCta: "Request My Free Audit",
-  calendlyLabel: "Book on Calendly",
+  calendlyLabel: "Prefer to pick a time? Book on Calendly",
   trust: "Trusted by business owners across the U.S. and beyond.",
 };
 
 export const footer = {
-  copyright: "© 2024 Fox Solutions LLC",
+  copyright: "© 2026 Fox Solutions LLC",
   tagline: "Built with passion. Focused on results.",
 };
