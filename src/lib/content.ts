@@ -26,6 +26,11 @@ export const nav = [
 
 export const hero = {
   eyebrow: "Web development that delivers",
+  // Hero mascot image under /public. Renders via HeroMedia; if missing it falls
+  // back to the abstract gradient visual. fox.png ships with an opaque dark
+  // background, so imageOpaqueBg=true tells HeroMedia to screen-blend it.
+  image: "/fox.png" as string | null,
+  imageOpaqueBg: true,
   titleLines: ["BOLD WEBSITES.", "REAL RESULTS."],
   subtitle:
     "Custom web apps and sites that get you more bookings, leads, and revenue.",

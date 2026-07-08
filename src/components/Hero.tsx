@@ -91,11 +91,11 @@ export default function Hero() {
 
         {/* Right: hero visual + code card */}
         <div className="relative animate-fade-up lg:-ml-12" style={{ animationDelay: "200ms" }}>
-          <div className="relative mx-auto max-w-3xl">
+          <div className="relative mx-auto max-w-lg">
             <HeroMedia />
 
-            {/* Code card overlapping the visual */}
-            <div className="absolute left-2 top-[22%] z-0 w-[52%] max-w-sm rounded-xl border border-violet-400/45 bg-ink-800/80 p-5 font-mono text-[11px] leading-5 shadow-card backdrop-blur-md sm:text-xs lg:left-4">
+            {/* Code card overlapping the lower portion of the visual */}
+            <div className="absolute bottom-4 left-0 z-20 w-[58%] max-w-sm rounded-xl border border-violet-400/45 bg-ink-800/85 p-5 font-mono text-[11px] leading-5 shadow-card backdrop-blur-md sm:text-xs">
               <div className="mb-3 flex items-center gap-1.5">
                 <span className="h-2.5 w-2.5 rounded-full bg-flare-red/80" />
                 <span className="h-2.5 w-2.5 rounded-full bg-flare-orange/80" />
