@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import FeaturedProjects from "@/components/FeaturedProjects";
+import AuditSection from "@/components/AuditSection";
 import WhatYouGet from "@/components/WhatYouGet";
 import Investment from "@/components/Investment";
 import FinalCTA from "@/components/FinalCTA";
@@ -10,6 +11,7 @@ export default function Home() {
     <>
       <Hero />
       <FeaturedProjects />
+      <AuditSection />
       <WhatYouGet />
       <Investment />
       <FinalCTA />
