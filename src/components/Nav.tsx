@@ -1,16 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Logo from "./Logo";
 import { ArrowRight } from "./icons";
 import { nav } from "@/lib/content";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  const lastY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 12);
+      // Hide on scroll-down past the hero, reveal on scroll-up — keeps sections
+      // cinematic instead of always under a fixed strip.
+      if (y > 200 && y > lastY.current + 5) setHidden(true);
+      else if (y < lastY.current - 5) setHidden(false);
+      lastY.current = y;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -18,24 +28,25 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-[transform,background-color,border-color] duration-300 ${
+        hidden && !open ? "-translate-y-full" : "translate-y-0"
+      } ${
         scrolled
-          ? "border-b border-white/[0.07] bg-[#070312]/70 backdrop-blur-xl"
+          ? "border-b border-white/[0.06] bg-[#070312]/70 backdrop-blur-xl"
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="container-content flex h-[68px] items-center justify-between">
-        <a href="#top" aria-label="Stackwrk home">
+      <nav className="container-content flex h-14 items-center justify-between">
+        <a href="#top" aria-label="Stackwrk home" className="scale-90 origin-left">
           <Logo />
         </a>
 
-        {/* Desktop links */}
-        <div className="hidden items-center gap-10 md:flex">
+        <div className="hidden items-center gap-9 md:flex">
           {nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="font-display text-sm uppercase tracking-wide text-white transition-colors hover:text-lime"
+              className="text-[0.82rem] font-medium uppercase tracking-wide text-white/85 transition-colors hover:text-lime"
             >
               {item.label}
             </a>
@@ -43,9 +54,9 @@ export default function Nav() {
         </div>
 
         <div className="hidden md:block">
-          <a href="#about" className="btn-primary !rounded-md !px-7 !py-3">
+          <a href="#about" className="btn-primary !rounded-md !px-5 !py-2.5 !text-[0.82rem]">
             Book a Free Site Audit
-            <ArrowRight width={16} height={16} />
+            <ArrowRight width={15} height={15} />
           </a>
         </div>
 
@@ -55,31 +66,19 @@ export default function Nav() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white md:hidden"
+          className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-white md:hidden"
         >
           <span className="relative block h-4 w-5">
-            <span
-              className={`absolute left-0 h-0.5 w-5 bg-current transition-all ${
-                open ? "top-1.5 rotate-45" : "top-0"
-              }`}
-            />
-            <span
-              className={`absolute left-0 top-1.5 h-0.5 w-5 bg-current transition-all ${
-                open ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`absolute left-0 h-0.5 w-5 bg-current transition-all ${
-                open ? "top-1.5 -rotate-45" : "top-3"
-              }`}
-            />
+            <span className={`absolute left-0 h-0.5 w-5 bg-current transition-all ${open ? "top-1.5 rotate-45" : "top-0"}`} />
+            <span className={`absolute left-0 top-1.5 h-0.5 w-5 bg-current transition-all ${open ? "opacity-0" : "opacity-100"}`} />
+            <span className={`absolute left-0 h-0.5 w-5 bg-current transition-all ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
           </span>
         </button>
       </nav>
 
       {/* Mobile menu */}
       <div
-        className={`overflow-hidden border-t border-white/[0.06] bg-ink/95 backdrop-blur-md transition-[max-height] duration-300 md:hidden ${
+        className={`overflow-hidden border-t border-white/[0.06] bg-[#070312]/95 backdrop-blur-xl transition-[max-height] duration-300 md:hidden ${
           open ? "max-h-96" : "max-h-0"
         }`}
       >
@@ -94,11 +93,7 @@ export default function Nav() {
               {item.label}
             </a>
           ))}
-          <a
-            href="#about"
-            onClick={() => setOpen(false)}
-            className="btn-primary mt-2"
-          >
+          <a href="#about" onClick={() => setOpen(false)} className="btn-primary mt-2">
             Book a Free Site Audit
             <ArrowRight width={16} height={16} />
           </a>

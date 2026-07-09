@@ -5,60 +5,49 @@ import { investment } from "@/lib/content";
 
 export default function Investment() {
   return (
-    <section className="border-y border-lime/30 bg-lime py-10 text-ink sm:py-12">
+    <section className="py-5 sm:py-7">
       <div className="container-content">
-        <Reveal className="relative overflow-hidden px-0 py-0">
-          {/* Growth-curve backdrop — a single clean upward arc pinned to the far
-              right edge and feathered out with a left→right mask so it never
-              crosses the copy. (No grid: the old diagonal grid lines ran
-              straight through the text and killed readability.) */}
-          <svg
-            className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-[38%] lg:block"
-            viewBox="0 0 400 260"
-            fill="none"
-            preserveAspectRatio="xMaxYMid slice"
-            aria-hidden="true"
+        <Reveal className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br from-violet-800/25 via-[#0b0616] to-[#0b0616] px-7 py-8 sm:px-10 sm:py-9">
+          {/* restrained glow + a subtle upward growth line on the right */}
+          <div className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.4),transparent_70%)] blur-2xl" />
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 hidden w-2/5 lg:block"
             style={{
-              maskImage: "linear-gradient(to right, transparent, #000 58%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent, #000 58%)",
+              maskImage: "linear-gradient(to right, transparent, #000 50%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent, #000 50%)",
             }}
           >
-            <defs>
-              <linearGradient id="grow" x1="0" y1="1" x2="1" y2="0">
-                <stop offset="0%" stopColor="#1A0F2E" stopOpacity="0" />
-                <stop offset="100%" stopColor="#1A0F2E" />
-              </linearGradient>
-            </defs>
-            {/* soft area fill under the curve */}
-            <path d="M0 230 C 90 210, 150 180, 210 140 S 320 40, 392 18 L 400 260 L 0 260 Z" fill="#1A0F2E" opacity="0.06" />
-            {/* the growth curve */}
-            <path d="M0 230 C 90 210, 150 180, 210 140 S 320 40, 392 18" stroke="url(#grow)" strokeWidth="3.5" strokeLinecap="round" />
-            <circle cx="392" cy="18" r="6" fill="#1A0F2E" className="animate-pulse-glow" />
-            <circle cx="392" cy="18" r="13" fill="#1A0F2E" opacity="0.2" className="animate-pulse-glow" />
-          </svg>
+            <svg viewBox="0 0 400 200" preserveAspectRatio="xMaxYMid slice" fill="none" className="h-full w-full">
+              <defs>
+                <linearGradient id="invline" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#CBFF3C" stopOpacity="0" />
+                  <stop offset="100%" stopColor="#CBFF3C" stopOpacity="0.9" />
+                </linearGradient>
+              </defs>
+              <path d="M0 176 C 92 160, 150 128, 214 92 S 322 24, 392 12" stroke="url(#invline)" strokeWidth="2.5" strokeLinecap="round" />
+              <circle cx="392" cy="12" r="4" fill="#CBFF3C" className="animate-pulse-glow" />
+            </svg>
+          </div>
 
-          <div className="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
-            <div className="border-ink/20 lg:border-r lg:pr-10">
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-ink/60">
+          <div className="relative z-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-lime/80">
                 {investment.eyebrow}
               </p>
-              <h2 className="mt-4 font-display text-3xl uppercase leading-none text-ink sm:text-4xl">
+              <p className="mt-2 font-display text-2xl uppercase leading-none text-white/85 sm:text-3xl">
                 {investment.headline}
-              </h2>
-              <p className="mt-1 font-display text-6xl leading-none text-ink sm:text-7xl">
-                <CountUp value={2000} prefix="$" />
               </p>
+              <CountUp
+                value={2000}
+                prefix="$"
+                className="mt-1 block font-display text-6xl leading-none text-accent-glow sm:text-7xl"
+              />
+              <p className="mt-3 max-w-sm text-sm text-white/55">{investment.sub}</p>
             </div>
-
-            <div className="lg:pl-8">
-              <p className="max-w-sm text-base font-semibold leading-relaxed text-ink/85">
-                {investment.sub}
-              </p>
-              <a href="#about" className="btn-dark mt-6 !rounded-md">
-                {investment.cta}
-                <ArrowRight width={18} height={18} />
-              </a>
-            </div>
+            <a href="#about" className="btn-primary shrink-0 !rounded-md">
+              {investment.cta}
+              <ArrowRight width={18} height={18} />
+            </a>
           </div>
         </Reveal>
       </div>

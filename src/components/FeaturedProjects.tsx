@@ -32,7 +32,7 @@ function Shot({ project, ratio = "aspect-[16/11]" }: { project: Project; ratio?:
             alt={`${project.name} website`}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover object-top brightness-[1.1] saturate-[1.05] transition-transform duration-[1400ms] ease-out group-hover:scale-[1.05]"
+            className="h-full w-full object-cover object-top brightness-[1.16] contrast-[1.04] saturate-[1.06] transition-transform duration-[1400ms] ease-out group-hover:scale-[1.05]"
           />
         )}
         {/* premium glass pill — never competes with the screenshot */}
@@ -76,12 +76,14 @@ const cardBase =
   "group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] transition-all duration-500 hover:border-lime/35 hover:shadow-[0_30px_80px_-42px_rgba(203,255,60,0.3)]";
 
 export default function FeaturedProjects() {
-  const [featured, ...rest] = projects;
+  const clients = projects.filter((p) => (p.badge ?? "Live project") === "Live project");
+  const concepts = projects.filter((p) => (p.badge ?? "Live project") !== "Live project");
+  const [featured, ...supporting] = clients;
 
   return (
     <section
       id="work"
-      className="relative scroll-mt-24 overflow-hidden bg-[#070312] py-14 sm:py-20"
+      className="relative scroll-mt-20 overflow-hidden bg-[#070312] py-12 sm:py-16"
     >
       {/* Deep cinematic backdrop — near-black base, a few restrained glows, and a
           grid so faint it only reads as texture. Not a flat purple block. */}
@@ -114,20 +116,20 @@ export default function FeaturedProjects() {
         </Reveal>
 
         {/* Featured case study — wide, screenshot + copy side by side */}
-        <Reveal as="article" className={`mt-9 ${cardBase}`}>
+        <Reveal as="article" className={`mt-8 ${cardBase}`}>
           <CardSpotlight />
-          <div className="relative z-[1] grid lg:grid-cols-[1.55fr_1fr]">
+          <div className="relative z-[1] grid lg:grid-cols-[1.6fr_1fr]">
             <div className="border-b border-white/[0.06] lg:border-b-0 lg:border-r">
-              <Shot project={featured} ratio="aspect-[16/10]" />
+              <Shot project={featured} ratio="aspect-[16/9]" />
             </div>
-            <div className="flex flex-col justify-center gap-4 p-6 sm:p-8">
+            <div className="flex flex-col justify-center gap-3 p-5 sm:p-7">
               <div>
                 <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-violet-300/70">Featured build</span>
-                <h3 className="mt-1.5 font-display text-3xl uppercase leading-none text-white">{featured.name}</h3>
+                <h3 className="mt-1.5 font-display text-[1.7rem] uppercase leading-none text-white">{featured.name}</h3>
               </div>
-              <p className="text-sm leading-relaxed text-white/60">{featured.blurb}</p>
-              <Bullets items={featured.features} className="space-y-2" />
-              <p className="border-l-2 border-lime/50 pl-3 text-[0.82rem] italic leading-relaxed text-white/70">
+              <p className="text-[0.85rem] leading-relaxed text-white/60">{featured.blurb}</p>
+              <Bullets items={featured.features} className="space-y-1.5" />
+              <p className="border-l-2 border-lime/50 pl-3 text-[0.8rem] italic leading-relaxed text-white/65">
                 {featured.result}
               </p>
               <LiveLink href={featured.href} pin={false} />
@@ -135,9 +137,9 @@ export default function FeaturedProjects() {
           </div>
         </Reveal>
 
-        {/* Supporting case studies — equal 3-up */}
-        <div className="mt-5 grid gap-5 md:grid-cols-3">
-          {rest.map((project, i) => (
+        {/* Supporting real client work — 2-up */}
+        <div className="mt-5 grid gap-5 md:grid-cols-2">
+          {supporting.map((project, i) => (
             <Reveal
               as="article"
               key={project.name}
@@ -146,7 +148,7 @@ export default function FeaturedProjects() {
             >
               <CardSpotlight />
               <div className="relative z-[1] flex flex-1 flex-col">
-                <Shot project={project} />
+                <Shot project={project} ratio="aspect-[16/9]" />
                 <div className="flex flex-1 flex-col gap-2.5 p-5">
                   <h3 className="font-display text-xl uppercase leading-none text-white">{project.name}</h3>
                   <p className="text-[0.82rem] leading-relaxed text-white/55">{project.blurb}</p>
@@ -157,6 +159,35 @@ export default function FeaturedProjects() {
             </Reveal>
           ))}
         </div>
+
+        {/* Concept builds — quieter, kept honest and separate from client work */}
+        {concepts.length > 0 && (
+          <div className="mt-9">
+            <p className="mb-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/35">
+              <span className="h-px w-8 bg-white/20" />
+              Concept builds
+            </p>
+            <div className="grid gap-5">
+              {concepts.map((project) => (
+                <Reveal
+                  as="article"
+                  key={project.name}
+                  className="group relative grid overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.015] transition-colors hover:border-white/15 sm:grid-cols-[0.9fr_1.1fr]"
+                >
+                  <div className="border-b border-white/[0.06] sm:border-b-0 sm:border-r">
+                    <Shot project={project} ratio="aspect-[16/9]" />
+                  </div>
+                  <div className="flex flex-col justify-center gap-2 p-5 sm:p-6">
+                    <h3 className="font-display text-lg uppercase leading-none text-white/90">{project.name}</h3>
+                    <p className="text-[0.82rem] leading-relaxed text-white/55">{project.blurb}</p>
+                    <Bullets items={project.features} className="mt-0.5 flex flex-wrap gap-x-5 gap-y-1.5" />
+                    <LiveLink href={project.href} pin={false} />
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
