@@ -56,41 +56,45 @@ export type Project = {
   blurb: string;
   features: string[];
   href: string;
-  accent: string; // tailwind gradient class for the screenshot placeholder
+  accent: string; // tailwind gradient class — fallback tint behind the screenshot
   tag: string;
   result: string; // the business outcome — the "so what"
+  image?: string; // real screenshot under /public/shots
 };
 
 export const projects: Project[] = [
   {
     name: "SeaTop Homes",
-    tag: "Elevated living. Anywhere.",
+    tag: "Resilient homes, beautifully engineered.",
     blurb:
       "Interactive tools that help buyers make smarter decisions with confidence.",
     features: ["Flood zone checker", "ROI calculator", "Home configurator"],
     href: "https://seatophomes.com",
     result: "Buyers self-qualify with the flood-zone + ROI tools before they ever pick up the phone.",
     accent: "from-sky-800 via-indigo-900 to-ink-700",
+    image: "/shots/seatophomes.webp",
   },
   {
-    name: "Dock Rentals",
-    tag: "Premium dock rentals in Fort Lauderdale",
+    name: "YatHub",
+    tag: "The pro network for people who run yachting.",
     blurb:
-      "Dual-sided dock rental marketplace with real-time booking and blog.",
-    features: ["Dual-sided booking flow", "Real-time availability", "Blog & local SEO"],
+      "A dual-sided marketplace for verified docks, crew, yacht jobs and marinas — book in real time.",
+    features: ["Dock & marina search", "Crew & yacht jobs board", "Verified listings + instant book"],
     href: "https://yathub.com",
-    result: "Owners and renters book in real time — no more phone tag or double-bookings.",
+    result: "Owners, crew and captains match and book in real time — no more phone tag or double-bookings.",
     accent: "from-teal-800 via-cyan-900 to-ink-700",
+    image: "/shots/yathub.webp",
   },
   {
     name: "Capoeira Auê",
     tag: "Movement. Culture. Community.",
     blurb:
       "Local service website with class scheduling, multi-language and SEO.",
-    features: ["Class scheduling system", "English / Português / עברית", "Custom CMS for content"],
+    features: ["Class scheduling system", "English / Português / Español", "Custom CMS for content"],
     href: "https://capoeira-aue.vercel.app",
     result: "Classes fill from any phone, in 3 languages, with local SEO that actually ranks.",
     accent: "from-amber-800 via-rose-900 to-ink-700",
+    image: "/shots/capoeira-aue.webp",
   },
 ];
 

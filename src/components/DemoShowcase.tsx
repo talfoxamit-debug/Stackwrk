@@ -130,38 +130,64 @@ function CalculatorDemo() {
 
 /* ---------------------------------------------------------------- Chatbot */
 type Msg = { from: "bot" | "user"; text: string };
-const QA = [
-  { q: "What are your hours?", a: "We're open Mon–Sat, 9am–6pm. Want me to book you the next available slot?" },
-  { q: "Do you give free quotes?", a: "Yes — free, no-obligation quotes. I can grab your details and have someone reach out within the hour." },
-  { q: "Where are you located?", a: "We serve the whole metro area and can come to you. Want directions or a callback?" },
+
+const QUICK = [
+  "What are your hours?",
+  "Do you give free quotes?",
+  "How much does a site cost?",
 ];
+
+/**
+ * Tiny on-device "AI" for the demo: keyword-intent matching with a graceful
+ * lead-capture fallback. No backend — it shows how a real assistant would
+ * answer FAQs and route anything it can't answer into a captured lead.
+ */
+const INTENTS: { keys: string[]; a: string }[] = [
+  { keys: ["hour", "open", "close", "time", "when"], a: "We're open Mon–Sat, 9am–6pm. Want me to book you the next available slot?" },
+  { keys: ["quote", "estimate", "free"], a: "Yes — free, no-obligation quotes. Drop your name and I'll have someone reach out within the hour." },
+  { keys: ["price", "cost", "how much", "budget", "pricing", "rate"], a: "Most projects start around $2,000 and scale with what you need. Want a tailored quote in 2 minutes?" },
+  { keys: ["where", "located", "location", "address", "area"], a: "We serve the whole metro area and work with clients remotely. Want directions or a callback?" },
+  { keys: ["book", "appointment", "schedule", "slot", "meeting"], a: "Happy to book you in — I've got openings this week. What day works best for you?" },
+  { keys: ["service", "do you", "offer", "build", "make", "website", "app"], a: "We build fast, custom websites and web apps — booking tools, calculators, AI chat and more. What are you looking to build?" },
+  { keys: ["contact", "phone", "call", "email", "reach"], a: "Easiest way is right here — share your email and I'll make sure the team follows up today." },
+  { keys: ["hello", "hi", "hey", "yo"], a: "Hey! 👋 Ask me anything about hours, pricing, or booking — or tell me what you're building." },
+  { keys: ["thank", "thanks", "great", "awesome", "cool"], a: "Anytime! Want me to grab your details so a human can take it from here?" },
+];
+
+function respond(text: string): string {
+  const t = text.toLowerCase();
+  const hit = INTENTS.find((i) => i.keys.some((k) => t.includes(k)));
+  if (hit) return hit.a;
+  return "Good question — let me get that to the right person. What's the best email to send a full answer to? (This is exactly how the bot captures a lead on your real site.)";
+}
 
 function ChatbotDemo() {
   const [messages, setMessages] = useState<Msg[]>([
     { from: "bot", text: "Hi! 👋 I'm your site's AI assistant. Ask me anything — I never sleep." },
   ]);
   const [typing, setTyping] = useState(false);
-  const [asked, setAsked] = useState<number[]>([]);
+  const [input, setInput] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [messages, typing]);
 
-  function ask(i: number) {
-    if (typing || asked.includes(i)) return;
-    setAsked((a) => [...a, i]);
-    setMessages((m) => [...m, { from: "user", text: QA[i].q }]);
+  function send(text: string) {
+    const q = text.trim();
+    if (!q || typing) return;
+    setInput("");
+    setMessages((m) => [...m, { from: "user", text: q }]);
     setTyping(true);
     setTimeout(() => {
       setTyping(false);
-      setMessages((m) => [...m, { from: "bot", text: QA[i].a }]);
-    }, 850);
+      setMessages((m) => [...m, { from: "bot", text: respond(q) }]);
+    }, 750 + Math.min(q.length * 12, 600));
   }
 
   return (
     <div className="flex h-full flex-col p-5 sm:p-6">
-      <div className="flex-1 space-y-3 overflow-y-auto pr-1" style={{ maxHeight: 300 }}>
+      <div className="flex-1 space-y-3 overflow-y-auto pr-1" style={{ maxHeight: 280 }}>
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.from === "user" ? "justify-end" : "justify-start"}`}>
             <span
@@ -184,18 +210,42 @@ function ChatbotDemo() {
         )}
         <div ref={endRef} />
       </div>
-      <div className="mt-4 flex flex-wrap gap-2 border-t border-white/[0.08] pt-4">
-        {QA.map((item, i) => (
+
+      {/* Quick prompts */}
+      <div className="mt-4 flex flex-wrap gap-2">
+        {QUICK.map((q) => (
           <button
-            key={i}
-            onClick={() => ask(i)}
-            disabled={asked.includes(i)}
-            className="rounded-full border border-white/12 px-3 py-1.5 text-xs text-white/70 transition-colors hover:border-lime/50 hover:text-lime disabled:opacity-30"
+            key={q}
+            onClick={() => send(q)}
+            disabled={typing}
+            className="rounded-full border border-white/12 px-3 py-1.5 text-xs text-white/70 transition-colors hover:border-lime/50 hover:text-lime disabled:opacity-40"
           >
-            {item.q}
+            {q}
           </button>
         ))}
       </div>
+
+      {/* Free-text input */}
+      <form
+        onSubmit={(e) => { e.preventDefault(); send(input); }}
+        className="mt-3 flex items-center gap-2 rounded-full border border-white/12 bg-ink-800/60 py-1.5 pl-4 pr-1.5 focus-within:border-lime/50"
+      >
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type your own question…"
+          aria-label="Ask the assistant anything"
+          className="min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/35 focus:outline-none"
+        />
+        <button
+          type="submit"
+          disabled={!input.trim() || typing}
+          aria-label="Send message"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-lime text-ink transition-opacity disabled:opacity-30"
+        >
+          <ArrowRight width={16} height={16} />
+        </button>
+      </form>
     </div>
   );
 }
@@ -203,9 +253,55 @@ function ChatbotDemo() {
 /* ------------------------------------------------------------ Before/After */
 function BeforeAfterDemo() {
   const [pos, setPos] = useState(52);
+  const [dragging, setDragging] = useState(false);
+  const frameRef = useRef<HTMLDivElement>(null);
+
+  function posFromClientX(clientX: number) {
+    const rect = frameRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const pct = ((clientX - rect.left) / rect.width) * 100;
+    setPos(Math.max(3, Math.min(97, pct)));
+  }
+
+  function onPointerDown(e: React.PointerEvent) {
+    setDragging(true);
+    e.currentTarget.setPointerCapture(e.pointerId);
+    posFromClientX(e.clientX);
+  }
+  function onPointerMove(e: React.PointerEvent) {
+    if (dragging) posFromClientX(e.clientX);
+  }
+  function endDrag(e: React.PointerEvent) {
+    setDragging(false);
+    if (e.currentTarget.hasPointerCapture?.(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+  }
+  // Keyboard support on the handle
+  function onKeyDown(e: React.KeyboardEvent) {
+    if (e.key === "ArrowLeft") setPos((p) => Math.max(3, p - 4));
+    if (e.key === "ArrowRight") setPos((p) => Math.min(97, p + 4));
+  }
+
   return (
     <div className="p-5 sm:p-7">
-      <div className="relative aspect-[16/10] w-full select-none overflow-hidden rounded-xl border border-white/12">
+      <div
+        ref={frameRef}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        role="slider"
+        aria-label="Drag to compare the old site with the redesign"
+        aria-valuenow={Math.round(pos)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        tabIndex={0}
+        onKeyDown={onKeyDown}
+        className={`relative aspect-[16/10] w-full touch-none select-none overflow-hidden rounded-xl border border-white/12 ${
+          dragging ? "cursor-grabbing" : "cursor-ew-resize"
+        }`}
+      >
         {/* AFTER (modern) — full */}
         <div className="absolute inset-0 bg-gradient-to-br from-ink-700 via-ink-600 to-violet-900">
           <div className="grid-backdrop absolute inset-0 opacity-30" />
@@ -224,22 +320,24 @@ function BeforeAfterDemo() {
             <span className="mt-3 h-6 w-24 border border-[#99a] bg-[#dcdad4] text-center text-[0.55rem] leading-6 text-[#556]">Submit</span>
           </div>
         </div>
-        {/* Divider */}
+        {/* Divider + grabbable handle (whole frame is draggable; handle is the affordance) */}
         <div className="pointer-events-none absolute inset-y-0" style={{ left: `${pos}%` }}>
           <div className="h-full w-0.5 -translate-x-1/2 bg-lime" />
-          <div className="absolute top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-lime bg-ink text-center text-xs leading-6 text-lime">↔</div>
+          <div
+            className={`absolute top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-lime bg-ink text-sm text-lime shadow-[0_0_20px_-2px_rgba(203,255,60,0.7)] transition-transform ${
+              dragging ? "scale-110" : ""
+            }`}
+          >
+            ↔
+          </div>
         </div>
         {/* Labels */}
-        <span className="absolute left-3 top-3 rounded bg-black/50 px-2 py-0.5 text-[0.55rem] font-bold uppercase text-white/80">Before</span>
-        <span className="absolute right-3 top-3 rounded bg-lime px-2 py-0.5 text-[0.55rem] font-bold uppercase text-ink">After</span>
+        <span className="pointer-events-none absolute left-3 top-3 rounded bg-black/50 px-2 py-0.5 text-[0.55rem] font-bold uppercase text-white/80">Before</span>
+        <span className="pointer-events-none absolute right-3 top-3 rounded bg-lime px-2 py-0.5 text-[0.55rem] font-bold uppercase text-ink">After</span>
       </div>
-      <input
-        type="range" min={5} max={95} value={pos}
-        onChange={(e) => setPos(Number(e.target.value))}
-        aria-label="Drag to compare before and after"
-        className="mt-4 w-full accent-lime"
-      />
-      <p className="mt-1 text-center text-xs text-white/45">Drag the slider — same business, redesigned to sell.</p>
+      <p className="mt-3 text-center text-xs text-white/45">
+        Drag anywhere on the image — same business, redesigned to sell.
+      </p>
     </div>
   );
 }

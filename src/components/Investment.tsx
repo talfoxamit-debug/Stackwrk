@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import CountUp from "./CountUp";
 import { ArrowRight } from "./icons";
 import { investment } from "@/lib/content";
 
@@ -7,13 +8,20 @@ export default function Investment() {
     <section className="border-y border-lime/30 bg-lime py-10 text-ink sm:py-12">
       <div className="container-content">
         <Reveal className="relative overflow-hidden px-0 py-0">
-          {/* Growth-curve backdrop */}
+          {/* Growth-curve backdrop — a single clean upward arc pinned to the far
+              right edge and feathered out with a left→right mask so it never
+              crosses the copy. (No grid: the old diagonal grid lines ran
+              straight through the text and killed readability.) */}
           <svg
-            className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-1/2 opacity-70 lg:block"
+            className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-[38%] lg:block"
             viewBox="0 0 400 260"
             fill="none"
             preserveAspectRatio="xMaxYMid slice"
             aria-hidden="true"
+            style={{
+              maskImage: "linear-gradient(to right, transparent, #000 58%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent, #000 58%)",
+            }}
           >
             <defs>
               <linearGradient id="grow" x1="0" y1="1" x2="1" y2="0">
@@ -21,21 +29,15 @@ export default function Investment() {
                 <stop offset="100%" stopColor="#1A0F2E" />
               </linearGradient>
             </defs>
-            {/* grid */}
-            <g stroke="#1A0F2E" strokeOpacity="0.16">
-              {[...Array(6)].map((_, i) => (
-                <line key={`v${i}`} x1={i * 70} y1="0" x2={i * 70} y2="260" />
-              ))}
-              {[...Array(5)].map((_, i) => (
-                <line key={`h${i}`} x1="0" y1={i * 60} x2="400" y2="260" />
-              ))}
-            </g>
+            {/* soft area fill under the curve */}
+            <path d="M0 230 C 90 210, 150 180, 210 140 S 320 40, 392 18 L 400 260 L 0 260 Z" fill="#1A0F2E" opacity="0.06" />
+            {/* the growth curve */}
             <path d="M0 230 C 90 210, 150 180, 210 140 S 320 40, 392 18" stroke="url(#grow)" strokeWidth="3.5" strokeLinecap="round" />
-            <circle cx="392" cy="18" r="7" fill="#1A0F2E" className="animate-pulse-glow" />
-            <circle cx="392" cy="18" r="14" fill="#1A0F2E" opacity="0.25" className="animate-pulse-glow" />
+            <circle cx="392" cy="18" r="6" fill="#1A0F2E" className="animate-pulse-glow" />
+            <circle cx="392" cy="18" r="13" fill="#1A0F2E" opacity="0.2" className="animate-pulse-glow" />
           </svg>
 
-          <div className="relative grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+          <div className="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
             <div className="border-ink/20 lg:border-r lg:pr-10">
               <p className="text-xs font-semibold uppercase tracking-[0.25em] text-ink/60">
                 {investment.eyebrow}
@@ -44,7 +46,7 @@ export default function Investment() {
                 {investment.headline}
               </h2>
               <p className="mt-1 font-display text-6xl leading-none text-ink sm:text-7xl">
-                {investment.price}
+                <CountUp value={2000} prefix="$" />
               </p>
             </div>
 

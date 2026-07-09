@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
-import { ArrowRight } from "./icons";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { ArrowRight, Check, Mail } from "./icons";
 
 type CheckStatus = "pass" | "warn" | "fail";
 type Check = { label: string; status: CheckStatus; detail: string };
@@ -38,11 +38,30 @@ function StatusDot({ status }: { status: CheckStatus }) {
   );
 }
 
+/** Score ring that both sweeps its arc and counts the number up on mount. */
 function ScoreRing({ score }: { score: number }) {
   const r = 52;
   const c = 2 * Math.PI * r;
-  const dash = (score / 100) * c;
+  const [shown, setShown] = useState(0);
   const color = ringColor(score);
+
+  useEffect(() => {
+    let raf = 0;
+    const start = performance.now();
+    const dur = 1100;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / dur);
+      // easeOutCubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      setShown(Math.round(eased * score));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [score]);
+
+  const dash = (shown / 100) * c;
+
   return (
     <div className="relative h-32 w-32 shrink-0">
       <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90">
@@ -56,13 +75,149 @@ function ScoreRing({ score }: { score: number }) {
           strokeWidth="10"
           strokeLinecap="round"
           strokeDasharray={`${dash} ${c}`}
-          style={{ transition: "stroke-dasharray 1s cubic-bezier(0.16,1,0.3,1)" }}
+          style={{ filter: `drop-shadow(0 0 6px ${color}88)` }}
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-display text-4xl leading-none text-white">{score}</span>
+        <span className="font-display text-4xl leading-none text-white">{shown}</span>
         <span className="text-[0.6rem] uppercase tracking-widest text-white/45">/ 100</span>
       </div>
+    </div>
+  );
+}
+
+type CapturePhase = "idle" | "sending" | "sent" | "error";
+
+/** The funnel: after the visitor sees their score, trade their details for the
+ *  full emailed report — and drop them straight into the CRM. */
+function ReportCapture({ result }: { result: Result }) {
+  const [phase, setPhase] = useState<CapturePhase>("idle");
+  const [emailed, setEmailed] = useState(false);
+  const [sentTo, setSentTo] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [error, setError] = useState("");
+
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (phase === "sending") return;
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+    setPhase("sending");
+    setError("");
+    try {
+      const res = await fetch("/api/audit-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          company: data.company, // honeypot
+          result,
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.ok) {
+        setEmailed(Boolean(json.emailed));
+        setSentTo(data.email);
+        setFirstName((data.name || "").split(" ")[0]);
+        setPhase("sent");
+        return;
+      }
+      setError(json.message || "Something went wrong — please try again or email hello@stackwrk.com.");
+      setPhase("error");
+    } catch {
+      setError("Network error — please try again.");
+      setPhase("error");
+    }
+  }
+
+  if (phase === "sent") {
+    return (
+      <div className="mt-8 flex flex-col items-center gap-3 rounded-2xl border border-lime/30 bg-lime/[0.06] px-6 py-8 text-center">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-lime text-ink">
+          <Check width={26} height={26} />
+        </span>
+        <h4 className="font-display text-xl uppercase text-white">
+          {emailed ? "Report sent" : `You're in, ${firstName || "thanks"}`}
+        </h4>
+        <p className="max-w-sm text-sm text-white/70">
+          {emailed ? (
+            <>
+              Your full audit — every fix prioritized — just landed in{" "}
+              <span className="text-lime">{sentTo}</span>. Check your inbox (and spam, just in case).
+            </>
+          ) : (
+            <>
+              Got it — I&rsquo;ll send the full prioritized report to{" "}
+              <span className="text-lime">{sentTo}</span> shortly, then follow up personally.
+            </>
+          )}
+        </p>
+        <a href="#about" className="btn-primary mt-2 !rounded-md">
+          Book my free call
+          <ArrowRight width={18} height={18} />
+        </a>
+      </div>
+    );
+  }
+
+  const field =
+    "w-full rounded-lg border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-white placeholder-white/35 outline-none transition-colors focus:border-lime/60 focus:ring-2 focus:ring-lime/20";
+
+  return (
+    <div className="mt-8 overflow-hidden rounded-2xl border border-lime/25 bg-gradient-to-br from-lime/[0.08] via-transparent to-transparent p-6 sm:p-7">
+      <div className="flex items-start gap-3">
+        <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-lime/40 bg-lime/10 text-lime">
+          <Mail width={22} height={22} />
+        </span>
+        <div>
+          <h4 className="font-display text-xl uppercase leading-tight text-white sm:text-2xl">
+            Get the full report — free
+          </h4>
+          <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-white/65">
+            The complete audit with <span className="text-white/90">every issue above prioritized</span>,
+            the exact fixes, and what each one is worth — delivered to your inbox. No cost, no catch.
+          </p>
+        </div>
+      </div>
+
+      <form onSubmit={submit} className="mt-5" noValidate>
+        {/* Honeypot */}
+        <input
+          type="text"
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="absolute left-[-9999px] h-0 w-0 opacity-0"
+        />
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <label className="block flex-1">
+            <span className="sr-only">Your name</span>
+            <input name="name" type="text" required placeholder="Your name" className={field} />
+          </label>
+          <label className="block flex-1">
+            <span className="sr-only">Email address</span>
+            <input name="email" type="email" required placeholder="Email address" className={field} />
+          </label>
+          <button
+            type="submit"
+            disabled={phase === "sending"}
+            className="btn-primary !rounded-lg shrink-0 disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            {phase === "sending" ? "Sending…" : "Email me the report"}
+            {phase !== "sending" && <ArrowRight width={18} height={18} />}
+          </button>
+        </div>
+        {phase === "error" && (
+          <p className="mt-3 text-sm text-rose-300" role="alert">
+            {error}
+          </p>
+        )}
+        <p className="mt-3 text-xs text-white/40">
+          Your details are only used to send this report and follow up. No spam, unsubscribe anytime.
+        </p>
+      </form>
     </div>
   );
 }
@@ -72,6 +227,7 @@ export default function AuditTool() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [result, setResult] = useState<Result | null>(null);
   const [error, setError] = useState("");
+  const resultRef = useRef<HTMLDivElement>(null);
 
   async function run(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -98,9 +254,6 @@ export default function AuditTool() {
       setPhase("error");
     }
   }
-
-  const field =
-    "w-full rounded-md border border-white/12 bg-ink-800/70 px-4 py-3.5 text-sm text-white placeholder-white/35 outline-none transition-colors focus:border-lime/60 focus:ring-2 focus:ring-lime/20";
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -142,7 +295,7 @@ export default function AuditTool() {
       )}
 
       {phase === "done" && result && (
-        <div className="mt-6 animate-fade-up rounded-2xl border border-white/[0.1] bg-ink-600/60 p-6 backdrop-blur-sm sm:p-8">
+        <div ref={resultRef} className="mt-6 animate-fade-up rounded-2xl border border-white/[0.1] bg-ink-600/60 p-6 backdrop-blur-sm sm:p-8">
           {/* Header: score + headline */}
           <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:gap-7">
             <ScoreRing score={result.score} />
@@ -192,16 +345,8 @@ export default function AuditTool() {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="mt-8 flex flex-col items-center gap-3 border-t border-white/[0.08] pt-6 text-center sm:flex-row sm:justify-between sm:text-left">
-            <p className="text-sm text-white/70">
-              Want me to fix every red flag above and turn this into a site that books customers?
-            </p>
-            <a href="#about" className="btn-primary !rounded-md shrink-0">
-              Get my free audit
-              <ArrowRight width={18} height={18} />
-            </a>
-          </div>
+          {/* Lead funnel: full report by email → straight into the CRM */}
+          <ReportCapture result={result} />
         </div>
       )}
     </div>

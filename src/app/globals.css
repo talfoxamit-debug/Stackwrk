@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Self-hosted display face — a clean, modern condensed poster grotesque used
+   only for headlines & big stats. Self-hosted (no build-time font fetch, no
+   render-blocking round-trip). Latin + latin-ext subsets, swap so text paints
+   immediately in the fallback and upgrades when the file lands. */
+@font-face {
+  font-family: "Anton";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/anton-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Anton";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/anton-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 @layer base {
   :root {
     color-scheme: dark;
@@ -68,7 +93,7 @@
   /* Primary lime CTA button — soft glow + a shine sweep on hover. */
   .btn-primary {
     @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg
-      bg-lime px-7 py-4 font-display text-sm uppercase tracking-wide text-ink shadow-glow-lime
+      bg-lime px-7 py-4 font-sans text-[0.95rem] font-semibold tracking-tight text-ink shadow-glow-lime
       transition-all duration-200 hover:bg-lime-400 hover:shadow-[0_0_50px_-6px_rgba(203,255,60,0.75)]
       hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2
       focus-visible:outline-offset-2 focus-visible:outline-lime;
@@ -95,7 +120,7 @@
   /* Secondary / ghost button — glassy. */
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/25
-      bg-white/[0.06] px-7 py-4 font-display text-sm uppercase tracking-wide text-white/90
+      bg-white/[0.06] px-7 py-4 font-sans text-[0.95rem] font-semibold tracking-tight text-white/90
       shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md
       transition-all duration-200 hover:border-white/40 hover:bg-white/[0.1]
       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2

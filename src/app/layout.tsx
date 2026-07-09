@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { anton, inter } from "@/lib/fonts";
 import Nav from "@/components/Nav";
 import "./globals.css";
 
@@ -42,7 +41,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${anton.variable} ${inter.variable}`}>
+    <html lang="en">
       <body>
         <Nav />
         <main>{children}</main>

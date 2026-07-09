@@ -90,12 +90,29 @@ a change" form that lands in `/crm`. Don't build before the pain exists.
 | `stackwrk.com/crm` | Lead pipeline board | `CRM_ACCESS_KEY` + noindex |
 | `stackwrk.com/?for=X` | Personalized campaign landing | Public (campaign links) |
 | Supabase `audits` table | Every audit run (warm-lead signal) | Service-role only |
+| `/api/audit-report` | Audit → emails full report + stores lead (`source: instant_audit`) with the scorecard in `message` | Public POST |
+
+### Lead funnel (the money path)
+
+The instant audit is the hook, not the conversion. Flow:
+`enter URL → animated scorecard + category breakdown → "Get the full report — free"
+captures name/email → /api/audit-report` which (best-effort, each independent):
+1. inserts the lead into Supabase `leads` (`source: instant_audit`, the audited
+   URL in `website`, a prioritized issue summary in `message`) → shows in `/crm`,
+2. emails the visitor a branded, prioritized audit report (Resend),
+3. emails Tal a lead alert if `REPORT_NOTIFY_EMAIL` is set.
+All three degrade gracefully when their env is missing — the UX still confirms.
 
 ## 7. Setup still owed by Tal (blocking full activation)
 
 1. **Supabase**: pick/create the Stackwrk project → run the schema in `.env.example`
    → set `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `CRM_ACCESS_KEY` in Vercel.
-   (Unlocks: lead form storage, /crm board, audit logging.)
-2. **Stripe**: create the 3 Payment Links → paste into `src/lib/pricing.ts`.
-3. **Calendly**: real URL into `src/lib/content.ts` (`site.calendlyUrl`).
-4. **Testimonials**: replace samples in `src/lib/content.ts` after first launches.
+   (Unlocks: lead form storage, /crm board, audit logging, audit-report leads.)
+2. **Resend** (email the audit reports): create an account + verify the sending
+   domain → set `RESEND_API_KEY`, `REPORT_FROM_EMAIL` (e.g. `Stackwrk <audit@stackwrk.com>`),
+   and optionally `REPORT_NOTIFY_EMAIL` (your inbox, for instant lead alerts) in Vercel.
+   (Until set, the funnel still captures the lead and confirms — it just can't
+   auto-send the report yet.)
+3. **Stripe**: create the 3 Payment Links → paste into `src/lib/pricing.ts`.
+4. **Calendly**: real URL into `src/lib/content.ts` (`site.calendlyUrl`).
+5. **Testimonials**: replace samples in `src/lib/content.ts` after first launches.

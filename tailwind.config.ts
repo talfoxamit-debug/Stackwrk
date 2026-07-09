@@ -37,8 +37,22 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["Impact", "Haettenschweiler", "Arial Narrow Bold", "sans-serif"],
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        // Poster/display face — self-hosted Anton, falls back to condensed
+        // system faces only if the woff2 ever fails to load.
+        display: ["Anton", "Haettenschweiler", "Impact", "sans-serif"],
+        // Clean UI/body face — the native Apple system font (San Francisco) on
+        // Apple devices, graceful platform equivalents everywhere else.
+        sans: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"SF Pro Text"',
+          '"SF Pro Display"',
+          '"Segoe UI"',
+          "Roboto",
+          '"Helvetica Neue"',
+          "Arial",
+          "sans-serif",
+        ],
       },
       maxWidth: {
         content: "1200px",
