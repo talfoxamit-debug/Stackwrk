@@ -38,14 +38,14 @@ The best cold-email weapon: visitor enters their URL → live scorecard →
 - ☑ Wired into the page (`#audit`, after Featured Projects). Verified live against
   real sites (seatophomes.com → 94, example.com → 74).
 
-### Phase 2 — Interactive demo showcase
+### Phase 2 — Interactive demo showcase — ☑ DONE
 "See what I can build" — live, touchable mini-tools so prospects think *"I want
-that on my site."*
-- ☐ Booking / availability widget (date + time-slot picker)
-- ☐ ROI / price calculator (inputs → live result)
-- ☐ AI-style chatbot demo (scripted, feels smart)
-- ☐ Before/after redesign slider (drag to compare)
-- ☐ Showcase section wrapping the demos (tabbed)
+that on my site."* Tabbed showcase at `#demos`. `DemoShowcase.tsx` + `DemoSection.tsx`
+- ☑ Booking / availability widget (day + time-slot picker → confirmation state)
+- ☑ ROI / revenue calculator (visitor + sale-value sliders → now vs Stackwrk + uplift)
+- ☑ AI-style chatbot demo (quick-question chips, typing indicator, scripted replies)
+- ☑ Before/after redesign slider (drag to reveal dated vs modern)
+- ☑ Tabbed showcase wrapper; verified desktop + mobile
 
 ### Phase 3 — Proof & results upgrade
 - ☐ Project cards → outcome metrics (results, not features)
