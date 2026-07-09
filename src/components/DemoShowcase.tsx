@@ -4,26 +4,137 @@ import { useState, useEffect, useRef } from "react";
 import { ArrowRight, Calendar, Check, Sparkles, TrendUp } from "./icons";
 
 /* ---------------------------------------------------------------- Booking */
-function BookingDemo() {
-  const days = ["Mon 12", "Tue 13", "Wed 14", "Thu 15", "Fri 16", "Sat 17"];
-  const slots = ["9:00", "10:30", "12:00", "1:30", "3:00", "4:30"];
-  const [day, setDay] = useState(2);
-  const [slot, setSlot] = useState<number | null>(null);
-  const [booked, setBooked] = useState(false);
+const SLOTS = [
+  { label: "9:00 AM", h: 9, m: 0 },
+  { label: "10:30 AM", h: 10, m: 30 },
+  { label: "12:00 PM", h: 12, m: 0 },
+  { label: "1:30 PM", h: 13, m: 30 },
+  { label: "3:00 PM", h: 15, m: 0 },
+  { label: "4:30 PM", h: 16, m: 30 },
+] as const;
 
-  if (booked) {
+/** Next N weekdays from today (client-side; computed after mount to stay SSR-safe). */
+function nextWeekdays(n: number): Date[] {
+  const out: Date[] = [];
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  while (out.length < n) {
+    d.setDate(d.getDate() + 1);
+    const dow = d.getDay();
+    if (dow !== 0 && dow !== 6) out.push(new Date(d));
+  }
+  return out;
+}
+
+function gcalUrl(start: Date, end: Date): string {
+  const fmt = (x: Date) => x.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  const p = new URLSearchParams({
+    action: "TEMPLATE",
+    text: "Intro call with Stackwrk",
+    details: "30-min intro call — we'll review your site and goals. No obligation.",
+    dates: `${fmt(start)}/${fmt(end)}`,
+  });
+  return `https://calendar.google.com/calendar/render?${p.toString()}`;
+}
+
+const whenLabel = (d: Date, s: (typeof SLOTS)[number]) =>
+  `${d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} at ${s.label}`;
+
+function BookingDemo() {
+  const [days, setDays] = useState<Date[]>([]);
+  const [dayIdx, setDayIdx] = useState(0);
+  const [slotIdx, setSlotIdx] = useState<number | null>(null);
+  const [step, setStep] = useState<"select" | "details" | "done">("select");
+  const [submitting, setSubmitting] = useState(false);
+  const [emailed, setEmailed] = useState(false);
+  const [error, setError] = useState("");
+  const [confirmed, setConfirmed] = useState({ when: "", cal: "" });
+
+  useEffect(() => setDays(nextWeekdays(6)), []);
+
+  const day = days[dayIdx];
+  const slot = slotIdx !== null ? SLOTS[slotIdx] : null;
+
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (submitting || !day || !slot) return;
+    const data = Object.fromEntries(new FormData(e.currentTarget).entries()) as Record<string, string>;
+    const start = new Date(day);
+    start.setHours(slot.h, slot.m, 0, 0);
+    const end = new Date(start.getTime() + 30 * 60000);
+    const when = whenLabel(day, slot);
+    const cal = gcalUrl(start, end);
+    setSubmitting(true);
+    setError("");
+    try {
+      const res = await fetch("/api/book", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: data.name, email: data.email, phone: data.phone, company: data.company, when, calUrl: cal }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.ok) {
+        setEmailed(Boolean(json.emailed));
+        setConfirmed({ when, cal });
+        setStep("done");
+        return;
+      }
+      setError(json.message || "Something went wrong — please try again.");
+    } catch {
+      setError("Network error — please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  const field =
+    "w-full rounded-lg border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-white placeholder-white/35 outline-none transition-colors focus:border-lime/60 focus:ring-2 focus:ring-lime/20";
+
+  if (step === "done") {
     return (
-      <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
-        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-lime text-ink">
+      <div className="flex flex-col items-center justify-center px-6 py-10 text-center">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-lime text-ink shadow-[0_0_30px_-4px_rgba(203,255,60,0.85)]">
           <Check width={28} height={28} />
         </span>
-        <h4 className="mt-4 font-display text-xl uppercase text-white">You&rsquo;re booked!</h4>
-        <p className="mt-2 text-sm text-white/60">
-          {days[day]} at {slots[slot ?? 0]} — a confirmation would hit their inbox instantly.
+        <h4 className="mt-4 font-display text-2xl uppercase text-white">You&rsquo;re booked!</h4>
+        <p className="mt-2 max-w-xs text-sm text-white/65">
+          <span className="font-semibold text-lime">{confirmed.when}</span>.{" "}
+          {emailed ? "A confirmation just hit your inbox." : "I’ll confirm by email shortly."}
         </p>
-        <button onClick={() => { setBooked(false); setSlot(null); }} className="btn-ghost mt-6 !rounded-md !py-2.5 !text-xs">
-          Try again
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <a href={confirmed.cal} target="_blank" rel="noopener noreferrer" className="btn-primary !rounded-md !py-2.5 !text-xs">
+            Add to calendar <ArrowRight width={16} height={16} />
+          </a>
+          <button onClick={() => { setStep("select"); setSlotIdx(null); }} className="btn-ghost !rounded-md !py-2.5 !text-xs">
+            Book another
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === "details" && day && slot) {
+    return (
+      <div className="p-5 sm:p-7">
+        <button onClick={() => setStep("select")} className="mb-4 inline-flex items-center gap-1.5 text-xs font-medium text-white/50 transition-colors hover:text-white">
+          ← Change time
         </button>
+        <div className="mb-5 flex items-center gap-2 rounded-lg border border-lime/25 bg-lime/[0.06] px-4 py-3 text-sm">
+          <Calendar width={18} height={18} className="text-lime" />
+          <span className="font-semibold text-lime">{whenLabel(day, slot)}</span>
+        </div>
+        <form onSubmit={submit} className="space-y-3" noValidate>
+          <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 opacity-0" />
+          <input name="name" type="text" required placeholder="Your name" className={field} />
+          <input name="email" type="email" required placeholder="Email address" className={field} />
+          <input name="phone" type="tel" placeholder="Phone (optional)" className={field} />
+          {error && <p className="text-sm text-rose-300" role="alert">{error}</p>}
+          <button type="submit" disabled={submitting} className="btn-primary w-full !rounded-md disabled:cursor-not-allowed disabled:opacity-60">
+            {submitting ? "Booking…" : "Confirm meeting"}
+            {!submitting && <ArrowRight width={18} height={18} />}
+          </button>
+          <p className="text-center text-[0.7rem] text-white/35">Instant confirmation + calendar invite. No spam.</p>
+        </form>
       </div>
     );
   }
@@ -34,38 +145,45 @@ function BookingDemo() {
         <Calendar width={18} height={18} className="text-lime" /> Pick a day
       </div>
       <div className="flex flex-wrap gap-2">
-        {days.map((d, i) => (
-          <button
-            key={d}
-            onClick={() => setDay(i)}
-            className={`rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
-              day === i ? "border-lime bg-lime/15 text-lime" : "border-white/12 text-white/70 hover:border-white/30"
-            }`}
-          >
-            {d}
-          </button>
-        ))}
+        {days.length === 0
+          ? Array.from({ length: 6 }).map((_, i) => (
+              <span key={i} className="h-[3.1rem] w-16 animate-pulse rounded-lg bg-white/[0.06]" />
+            ))
+          : days.map((d, i) => (
+              <button
+                key={i}
+                onClick={() => setDayIdx(i)}
+                className={`rounded-lg border px-3 py-1.5 text-xs font-medium leading-tight transition-colors ${
+                  dayIdx === i ? "border-lime bg-lime/15 text-lime" : "border-white/12 text-white/70 hover:border-white/30"
+                }`}
+              >
+                <span className="block text-[0.6rem] uppercase tracking-wide opacity-70">
+                  {d.toLocaleDateString("en-US", { weekday: "short" })}
+                </span>
+                {d.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+              </button>
+            ))}
       </div>
       <div className="mb-3 mt-6 text-sm font-semibold text-white">Available times</div>
       <div className="grid grid-cols-3 gap-2">
-        {slots.map((s, i) => (
+        {SLOTS.map((s, i) => (
           <button
-            key={s}
-            onClick={() => setSlot(i)}
+            key={s.label}
+            onClick={() => setSlotIdx(i)}
             className={`rounded-lg border py-2.5 text-sm font-medium transition-colors ${
-              slot === i ? "border-lime bg-lime/15 text-lime" : "border-white/12 text-white/70 hover:border-white/30"
+              slotIdx === i ? "border-lime bg-lime/15 text-lime" : "border-white/12 text-white/70 hover:border-white/30"
             }`}
           >
-            {s}
+            {s.label}
           </button>
         ))}
       </div>
       <button
-        onClick={() => slot !== null && setBooked(true)}
-        disabled={slot === null}
+        onClick={() => slotIdx !== null && setStep("details")}
+        disabled={slotIdx === null || days.length === 0}
         className="btn-primary mt-6 w-full !rounded-md disabled:cursor-not-allowed disabled:opacity-50"
       >
-        Confirm booking
+        Continue
         <ArrowRight width={18} height={18} />
       </button>
     </div>
