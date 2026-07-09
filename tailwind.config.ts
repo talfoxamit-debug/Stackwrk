@@ -69,11 +69,21 @@ const config: Config = {
           "0%, 45%, 100%": { opacity: "1" },
           "50%, 95%": { opacity: "0" },
         },
+        "float-slow": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        drift: {
+          "0%, 100%": { transform: "translate3d(0, 0, 0)" },
+          "50%": { transform: "translate3d(-22px, -10px, 0)" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.7s cubic-bezier(0.16,1,0.3,1) both",
         float: "float 7s ease-in-out infinite",
+        "float-slow": "float-slow 10s ease-in-out infinite",
         "pulse-glow": "pulse-glow 4s ease-in-out infinite",
+        drift: "drift 9s ease-in-out infinite",
         blink: "blink 1.1s step-end infinite",
       },
     },

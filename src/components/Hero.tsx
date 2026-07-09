@@ -1,4 +1,5 @@
 import HeroMedia from "./HeroMedia";
+import HeroWaves from "./HeroWaves";
 import { ArrowRight, ArrowDown, Bolt, TrendUp, Phone } from "./icons";
 import {
   NextMark,
@@ -33,14 +34,61 @@ const codeColor: Record<string, string> = {
   "": "text-white/80",
 };
 
+function CodeCard({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`rounded-2xl border border-violet-400/40 bg-ink-800/55 p-5 font-mono text-[11px] leading-5 shadow-[0_0_36px_-8px_rgba(139,92,246,0.55)] backdrop-blur-xl sm:text-xs ${className}`}
+    >
+      <div className="mb-3 flex items-center gap-1.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-flare-red/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-flare-orange/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-lime/80" />
+      </div>
+      <pre className="overflow-x-auto">
+        <code>
+          {codeLines.map((line, i) => (
+            <div key={i} className="flex gap-3">
+              <span className="w-4 select-none text-right text-white/25">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="whitespace-pre">
+                {line.t.length === 0
+                  ? " "
+                  : line.t.map((tok, j) => (
+                      <span key={j} className={codeColor[tok.c]}>
+                        {tok.v}
+                      </span>
+                    ))}
+              </span>
+            </div>
+          ))}
+        </code>
+      </pre>
+    </div>
+  );
+}
+
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pb-12 pt-28 sm:pt-36 lg:min-h-[860px] lg:pb-20">
-      <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.35]" />
-      <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-violet-600/20 blur-[80px]" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[70vw] bg-[radial-gradient(ellipse_at_70%_70%,rgba(46,107,255,0.55),rgba(162,28,224,0.28)_36%,transparent_68%)] blur-2xl" />
+    <section
+      id="top"
+      className="relative overflow-hidden bg-[#07040d] pb-12 pt-28 sm:pt-36 lg:flex lg:min-h-[860px] lg:flex-col lg:justify-center lg:pb-16"
+    >
+      {/* Backdrop: faint grid + deep radial atmosphere behind the fox */}
+      <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.16]" />
+      <div className="pointer-events-none absolute -right-40 -top-32 h-[46rem] w-[46rem] rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.28),rgba(46,107,255,0.1)_55%,transparent_75%)] blur-2xl" />
+      <div className="pointer-events-none absolute -left-40 top-24 h-72 w-72 rounded-full bg-violet-600/15 blur-[80px]" />
+      <div className="pointer-events-none absolute bottom-[-10%] right-[10%] h-[26rem] w-[40rem] rounded-full bg-[radial-gradient(ellipse,rgba(255,45,155,0.14),rgba(46,107,255,0.1)_50%,transparent_75%)] blur-2xl" />
 
-      <div className="container-content relative grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+      {/* Electric energy waves flowing from the lower-right */}
+      <HeroWaves />
+
+      {/* Fox — desktop: bleeds across the full right side, head upper-right */}
+      <div className="pointer-events-none absolute bottom-0 right-[-3%] top-0 z-[2] hidden w-[52%] lg:block">
+        <HeroMedia variant="bleed" />
+      </div>
+
+      <div className="container-content relative z-10 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
         {/* Left: copy */}
         <div>
           <span className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
@@ -48,9 +96,12 @@ export default function Hero() {
             {hero.eyebrow}
           </span>
 
-          <h1 className="mt-6 animate-fade-up font-display text-6xl leading-[0.9] tracking-tight sm:text-7xl lg:text-[5.6rem]" style={{ animationDelay: "80ms" }}>
-            <span className="block text-white">{hero.titleLines[0]}</span>
-            <span className="brush-word relative mt-1 inline-block text-accent-glow">
+          <h1
+            className="mt-6 animate-fade-up font-display text-5xl leading-[0.92] tracking-tight sm:text-6xl md:text-7xl lg:text-[4.1rem] xl:text-[5rem]"
+            style={{ animationDelay: "80ms" }}
+          >
+            <span className="block text-white lg:whitespace-nowrap">{hero.titleLines[0]}</span>
+            <span className="brush-word relative mt-1 inline-block text-accent-glow lg:whitespace-nowrap">
               {hero.titleLines[1]}
               <svg className="absolute -bottom-6 left-0 w-full" viewBox="0 0 300 20" fill="none" preserveAspectRatio="none" aria-hidden="true">
                 <path d="M3 13 C 74 4, 150 4, 297 12" stroke="#CBFF3C" strokeWidth="4" strokeLinecap="round" />
@@ -81,63 +132,34 @@ export default function Hero() {
             </span>
             <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-white/70">
               <li className="flex items-center gap-1.5 text-sm font-medium"><NextMark className="text-white" /> Next.js</li>
-              <li className="flex items-center gap-1.5 text-sm font-medium"><TypeScriptMark /> TS</li>
-              <li className="flex items-center gap-1.5 text-sm font-medium"><TailwindMark /> tailwind</li>
-              <li className="flex items-center gap-1.5 text-sm font-medium"><SupabaseMark /> supabase</li>
+              <li className="flex items-center gap-1.5 text-sm font-medium"><TypeScriptMark /> TypeScript</li>
+              <li className="flex items-center gap-1.5 text-sm font-medium"><TailwindMark /> Tailwind CSS</li>
+              <li className="flex items-center gap-1.5 text-sm font-medium"><SupabaseMark /> Supabase</li>
               <li className="flex items-center gap-1.5 text-sm font-medium"><VercelMark className="text-white" /> Vercel</li>
             </ul>
           </div>
         </div>
 
-        {/* Right: hero visual + code card */}
-        <div className="relative animate-fade-up lg:-ml-12" style={{ animationDelay: "200ms" }}>
-          <div className="relative mx-auto flex max-w-lg flex-col items-center">
+        {/* Right column: code card overlaps the fox's chest at center-right on
+            desktop; on mobile the fox panel + card stack in the normal flow */}
+        <div className="relative animate-fade-up lg:h-[26rem]" style={{ animationDelay: "200ms" }}>
+          <div className="flex flex-col items-center gap-6 lg:hidden">
             <HeroMedia />
-
-            {/* Code card: stacks below the fox on mobile (full-width, readable);
-                overlaps the lower body on desktop */}
-            <div className="relative z-20 mt-6 w-full max-w-sm rounded-xl border border-violet-400/45 bg-ink-800/85 p-5 font-mono text-[11px] leading-5 shadow-card backdrop-blur-md sm:text-xs lg:absolute lg:bottom-4 lg:left-0 lg:mt-0 lg:w-[58%]">
-              <div className="mb-3 flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-flare-red/80" />
-                <span className="h-2.5 w-2.5 rounded-full bg-flare-orange/80" />
-                <span className="h-2.5 w-2.5 rounded-full bg-lime/80" />
-              </div>
-              <pre className="overflow-x-auto">
-                <code>
-                  {codeLines.map((line, i) => (
-                    <div key={i} className="flex gap-3">
-                      <span className="w-4 select-none text-right text-white/25">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="whitespace-pre">
-                        {line.t.length === 0 ? (
-                          " "
-                        ) : (
-                          line.t.map((tok, j) => (
-                            <span key={j} className={codeColor[tok.c]}>
-                              {tok.v}
-                            </span>
-                          ))
-                        )}
-                      </span>
-                    </div>
-                  ))}
-                </code>
-              </pre>
-            </div>
+            <CodeCard className="w-full max-w-sm" />
           </div>
+          <CodeCard className="hidden lg:absolute lg:left-[-4.5rem] lg:top-[58%] lg:block lg:w-[22.5rem] lg:-translate-y-1/2 xl:left-[-3rem]" />
         </div>
       </div>
 
       {/* Feature highlights row */}
-      <div id="stack" className="container-content relative mt-14">
+      <div id="stack" className="container-content relative z-10 mt-14">
         <ul className="grid gap-6 sm:grid-cols-3">
           {hero.highlights.map((h, i) => {
             const Icon = highlightIcons[i];
             return (
-              <li key={h.title} className="flex items-start gap-3 border-white/10 sm:border-l sm:pl-8 first:sm:border-l-0 first:sm:pl-0">
-                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center text-lime">
-                  <Icon width={18} height={18} />
+              <li key={h.title} className="flex items-start gap-4 border-white/10 sm:border-l sm:pl-8 first:sm:border-l-0 first:sm:pl-0">
+                <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-lime/45 text-lime shadow-[0_0_18px_-6px_rgba(203,255,60,0.5)]">
+                  <Icon width={20} height={20} />
                 </span>
                 <div>
                   <p className="font-display text-lg uppercase tracking-wide text-white">{h.title}</p>

@@ -33,7 +33,7 @@ export const hero = {
   image: "/fox.webp" as string | null,
   titleLines: ["BOLD WEBSITES.", "REAL RESULTS."],
   subtitle:
-    "Custom web apps and sites that get you more bookings, leads, and revenue.",
+    "Custom web apps and sites that solve real problems, drive bookings, leads, and revenue.",
   primaryCta: "Book a Free Site Audit",
   secondaryCta: "See My Work",
   highlights: [

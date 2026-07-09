@@ -5,13 +5,17 @@ import HeroVisual from "./HeroVisual";
 import { hero } from "@/lib/content";
 
 /**
- * Hero mascot. The fox is a transparent webp, so it's placed directly (no blend)
- * with a soft glow behind it, and served via a plain <img> with srcset — a
- * pre-optimized static asset (127 KB mobile / 333 KB desktop) straight from the
- * CDN with no image-optimizer round-trip, for a fast LCP. Falls back to the
- * abstract gradient visual if the asset is missing.
+ * Hero fox. Two variants:
+ *  - "bleed"  (desktop): fills its absolutely-positioned parent, head anchored
+ *    upper-right facing the headline, edges feathered with a CSS mask so the
+ *    artwork melts into the dark hero instead of showing a hard image edge.
+ *  - "panel"  (mobile): the contained block with glow + abstract-visual
+ *    fallback, stacked in the normal flow.
+ *
+ * Served as pre-optimized static webp via srcset (127 KB / 333 KB) — no
+ * image-optimizer round-trip, eager + high priority for LCP.
  */
-export default function HeroMedia() {
+export default function HeroMedia({ variant = "panel" }: { variant?: "panel" | "bleed" }) {
   const src = hero.image;
   const [failed, setFailed] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -23,18 +27,43 @@ export default function HeroMedia() {
 
   const showImage = Boolean(src) && !failed;
 
-  return (
-    <div className="relative z-10 mx-auto aspect-[4/5] w-full max-w-[300px] sm:max-w-sm lg:max-w-lg">
-      {/* Soft electric glow behind the mascot */}
-      <div className="pointer-events-none absolute inset-6 rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.38),rgba(46,107,255,0.1)_55%,transparent_72%)] blur-2xl" />
+  if (variant === "bleed") {
+    if (!showImage) return null; // desktop bleed simply hides on failure
+    return (
+      /* eslint-disable-next-line @next/next/no-img-element -- static pre-optimized asset */
+      <img
+        ref={imgRef}
+        src={src as string}
+        srcSet="/fox-620.webp 620w, /fox.webp 1000w"
+        sizes="(max-width: 1024px) 0px, 46vw"
+        alt=""
+        loading="eager"
+        decoding="async"
+        fetchPriority="high"
+        onError={() => setFailed(true)}
+        style={{
+          // Feather bottom + inner edges so the artwork dissolves into the
+          // hero background and wave layer — no hard rectangle.
+          maskImage:
+            "radial-gradient(ellipse 115% 108% at 74% 26%, #000 52%, transparent 93%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 115% 108% at 74% 26%, #000 52%, transparent 93%)",
+        }}
+        className="h-full w-full animate-float-slow select-none object-contain object-right-top"
+      />
+    );
+  }
 
+  return (
+    <div className="relative z-10 mx-auto aspect-[4/5] w-full max-w-[300px] sm:max-w-sm">
+      <div className="pointer-events-none absolute inset-6 rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.38),rgba(46,107,255,0.1)_55%,transparent_72%)] blur-2xl" />
       {showImage ? (
         /* eslint-disable-next-line @next/next/no-img-element -- static pre-optimized asset with srcset + onError fallback */
         <img
           ref={imgRef}
           src={src as string}
           srcSet="/fox-620.webp 620w, /fox.webp 1000w"
-          sizes="(max-width: 640px) 300px, (max-width: 1024px) 384px, 512px"
+          sizes="(max-width: 640px) 300px, 384px"
           alt=""
           loading="eager"
           decoding="async"

@@ -65,20 +65,39 @@
     text-shadow: 0 0 24px rgba(203, 255, 60, 0.45);
   }
 
-  /* Primary lime CTA button. */
+  /* Primary lime CTA button — soft glow + a shine sweep on hover. */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-lime px-7 py-4
-      font-display text-sm uppercase tracking-wide text-ink shadow-glow-lime
-      transition-all duration-200 hover:bg-lime-400 hover:shadow-[0_0_50px_-6px_rgba(203,255,60,0.7)]
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg
+      bg-lime px-7 py-4 font-display text-sm uppercase tracking-wide text-ink shadow-glow-lime
+      transition-all duration-200 hover:bg-lime-400 hover:shadow-[0_0_50px_-6px_rgba(203,255,60,0.75)]
       hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2
       focus-visible:outline-offset-2 focus-visible:outline-lime;
   }
 
-  /* Secondary / ghost button. */
+  /* Shine sweep: a skewed light bar that slides across on hover (transform-only). */
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -60%;
+    height: 100%;
+    width: 45%;
+    background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: skewX(-20deg) translateX(0);
+    transition: transform 0.55s ease;
+    pointer-events: none;
+  }
+
+  .btn-primary:hover::after {
+    transform: skewX(-20deg) translateX(340%);
+  }
+
+  /* Secondary / ghost button — glassy. */
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/20
-      bg-white/[0.03] px-7 py-4 font-display text-sm uppercase tracking-wide text-white/90
-      transition-all duration-200 hover:border-white/30 hover:bg-white/[0.06]
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/25
+      bg-white/[0.06] px-7 py-4 font-display text-sm uppercase tracking-wide text-white/90
+      shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md
+      transition-all duration-200 hover:border-white/40 hover:bg-white/[0.1]
       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
       focus-visible:outline-white/40;
   }
