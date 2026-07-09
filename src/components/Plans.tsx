@@ -86,13 +86,33 @@ export default function Plans() {
                   </li>
                 ))}
               </ul>
-              <a
-                href="#about"
-                className={`${plan.highlight ? "btn-primary" : "btn-ghost"} mt-7 w-full !rounded-md`}
-              >
-                Start with a free audit
-                <ArrowRight width={16} height={16} />
-              </a>
+              {plan.stripeUrl ? (
+                <>
+                  <a
+                    href={plan.stripeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${plan.highlight ? "btn-primary" : "btn-ghost"} mt-7 w-full !rounded-md`}
+                  >
+                    Subscribe now
+                    <ArrowRight width={16} height={16} />
+                  </a>
+                  <a
+                    href="#about"
+                    className="mt-3 block text-center text-xs text-white/50 underline-offset-4 hover:text-lime hover:underline"
+                  >
+                    or start with a free audit
+                  </a>
+                </>
+              ) : (
+                <a
+                  href="#about"
+                  className={`${plan.highlight ? "btn-primary" : "btn-ghost"} mt-7 w-full !rounded-md`}
+                >
+                  Start with a free audit
+                  <ArrowRight width={16} height={16} />
+                </a>
+              )}
             </Reveal>
           ))}
         </div>

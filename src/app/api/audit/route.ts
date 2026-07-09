@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getSupabaseAdmin } from "@/lib/supabase";
 
 export const runtime = "nodejs";
 export const maxDuration = 15;
@@ -239,6 +240,22 @@ export async function POST(req: Request) {
         : score >= 40
           ? "Real gaps here — this is costing you customers."
           : "This site is actively working against you. Let's fix it.";
+
+  // Marketing intel: log every audit (who's checking their score = warm lead
+  // signal). Fire-and-forget; never let logging break the audit response.
+  try {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      await supabase.from("audits").insert({
+        url: finalUrl,
+        score,
+        load_ms: loadMs,
+        page_kb: pageKb,
+      });
+    }
+  } catch {
+    /* table missing or env unset — ignore */
+  }
 
   return NextResponse.json({
     ok: true,

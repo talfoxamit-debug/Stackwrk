@@ -152,12 +152,18 @@ export const priceItems: PriceItem[] = [
 
 export const money = (n: number) => "$" + n.toLocaleString("en-US");
 
-/** Care-plan feature matrix for the public pricing cards. */
+/**
+ * Care-plan feature matrix for the public pricing cards.
+ * stripeUrl: paste a Stripe Payment Link (dashboard → Payment Links → recurring
+ * $X/mo product) and a "Subscribe now" button appears on the card automatically.
+ * Empty string = button hidden, card CTA stays "Start with a free audit".
+ */
 export const carePlans = [
   {
     id: "care-essential",
     name: "Essential",
     price: 99,
+    stripeUrl: "",
     tagline: "Never worry about your site again.",
     features: [
       "Managed hosting & SSL",
@@ -172,6 +178,7 @@ export const carePlans = [
     id: "care-growth",
     name: "Growth",
     price: 249,
+    stripeUrl: "",
     tagline: "Keep improving while you run the business.",
     features: [
       "Everything in Essential",
@@ -186,6 +193,7 @@ export const carePlans = [
     id: "care-partner",
     name: "Partner",
     price: 499,
+    stripeUrl: "",
     tagline: "A technical partner on retainer.",
     features: [
       "Everything in Growth",

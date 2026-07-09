@@ -180,7 +180,12 @@ Truth: at day 0 the moat is thin — it gets built deliberately, in this order:
 - **Level 2 — Productize offers into the site: ☑** — public Plans section (#plans,
   care tiers + services grid w/ founding-rate anchoring), nav "Pricing" link, and the
   internal quote builder at `/quote` (noindex). Price book: `src/lib/pricing.ts`.
-- **Level 3 — Go-to-market engine: ◐** — `MARKETING.md` done (channels, audit-led
-  cold-email sequences, cadence, metrics). Remaining: Supabase leads CRM wiring
-  (blocked on Tal's project choice + Vercel env vars), sending-domain warmup.
-- Level 4 — Scale systems (Stripe billing, portal, delivery checklists, tool library): ☐
+- **Level 3 — Go-to-market engine: ☑ (code complete)** — `MARKETING.md` (channels,
+  audit-led sequences, cadence, metrics) + internal CRM pipeline at `/crm`
+  (key-gated, statuses, notes) + audit-run logging (warm-lead signal).
+  *Activation needs Tal:* Supabase env vars + `CRM_ACCESS_KEY`, sending-domain warmup.
+- **Level 4 — Scale systems & moat: ☑ (code complete)** — `DELIVERY.md` (delivery
+  checklists, retention system, tool-library moat ledger), Stripe care-plan
+  subscriptions via config-driven Payment Links ("Subscribe now" appears when a
+  link is pasted into `src/lib/pricing.ts`), client portal deliberately deferred
+  to ~10 care clients. *Activation needs Tal:* 3 Stripe Payment Links (10 min).
