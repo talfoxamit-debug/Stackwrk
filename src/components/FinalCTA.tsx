@@ -1,7 +1,25 @@
 import AuditForm from "./AuditForm";
 import Reveal from "./Reveal";
-import { Calendar, Check } from "./icons";
+import { Calendar, Check, Mail, TrendUp } from "./icons";
 import { finalCta, site } from "@/lib/content";
+
+const deliverables = [
+  {
+    icon: Mail,
+    title: "Your full audit report",
+    sub: "Every issue found, scored and explained — in your inbox.",
+  },
+  {
+    icon: TrendUp,
+    title: "A prioritized fix list",
+    sub: "What to fix first and what each fix is worth to you.",
+  },
+  {
+    icon: Calendar,
+    title: "A 30-min call — no obligation",
+    sub: "We walk through it together. Keep the plan either way.",
+  },
+];
 
 const avatarGradients = [
   "from-flare-orange to-flare-red",
@@ -14,6 +32,23 @@ export default function FinalCTA() {
   return (
     <section id="about" className="relative scroll-mt-20 overflow-hidden pb-16 pt-8 sm:pb-20 sm:pt-10">
       <div className="pointer-events-none absolute -right-32 top-10 h-80 w-80 rounded-full bg-violet-600/15 blur-[80px]" />
+
+      {/* The fox returns — brand bookend watching from the lower-left corner */}
+      <div className="pointer-events-none absolute -bottom-8 -left-10 hidden xl:block" aria-hidden="true">
+        <div className="absolute inset-0 scale-125 rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.16),transparent_70%)] blur-2xl" />
+        {/* eslint-disable-next-line @next/next/no-img-element -- static decorative asset */}
+        <img
+          src="/fox-mark.webp"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="relative w-64 opacity-75"
+          style={{
+            maskImage: "radial-gradient(ellipse 88% 86% at 44% 36%, #000 38%, transparent 70%)",
+            WebkitMaskImage: "radial-gradient(ellipse 88% 86% at 44% 36%, #000 38%, transparent 70%)",
+          }}
+        />
+      </div>
       <div className="container-content relative grid gap-12 lg:grid-cols-2 lg:items-center">
         {/* Left: pitch */}
         <Reveal>
@@ -33,6 +68,28 @@ export default function FinalCTA() {
               </li>
             ))}
           </ul>
+
+          {/* What booking actually gets you — the deliverable stack */}
+          <div className="relative mt-9 max-w-md space-y-3">
+            {deliverables.map((d, i) => {
+              const Icon = d.icon;
+              return (
+                <div
+                  key={d.title}
+                  className="flex items-start gap-3.5 rounded-xl border border-white/[0.08] bg-white/[0.025] p-4 backdrop-blur-sm transition-colors hover:border-lime/25"
+                  style={{ marginLeft: i * 14 }}
+                >
+                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-lime/35 bg-lime/[0.07] text-lime">
+                    <Icon width={17} height={17} />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{d.title}</p>
+                    <p className="mt-0.5 text-xs leading-relaxed text-white/50">{d.sub}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </Reveal>
 
         {/* Right: booking card */}

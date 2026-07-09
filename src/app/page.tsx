@@ -2,6 +2,8 @@ import Hero from "@/components/Hero";
 import IndustryGreeting from "@/components/IndustryGreeting";
 import StickyCTA from "@/components/StickyCTA";
 import FeaturedProjects from "@/components/FeaturedProjects";
+import MetricsBand from "@/components/MetricsBand";
+import SectionSeam from "@/components/SectionSeam";
 import AuditSection from "@/components/AuditSection";
 import DemoSection from "@/components/DemoSection";
 import WhatYouGet from "@/components/WhatYouGet";
@@ -19,12 +21,15 @@ export default function Home() {
       <Hero />
       <IndustryGreeting />
       <FeaturedProjects />
+      <MetricsBand />
       <AuditSection />
       <DemoSection />
+      <SectionSeam hue="violet" />
       <WhatYouGet />
       <HowItWorks />
       <Testimonials />
       <Investment />
+      <SectionSeam hue="magenta" />
       <Plans />
       <Guarantee />
       <FinalCTA />

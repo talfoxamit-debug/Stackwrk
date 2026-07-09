@@ -1,5 +1,6 @@
 import HeroMedia from "./HeroMedia";
 import HeroWaves from "./HeroWaves";
+import PointerVars from "./PointerVars";
 import { ArrowRight, ArrowDown, Bolt, TrendUp, Phone } from "./icons";
 import {
   NextMark,
@@ -74,6 +75,9 @@ export default function Hero() {
       id="top"
       className="relative overflow-hidden bg-[#07040d] pb-12 pt-28 sm:pt-36 lg:flex lg:min-h-[860px] lg:flex-col lg:justify-center lg:pb-16"
     >
+      {/* Cursor-depth: exposes --mx/--my on this section for layer parallax */}
+      <PointerVars />
+
       {/* Backdrop: faint grid + deep radial atmosphere behind the fox */}
       <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.16]" />
       <div className="pointer-events-none absolute -right-40 -top-32 h-[46rem] w-[46rem] rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.28),rgba(46,107,255,0.1)_55%,transparent_75%)] blur-2xl" />
@@ -88,8 +92,12 @@ export default function Hero() {
       <div className="pointer-events-none absolute bottom-[8%] right-[8%] z-[1] hidden h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(255,90,40,0.18),rgba(162,28,224,0.14)_44%,transparent_70%)] blur-3xl lg:block" />
 
       {/* Fox — desktop: bleeds across the right side, nudged left + larger so it
-          reads as one composition with the code card instead of floating far off. */}
-      <div className="pointer-events-none absolute bottom-0 right-[2%] top-0 z-[2] hidden w-[58%] lg:block">
+          reads as one composition with the code card instead of floating far off.
+          Drifts gently with the cursor (deepest parallax layer). */}
+      <div
+        className="pointer-events-none absolute bottom-0 right-[2%] top-0 z-[2] hidden w-[58%] will-change-transform lg:block"
+        style={{ transform: "translate3d(calc(var(--mx, 0) * 12px), calc(var(--my, 0) * 8px), 0)" }}
+      >
         <HeroMedia variant="bleed" />
       </div>
 
@@ -130,18 +138,31 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Built with */}
-          <div className="mt-10 flex animate-fade-up flex-wrap items-center gap-x-6 gap-y-3" style={{ animationDelay: "320ms" }}>
-            <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white/40">
+          {/* Built with — infinite marquee (pauses on hover, frozen by the
+              global reduced-motion rule) */}
+          <div className="mt-10 flex max-w-md animate-fade-up items-center gap-x-5" style={{ animationDelay: "320ms" }}>
+            <span className="shrink-0 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white/40">
               Built with
             </span>
-            <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-white/70">
-              <li className="flex items-center gap-1.5 text-sm font-medium"><NextMark className="text-white" /> Next.js</li>
-              <li className="flex items-center gap-1.5 text-sm font-medium"><TypeScriptMark /> TypeScript</li>
-              <li className="flex items-center gap-1.5 text-sm font-medium"><TailwindMark /> Tailwind CSS</li>
-              <li className="flex items-center gap-1.5 text-sm font-medium"><SupabaseMark /> Supabase</li>
-              <li className="flex items-center gap-1.5 text-sm font-medium"><VercelMark className="text-white" /> Vercel</li>
-            </ul>
+            <div
+              className="min-w-0 flex-1 overflow-hidden"
+              style={{
+                maskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
+                WebkitMaskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
+              }}
+            >
+              <ul className="flex w-max animate-marquee items-center text-white/70 hover:[animation-play-state:paused]">
+                {[0, 1].map((dup) => (
+                  <li key={dup} aria-hidden={dup === 1} className="flex items-center">
+                    <span className="flex items-center gap-1.5 pr-8 text-sm font-medium"><NextMark className="text-white" /> Next.js</span>
+                    <span className="flex items-center gap-1.5 pr-8 text-sm font-medium"><TypeScriptMark /> TypeScript</span>
+                    <span className="flex items-center gap-1.5 pr-8 text-sm font-medium"><TailwindMark /> Tailwind CSS</span>
+                    <span className="flex items-center gap-1.5 pr-8 text-sm font-medium"><SupabaseMark /> Supabase</span>
+                    <span className="flex items-center gap-1.5 pr-8 text-sm font-medium"><VercelMark className="text-white" /> Vercel</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -152,7 +173,13 @@ export default function Hero() {
             <HeroMedia />
             <CodeCard className="w-full max-w-sm" />
           </div>
-          <CodeCard className="hidden lg:absolute lg:left-[-1rem] lg:top-[56%] lg:block lg:w-[23rem] lg:-translate-y-1/2 xl:left-[1.5rem]" />
+          {/* Counter-parallax layer: the card drifts opposite the fox for depth */}
+          <div
+            className="hidden will-change-transform lg:absolute lg:left-[-1rem] lg:top-[56%] lg:block lg:w-[23rem] xl:left-[1.5rem]"
+            style={{ transform: "translate3d(calc(var(--mx, 0) * -9px), calc(-50% + var(--my, 0) * -6px), 0)" }}
+          >
+            <CodeCard />
+          </div>
         </div>
       </div>
 

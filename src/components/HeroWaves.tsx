@@ -18,7 +18,8 @@ export default function HeroWaves() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] overflow-hidden"
+      className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] overflow-hidden will-change-transform"
+      style={{ transform: "translate3d(calc(var(--mx, 0) * -6px), calc(var(--my, 0) * -4px), 0)" }}
     >
       <svg
         viewBox="0 0 1440 720"
