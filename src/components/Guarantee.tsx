@@ -4,10 +4,10 @@ import { guarantee } from "@/lib/content";
 
 export default function Guarantee() {
   return (
-    <section className="py-8 sm:py-12">
+    <section className="pb-4 pt-10 sm:pb-6 sm:pt-12">
       <div className="container-content">
-        <Reveal className="relative overflow-hidden rounded-2xl border border-lime/25 bg-lime/[0.04] p-8 sm:p-10">
-          <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-lime/10 blur-[80px]" />
+        <Reveal className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7 backdrop-blur-sm sm:p-9">
+          <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(203,255,60,0.14),transparent_70%)] blur-2xl" />
           <div className="relative grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-center">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-lime">{guarantee.eyebrow}</p>

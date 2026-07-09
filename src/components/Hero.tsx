@@ -83,8 +83,9 @@ export default function Hero() {
       {/* Electric energy waves flowing from the lower-right */}
       <HeroWaves />
 
-      {/* Fox — desktop: bleeds across the full right side, head upper-right */}
-      <div className="pointer-events-none absolute bottom-0 right-[-3%] top-0 z-[2] hidden w-[52%] lg:block">
+      {/* Fox — desktop: bleeds across the right side, nudged left + larger so it
+          reads as one composition with the code card instead of floating far off. */}
+      <div className="pointer-events-none absolute bottom-0 right-[2%] top-0 z-[2] hidden w-[58%] lg:block">
         <HeroMedia variant="bleed" />
       </div>
 
@@ -147,7 +148,7 @@ export default function Hero() {
             <HeroMedia />
             <CodeCard className="w-full max-w-sm" />
           </div>
-          <CodeCard className="hidden lg:absolute lg:left-[-4.5rem] lg:top-[58%] lg:block lg:w-[22.5rem] lg:-translate-y-1/2 xl:left-[-3rem]" />
+          <CodeCard className="hidden lg:absolute lg:left-[-1rem] lg:top-[56%] lg:block lg:w-[23rem] lg:-translate-y-1/2 xl:left-[1.5rem]" />
         </div>
       </div>
 

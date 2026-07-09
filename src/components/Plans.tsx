@@ -1,45 +1,34 @@
 import Reveal from "./Reveal";
 import { ArrowRight, Bolt, Check } from "./icons";
-import { priceItems, carePlans, money } from "@/lib/pricing";
+import { carePlans, money } from "@/lib/pricing";
 
 /**
- * Public pricing. Applies the PRICING-BENCHMARKS.md research directly:
- * - Care tiers sit exactly on the market's tier boundaries ($99/$249/$499).
- * - Founding-client framing: the benchmark-informed standard rate is shown
- *   struck through as the anchor; the founding rate is the live price.
- * - CRM leads the services grid ("custom at off-the-shelf prices" wedge).
+ * Public pricing. Care tiers sit on the market's tier boundaries ($99/$249/$499)
+ * with founding-client framing. The main goal of the page is still booking a
+ * free audit — so "Beyond websites" is presented as capabilities, not a menu.
  */
 
-const serviceOrder = [
-  "custom-crm",
-  "ai-assistant",
-  "automation-sprint",
-  "automation-program",
-  "growth-retainer",
-  "fractional-cto",
+const capabilities = [
+  {
+    title: "Automations",
+    blurb: "Kill the manual work — ops, follow-ups and reporting wired together and running on their own.",
+    from: "$2,500",
+  },
+  {
+    title: "AI & CRM",
+    blurb: "A 24/7 site assistant that qualifies and books leads, plus a custom CRM with no per-seat fees.",
+    from: "$1,500",
+  },
+  {
+    title: "Growth systems",
+    blurb: "Ongoing CRO, landing pages and a fractional-CTO partner to keep everything compounding.",
+    from: "$1,000/mo",
+  },
 ];
-
-function priceLine(id: string) {
-  const item = priceItems.find((p) => p.id === id)!;
-  const oneTime = item.founding > 0;
-  const monthly = item.monthlyFounding && item.monthlyFounding > 0;
-  return {
-    item,
-    now: oneTime ? money(item.founding) : money(item.monthlyFounding!),
-    anchor:
-      oneTime && item.standard > item.founding
-        ? money(item.standard)
-        : !oneTime && item.monthlyStandard! > item.monthlyFounding!
-          ? money(item.monthlyStandard!)
-          : null,
-    suffix: oneTime ? (monthly ? ` + ${money(item.monthlyFounding!)}/mo` : "") : "/mo",
-  };
-}
 
 export default function Plans() {
   return (
-    <section id="plans" className="relative overflow-hidden border-t border-white/[0.06] py-16 sm:py-24">
-      <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-15" />
+    <section id="plans" className="relative scroll-mt-20 overflow-hidden py-12 sm:py-16">
       <div className="container-content relative">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">Plans &amp; pricing</p>
@@ -57,14 +46,14 @@ export default function Plans() {
         </Reveal>
 
         {/* Care plans — the recurring core */}
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
           {carePlans.map((plan, i) => (
             <Reveal
               as="article"
               key={plan.id}
               delay={i * 110}
-              className={`card relative flex flex-col p-7 ${
-                plan.highlight ? "border-lime/50 shadow-glow-lime" : ""
+              className={`card relative flex flex-col p-6 ${
+                plan.highlight ? "border-lime/35 shadow-[0_0_50px_-24px_rgba(203,255,60,0.45)]" : ""
               }`}
             >
               {plan.highlight && (
@@ -117,42 +106,37 @@ export default function Plans() {
           ))}
         </div>
 
-        {/* Beyond websites — apps, automations, AI, CRM */}
-        <Reveal className="mt-16 text-center">
-          <h3 className="font-display text-2xl uppercase text-white sm:text-3xl">
-            Beyond websites
+        {/* Beyond websites — capabilities, not a price menu */}
+        <Reveal className="mt-12 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Beyond websites</p>
+          <h3 className="mt-2 font-display text-2xl uppercase text-white/90 sm:text-3xl">
+            I build the whole stack
           </h3>
-          <p className="mx-auto mt-2 max-w-xl text-sm text-white/55">
-            The same systems I run my own companies on — priced for businesses, not enterprises.
-          </p>
         </Reveal>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {serviceOrder.map((id, i) => {
-            const { item, now, anchor, suffix } = priceLine(id);
-            return (
-              <Reveal
-                as="div"
-                key={id}
-                delay={i * 80}
-                className="card flex flex-col p-6 transition-colors hover:border-lime/40"
-              >
-                <h4 className="font-display text-lg uppercase tracking-wide text-white">{item.label}</h4>
-                <p className="mt-1.5 flex-1 text-sm leading-relaxed text-white/55">{item.blurb}</p>
-                <p className="mt-4 text-sm text-white/45">
-                  {anchor && (
-                    <span className="mr-2 text-white/30 line-through">{anchor}</span>
-                  )}
-                  <span className="font-display text-2xl text-lime">
-                    {item.from ? "from " : ""}
-                    {now}
-                  </span>
-                  <span className="text-white/45">{suffix}</span>
-                </p>
-              </Reveal>
-            );
-          })}
+        <div className="mt-7 grid gap-4 md:grid-cols-3">
+          {capabilities.map((c, i) => (
+            <Reveal
+              as="div"
+              key={c.title}
+              delay={i * 90}
+              className="flex flex-col rounded-2xl border border-white/[0.07] bg-white/[0.015] p-6 transition-colors hover:border-white/15"
+            >
+              <h4 className="font-display text-lg uppercase tracking-wide text-white">{c.title}</h4>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-white/55">{c.blurb}</p>
+              <p className="mt-4 text-xs text-white/40">
+                from <span className="font-semibold text-white/70">{c.from}</span>
+              </p>
+            </Reveal>
+          ))}
         </div>
+
+        <Reveal className="mt-8 text-center">
+          <a href="#about" className="btn-primary !rounded-md">
+            Start with a free audit
+            <ArrowRight width={16} height={16} />
+          </a>
+        </Reveal>
       </div>
     </section>
   );

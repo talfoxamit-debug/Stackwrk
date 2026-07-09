@@ -12,7 +12,7 @@ const avatarGradients = [
 
 export default function FinalCTA() {
   return (
-    <section id="about" className="relative overflow-hidden py-20 sm:py-28">
+    <section id="about" className="relative scroll-mt-20 overflow-hidden pb-16 pt-8 sm:pb-20 sm:pt-10">
       <div className="pointer-events-none absolute -right-32 top-10 h-80 w-80 rounded-full bg-violet-600/15 blur-[80px]" />
       <div className="container-content relative grid gap-12 lg:grid-cols-2 lg:items-center">
         {/* Left: pitch */}

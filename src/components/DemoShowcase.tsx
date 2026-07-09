@@ -567,29 +567,51 @@ export default function DemoShowcase() {
   const [active, setActive] = useState("booking");
   const current = TABS.find((t) => t.key === active) ?? TABS[0];
   return (
-    <div className="mx-auto max-w-4xl">
-      <div className="flex flex-wrap justify-center gap-2">
-        {TABS.map((t) => (
-          <button
-            key={t.key}
-            onClick={() => setActive(t.key)}
-            className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-              active === t.key
-                ? "border-lime bg-lime/15 text-lime"
-                : "border-white/12 text-white/60 hover:border-white/30 hover:text-white"
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
+    <div className="mx-auto max-w-5xl">
+      <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.02] shadow-[0_40px_120px_-60px_rgba(124,58,237,0.5)] backdrop-blur-sm">
+        {/* soft glows anchoring the lab */}
+        <div className="pointer-events-none absolute -right-24 -top-10 h-72 w-72 rounded-full bg-lime/[0.06] blur-[90px]" />
+        <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-violet-600/15 blur-[90px]" />
 
-      <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.1] bg-ink-600/60 backdrop-blur-sm">
-        <div className="flex items-center gap-2 border-b border-white/[0.08] px-5 py-3">
-          <Sparkles width={16} height={16} className="text-lime" />
-          <span className="text-sm text-white/70">{current.note} — live demo, go ahead and try it</span>
+        <div className="relative grid lg:grid-cols-[0.82fr_2fr]">
+          {/* Left rail — explanation + vertical tabs */}
+          <div className="border-b border-white/[0.06] p-5 sm:p-6 lg:border-b-0 lg:border-r">
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-lime">
+              <Sparkles width={14} height={14} /> Live product lab
+            </p>
+            <p className="mt-2 hidden text-sm leading-relaxed text-white/55 lg:block">
+              Real features I build into client sites. Pick one and try it — every click works.
+            </p>
+            <div className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:mt-5 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0">
+              {TABS.map((t) => {
+                const on = active === t.key;
+                return (
+                  <button
+                    key={t.key}
+                    onClick={() => setActive(t.key)}
+                    className={`flex shrink-0 flex-col items-start rounded-xl border px-4 py-2.5 text-left transition-colors lg:shrink ${
+                      on ? "border-lime/40 bg-lime/[0.08]" : "border-white/[0.06] bg-white/[0.01] hover:border-white/15"
+                    }`}
+                  >
+                    <span className={`whitespace-nowrap text-sm font-semibold ${on ? "text-lime" : "text-white/80"}`}>{t.label}</span>
+                    <span className="hidden text-xs text-white/40 lg:block">{t.note}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right — the live demo */}
+          <div className="relative p-4 sm:p-5">
+            <div className="mb-3 flex items-center gap-2 px-1 text-xs text-white/45">
+              <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_6px_rgba(203,255,60,0.9)]" />
+              {current.note} — go ahead, try it
+            </div>
+            <div key={active} className="animate-fade-up overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0b0616]/70">
+              {current.render}
+            </div>
+          </div>
         </div>
-        <div key={active} className="animate-fade-up">{current.render}</div>
       </div>
     </div>
   );
