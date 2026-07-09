@@ -1,5 +1,5 @@
 import Reveal from "./Reveal";
-import { ArrowRight, Check } from "./icons";
+import { ArrowRight, Check, TrendUp } from "./icons";
 import { projects, type Project } from "@/lib/content";
 
 function BrowserMock({ project }: { project: Project }) {
@@ -77,6 +77,11 @@ export default function FeaturedProjects() {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">{project.blurb}</p>
 
+              <p className="mt-4 flex items-start gap-2 rounded-lg border border-lime/20 bg-lime/[0.05] px-3 py-2.5 text-sm text-white/85">
+                <TrendUp width={16} height={16} className="mt-0.5 shrink-0 text-lime" />
+                <span>{project.result}</span>
+              </p>
+
               <ul className="mt-5 space-y-2.5">
                 {project.features.map((f) => (
                   <li key={f} className="flex items-center gap-2.5 text-sm text-white/75">
@@ -88,6 +93,8 @@ export default function FeaturedProjects() {
 
               <a
                 href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center gap-2 border-t border-white/[0.08] pt-5 text-sm font-bold uppercase tracking-wide text-lime transition-transform group-hover:gap-3"
               >
                 View live site

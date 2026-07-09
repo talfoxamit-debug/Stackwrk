@@ -47,11 +47,13 @@ that on my site."* Tabbed showcase at `#demos`. `DemoShowcase.tsx` + `DemoSectio
 - ☑ Before/after redesign slider (drag to reveal dated vs modern)
 - ☑ Tabbed showcase wrapper; verified desktop + mobile
 
-### Phase 3 — Proof & results upgrade
-- ☐ Project cards → outcome metrics (results, not features)
-- ☐ Testimonials section
-- ☐ "How it works" 3-step (Audit → Build → Launch)
-- ☐ Risk-reversal guarantee callout
+### Phase 3 — Proof & results upgrade — ☑ DONE
+- ☑ Project cards → outcome result line (truthful "so what", highlighted). `FeaturedProjects.tsx`
+  + external live-site links open in a new tab.
+- ☑ Testimonials section (`Testimonials.tsx`) — ⚠️ SAMPLE quotes, must be replaced with
+  real client testimonials (flagged in content.ts).
+- ☑ "How it works" 3-step (Audit → Build → Launch). `HowItWorks.tsx` (#how)
+- ☑ Risk-reversal guarantee callout. `Guarantee.tsx` — ⚠️ confirm terms match Tal's offer.
 
 ### Phase 4 — Mobile conversion polish
 - ☐ Sticky "Book a free audit" bar on mobile (appears on scroll)

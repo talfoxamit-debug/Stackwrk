@@ -57,6 +57,7 @@ export type Project = {
   href: string;
   accent: string; // tailwind gradient class for the screenshot placeholder
   tag: string;
+  result: string; // the business outcome — the "so what"
 };
 
 export const projects: Project[] = [
@@ -67,6 +68,7 @@ export const projects: Project[] = [
       "Interactive tools that help buyers make smarter decisions with confidence.",
     features: ["Flood zone checker", "ROI calculator", "Home configurator"],
     href: "https://seatophomes.com",
+    result: "Buyers self-qualify with the flood-zone + ROI tools before they ever pick up the phone.",
     accent: "from-sky-800 via-indigo-900 to-ink-700",
   },
   {
@@ -76,6 +78,7 @@ export const projects: Project[] = [
       "Dual-sided dock rental marketplace with real-time booking and blog.",
     features: ["Dual-sided booking flow", "Real-time availability", "Blog & local SEO"],
     href: "https://yathub.com",
+    result: "Owners and renters book in real time — no more phone tag or double-bookings.",
     accent: "from-teal-800 via-cyan-900 to-ink-700",
   },
   {
@@ -85,6 +88,7 @@ export const projects: Project[] = [
       "Local service website with class scheduling, multi-language and SEO.",
     features: ["Class scheduling system", "English / Português / עברית", "Custom CMS for content"],
     href: "https://capoeira-aue.vercel.app",
+    result: "Classes fill from any phone, in 3 languages, with local SEO that actually ranks.",
     accent: "from-amber-800 via-rose-900 to-ink-700",
   },
 ];
@@ -133,6 +137,63 @@ export const finalCta = {
   formCta: "Request My Free Audit",
   calendlyLabel: "Prefer to pick a time? Book on Calendly",
   trust: "Trusted by business owners across the U.S. and beyond.",
+};
+
+export const howItWorks = {
+  eyebrow: "How it works",
+  heading: ["Live in weeks,", "not months."],
+  steps: [
+    {
+      n: "01",
+      title: "Free audit call",
+      body: "We look at your site and goals together. You leave with a clear plan and honest advice — no obligation.",
+    },
+    {
+      n: "02",
+      title: "I design & build",
+      body: "A custom, mobile-first site with the exact tools you need — booking, calculators, chat. You review as it comes to life.",
+    },
+    {
+      n: "03",
+      title: "Launch & grow",
+      body: "We ship fast, then tune speed, SEO and conversions so the site keeps paying for itself.",
+    },
+  ],
+};
+
+// TODO(Tal): replace these SAMPLE testimonials with real client quotes before
+// running campaigns. Keep them short, specific, and outcome-focused.
+export const testimonials = [
+  {
+    quote:
+      "He didn't just make it pretty — he built tools our buyers actually use. Leads come in warmer and more qualified now.",
+    name: "Client",
+    role: "Real estate · South Florida",
+  },
+  {
+    quote:
+      "Real-time booking changed our business. No more back-and-forth — customers just reserve and pay while we sleep.",
+    name: "Client",
+    role: "Rental marketplace · Fort Lauderdale",
+  },
+  {
+    quote:
+      "Fast, on time, and it works on every phone. Sign-ups went up the week we launched.",
+    name: "Client",
+    role: "Local service business",
+  },
+];
+
+// NOTE(Tal): confirm these guarantee terms reflect what you actually offer.
+export const guarantee = {
+  eyebrow: "Zero-risk",
+  heading: "You don’t pay until you love it.",
+  body: "Start with a free audit. As we build, if you're not thrilled with the design before launch, you walk away owing nothing.",
+  points: [
+    "Free audit — no obligation",
+    "Fixed price, no surprise invoices",
+    "You own 100% of your site & code",
+  ],
 };
 
 export const footer = {
