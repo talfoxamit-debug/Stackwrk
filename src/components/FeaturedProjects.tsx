@@ -40,7 +40,7 @@ function BrowserMock({ project }: { project: Project }) {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
         <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded bg-lime px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-ink shadow-lg">
           <span className="h-1.5 w-1.5 rounded-full bg-ink" />
-          Live project
+          {project.badge ?? "Live project"}
         </span>
       </div>
     </div>
@@ -59,15 +59,15 @@ export default function FeaturedProjects() {
             </h2>
           </div>
           <a
-            href="#work"
+            href="#about"
             className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-lime transition-colors hover:text-lime-400"
           >
-            View all work
+            Get a site like these
             <ArrowRight width={16} height={16} />
           </a>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {projects.map((project, i) => (
             <Reveal
               as="article"
@@ -103,7 +103,7 @@ export default function FeaturedProjects() {
                   href={project.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 border-t border-white/[0.08] pt-5 text-sm font-bold uppercase tracking-wide text-lime transition-transform group-hover:gap-3"
+                  className="mt-auto inline-flex items-center gap-2 border-t border-white/[0.08] pt-5 text-sm font-bold uppercase tracking-wide text-lime transition-transform group-hover:gap-3"
                 >
                   View live site
                   <ArrowRight width={16} height={16} />

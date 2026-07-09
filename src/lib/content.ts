@@ -60,6 +60,7 @@ export type Project = {
   tag: string;
   result: string; // the business outcome — the "so what"
   image?: string; // real screenshot under /public/shots
+  badge?: string; // overlay label on the screenshot (default "Live project")
 };
 
 export const projects: Project[] = [
@@ -95,6 +96,18 @@ export const projects: Project[] = [
     result: "Classes fill from any phone, in 3 languages, with local SEO that actually ranks.",
     accent: "from-amber-800 via-rose-900 to-ink-700",
     image: "/shots/capoeira-aue.webp",
+  },
+  {
+    name: "Marco's · FTL",
+    tag: "Where the steak sizzles and the band plays on.",
+    blurb:
+      "An upscale steakhouse experience — editorial design with reservations, menus and live events.",
+    features: ["Table reservations", "Digital menus & events", "High-end editorial design"],
+    href: "https://marcos-restaurant-demo.vercel.app",
+    result: "A high-end first impression that turns browsers into booked tables the moment they land.",
+    accent: "from-amber-900 via-rose-950 to-ink-800",
+    image: "/shots/marcos.webp",
+    badge: "Demo build",
   },
 ];
 

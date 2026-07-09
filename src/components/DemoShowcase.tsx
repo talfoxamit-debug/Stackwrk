@@ -252,7 +252,7 @@ function ChatbotDemo() {
 
 /* ------------------------------------------------------------ Before/After */
 function BeforeAfterDemo() {
-  const [pos, setPos] = useState(52);
+  const [pos, setPos] = useState(50);
   const [dragging, setDragging] = useState(false);
   const frameRef = useRef<HTMLDivElement>(null);
 
@@ -302,22 +302,83 @@ function BeforeAfterDemo() {
           dragging ? "cursor-grabbing" : "cursor-ew-resize"
         }`}
       >
-        {/* AFTER (modern) — full */}
-        <div className="absolute inset-0 bg-gradient-to-br from-ink-700 via-ink-600 to-violet-900">
-          <div className="grid-backdrop absolute inset-0 opacity-30" />
-          <div className="absolute inset-0 flex flex-col items-end justify-center px-6 text-right">
-            <span className="text-[0.55rem] uppercase tracking-widest text-lime">Bold Studio</span>
-            <span className="mt-1 font-display text-2xl uppercase leading-none text-white sm:text-3xl">Modern.<br />Fast.<br />Converts.</span>
-            <span className="mt-3 rounded bg-lime px-3 py-1.5 text-[0.6rem] font-bold uppercase text-ink">Book now →</span>
+        {/* AFTER (modern) — a full, believable site so every slice has content */}
+        <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-ink-700 via-ink-600 to-violet-900">
+          <div className="grid-backdrop absolute inset-0 opacity-25" />
+          <div className="pointer-events-none absolute -right-12 top-2 h-40 w-40 rounded-full bg-lime/10 blur-2xl" />
+          {/* top nav */}
+          <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 py-2.5 sm:px-5">
+            <div className="flex items-center gap-1.5">
+              <span className="h-3.5 w-3.5 rounded bg-lime" />
+              <span className="text-[0.6rem] font-bold uppercase tracking-wider text-white">Bold Studio</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="hidden h-1.5 w-6 rounded-full bg-white/25 sm:block" />
+              <span className="hidden h-1.5 w-6 rounded-full bg-white/25 sm:block" />
+              <span className="hidden h-1.5 w-6 rounded-full bg-white/25 sm:block" />
+              <span className="rounded bg-lime px-2 py-1 text-[0.5rem] font-bold uppercase text-ink">Book</span>
+            </div>
+          </div>
+          {/* hero: product visual left, copy right — so the modern punchline is
+              what shows against the dated site at a middle split */}
+          <div className="absolute inset-x-0 top-[52%] flex -translate-y-1/2 items-center justify-between gap-4 px-4 sm:px-6">
+            <div className="hidden w-[36%] shrink-0 sm:block">
+              <div className="rounded-lg border border-white/15 bg-ink-800/60 p-2 shadow-xl backdrop-blur-sm">
+                <div className="flex items-center gap-1.5">
+                  <span className="h-6 w-6 rounded-full bg-gradient-to-br from-lime/50 to-violet-500/50" />
+                  <div className="flex-1 space-y-1">
+                    <span className="block h-1.5 w-full rounded bg-white/30" />
+                    <span className="block h-1.5 w-2/3 rounded bg-white/15" />
+                  </div>
+                </div>
+                <div className="mt-2 grid grid-cols-7 gap-1">
+                  {Array.from({ length: 21 }).map((_, k) => (
+                    <span key={k} className={`h-2 rounded-sm ${k === 11 ? "bg-lime" : "bg-white/10"}`} />
+                  ))}
+                </div>
+                <div className="mt-2 h-4 rounded bg-lime/25" />
+              </div>
+            </div>
+            <div className="ml-auto max-w-[62%] text-right sm:max-w-[58%]">
+              <span className="text-[0.5rem] font-semibold uppercase tracking-[0.2em] text-lime sm:text-[0.55rem]">Modern web design</span>
+              <p className="mt-1 font-display text-2xl uppercase leading-[0.92] text-white sm:text-4xl">Modern.<br />Fast.<br />Converts.</p>
+              <p className="mt-2 hidden max-w-[15rem] text-[0.65rem] leading-snug text-white/65 sm:ml-auto sm:block">Turns visitors into booked customers — fast on every device.</p>
+              <span className="mt-3 inline-flex items-center gap-1 rounded-md bg-lime px-3 py-1.5 text-[0.6rem] font-bold uppercase text-ink shadow-[0_0_20px_-4px_rgba(203,255,60,0.7)]">Book now →</span>
+            </div>
+          </div>
+          {/* trust strip */}
+          <div className="absolute inset-x-0 bottom-2.5 flex items-center justify-center gap-2 px-4">
+            {["★★★★★", "24/7 booking", "Loads in 1s"].map((t) => (
+              <span key={t} className="rounded-full border border-white/10 bg-white/[0.06] px-2 py-0.5 text-[0.5rem] font-medium text-white/60">{t}</span>
+            ))}
           </div>
         </div>
-        {/* BEFORE (dated) — clipped to pos% */}
-        <div className="absolute inset-0 overflow-hidden bg-[#e8e6e0]" style={{ width: `${pos}%` }}>
-          <div className="flex h-full flex-col justify-center px-5" style={{ width: "100vw", maxWidth: 520 }}>
-            <span className="font-serif text-lg text-[#334]">Welcome to Our Business</span>
-            <span className="mt-1 font-serif text-[0.7rem] text-[#667]">Established 2003 · Quality service you can trust.</span>
-            <span className="mt-2 font-serif text-[0.65rem] text-[#3355bb] underline">Click here for more info</span>
-            <span className="mt-3 h-6 w-24 border border-[#99a] bg-[#dcdad4] text-center text-[0.55rem] leading-6 text-[#556]">Submit</span>
+        {/* BEFORE (dated) — clipped to pos%; fixed inner width so it never reflows */}
+        <div className="absolute inset-0 overflow-hidden bg-[#eceae4]" style={{ width: `${pos}%` }}>
+          <div className="h-full" style={{ width: 880 }}>
+            {/* old title bar */}
+            <div className="flex items-center justify-between border-b-2 border-[#b8b4a8] bg-[#d8d5cc] px-4 py-2">
+              <span className="font-serif text-sm font-bold text-[#4a4a55]">✦ Our Business Inc.</span>
+              <span className="font-serif text-[0.55rem] italic text-[#5a7]">est. 2003</span>
+            </div>
+            {/* nav links */}
+            <div className="flex gap-3 border-b border-[#c4c0b4] bg-[#c8c4b8] px-4 py-1 font-serif text-[0.55rem] text-[#2a3b8f] underline">
+              <span>Home</span><span>About Us</span><span>Services</span><span>Contact</span>
+            </div>
+            {/* body */}
+            <div className="px-4 py-3">
+              <span className="block font-serif text-lg font-bold text-[#333844]">Welcome to Our Business</span>
+              <span className="mt-0.5 block font-serif text-[0.7rem] italic text-[#667]">Quality service you can trust since 2003.</span>
+              <div className="mt-2 flex gap-2">
+                <div className="flex h-16 w-20 shrink-0 items-center justify-center border border-[#a8a498] bg-[#dcdad4] text-[0.5rem] text-[#889]">[ photo ]</div>
+                <span className="font-serif text-[0.6rem] leading-relaxed text-[#556]">We are a family-owned company providing the best service in town. Please call us during business hours, Mon–Fri 9–5.</span>
+              </div>
+              <div className="mt-2 flex items-center gap-2">
+                <span className="border border-[#a8a498] bg-[#dcdad4] px-2 py-1 text-[0.55rem] text-[#556]">Submit »</span>
+                <span className="font-mono text-[0.5rem] text-[#889]">Visitors: 001242</span>
+                <span className="text-[0.5rem] font-bold text-[#c33]">★ Under Construction ★</span>
+              </div>
+            </div>
           </div>
         </div>
         {/* Divider + grabbable handle (whole frame is draggable; handle is the affordance) */}
