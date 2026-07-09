@@ -1,4 +1,6 @@
 import Hero from "@/components/Hero";
+import IndustryGreeting from "@/components/IndustryGreeting";
+import StickyCTA from "@/components/StickyCTA";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import AuditSection from "@/components/AuditSection";
 import DemoSection from "@/components/DemoSection";
@@ -14,6 +16,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <IndustryGreeting />
       <FeaturedProjects />
       <AuditSection />
       <DemoSection />
@@ -24,6 +27,7 @@ export default function Home() {
       <Guarantee />
       <FinalCTA />
       <Footer />
+      <StickyCTA />
     </>
   );
 }

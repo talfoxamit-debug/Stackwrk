@@ -55,10 +55,21 @@ that on my site."* Tabbed showcase at `#demos`. `DemoShowcase.tsx` + `DemoSectio
 - ☑ "How it works" 3-step (Audit → Build → Launch). `HowItWorks.tsx` (#how)
 - ☑ Risk-reversal guarantee callout. `Guarantee.tsx` — ⚠️ confirm terms match Tal's offer.
 
-### Phase 4 — Mobile conversion polish
-- ☐ Sticky "Book a free audit" bar on mobile (appears on scroll)
-- ☐ Tighter CTA flow
-- ☐ Per-industry angle hook
+### Phase 4 — Mobile conversion polish — ☑ DONE
+- ☑ Sticky "Book a free audit" bar on mobile (`StickyCTA.tsx`) — appears past the
+  hero, auto-hides over the form, personalizes its label from `?for=`.
+- ☑ Tighter CTA flow — persistent mobile CTA always one tap from the form.
+- ☑ Per-industry hook (`IndustryGreeting.tsx`) — campaign links like
+  `stackwrk.com/?for=dentists` greet the visitor by industry (strip + sticky-bar
+  label). Renders nothing without the param.
+
+---
+
+## ✅ All four phases complete.
+
+### Campaign usage
+Send cold-email links as `https://stackwrk.com/?for=<industry>` (e.g. `?for=dentists`,
+`?for=roofers`) — the site greets them by industry and personalizes the mobile CTA.
 
 ---
 
