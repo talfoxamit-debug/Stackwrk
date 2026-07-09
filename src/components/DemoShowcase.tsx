@@ -3,6 +3,19 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight, Calendar, Check, Sparkles, TrendUp } from "./icons";
 
+/** Lead-capture CTA shared by every demo — routes to the #about audit form. */
+function DemoCTA({ label }: { label: string }) {
+  return (
+    <a
+      href="#about"
+      className="mt-4 flex items-center justify-center gap-2 rounded-lg border border-lime/30 bg-lime/[0.07] px-4 py-2.5 text-sm font-semibold text-lime transition-colors hover:border-lime/50 hover:bg-lime/[0.12]"
+    >
+      {label}
+      <ArrowRight width={16} height={16} />
+    </a>
+  );
+}
+
 /* ---------------------------------------------------------------- Booking */
 const SLOTS = [
   { label: "9:00 AM", h: 9, m: 0 },
@@ -242,6 +255,7 @@ function CalculatorDemo() {
       <p className="mt-3 text-center text-[0.7rem] text-white/35">
         Illustrative — real lift depends on your traffic &amp; offer.
       </p>
+      <DemoCTA label="Get this uplift on your site" />
     </div>
   );
 }
@@ -364,6 +378,8 @@ function ChatbotDemo() {
           <ArrowRight width={16} height={16} />
         </button>
       </form>
+
+      <DemoCTA label="Put this AI assistant on your site" />
     </div>
   );
 }
@@ -551,6 +567,7 @@ function BeforeAfterDemo() {
       <p className="mt-3 text-center text-xs text-white/45">
         Drag anywhere on the image — same business, redesigned to sell.
       </p>
+      <DemoCTA label="Get a redesign like this" />
     </div>
   );
 }

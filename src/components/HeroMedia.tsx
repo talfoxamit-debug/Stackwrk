@@ -42,12 +42,15 @@ export default function HeroMedia({ variant = "panel" }: { variant?: "panel" | "
         fetchPriority="high"
         onError={() => setFailed(true)}
         style={{
-          // Feather bottom + inner edges so the artwork dissolves into the
-          // hero background and wave layer — no hard rectangle.
+          // Feather aggressively on every side so the artwork dissolves into the
+          // hero instead of reading as a rectangular sticker: a soft radial around
+          // the fox head, intersected with left + bottom edge fades.
           maskImage:
-            "radial-gradient(ellipse 115% 108% at 74% 26%, #000 52%, transparent 93%)",
+            "radial-gradient(ellipse 98% 106% at 68% 34%, #000 28%, transparent 74%), linear-gradient(to left, #000 52%, transparent 97%), linear-gradient(to bottom, #000 58%, transparent 99%)",
           WebkitMaskImage:
-            "radial-gradient(ellipse 115% 108% at 74% 26%, #000 52%, transparent 93%)",
+            "radial-gradient(ellipse 98% 106% at 68% 34%, #000 28%, transparent 74%), linear-gradient(to left, #000 52%, transparent 97%), linear-gradient(to bottom, #000 58%, transparent 99%)",
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in",
         }}
         className="h-full w-full animate-float-slow select-none object-contain object-right-top"
       />

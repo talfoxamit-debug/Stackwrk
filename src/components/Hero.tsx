@@ -83,6 +83,10 @@ export default function Hero() {
       {/* Electric energy waves flowing from the lower-right */}
       <HeroWaves />
 
+      {/* Warm energy field behind the fox so it emanates light and sits inside
+          the scene rather than reading as a flat sticker. */}
+      <div className="pointer-events-none absolute bottom-[8%] right-[8%] z-[1] hidden h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(255,90,40,0.18),rgba(162,28,224,0.14)_44%,transparent_70%)] blur-3xl lg:block" />
+
       {/* Fox — desktop: bleeds across the right side, nudged left + larger so it
           reads as one composition with the code card instead of floating far off. */}
       <div className="pointer-events-none absolute bottom-0 right-[2%] top-0 z-[2] hidden w-[58%] lg:block">

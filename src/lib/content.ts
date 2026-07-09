@@ -61,6 +61,7 @@ export type Project = {
   result: string; // the business outcome — the "so what"
   image?: string; // real screenshot under /public/shots
   badge?: string; // overlay label on the screenshot (default "Live project")
+  tier?: "featured" | "main" | "more"; // showcase prominence
 };
 
 export const projects: Project[] = [
@@ -74,6 +75,7 @@ export const projects: Project[] = [
     result: "Buyers self-qualify with the flood-zone + ROI tools before they ever pick up the phone.",
     accent: "from-sky-800 via-indigo-900 to-ink-700",
     image: "/shots/seatophomes.webp",
+    tier: "featured",
   },
   {
     name: "YatHub",
@@ -85,17 +87,7 @@ export const projects: Project[] = [
     result: "Owners, crew and captains match and book in real time — no more phone tag or double-bookings.",
     accent: "from-teal-800 via-cyan-900 to-ink-700",
     image: "/shots/yathub.webp",
-  },
-  {
-    name: "Capoeira Auê",
-    tag: "Movement. Culture. Community.",
-    blurb:
-      "Local service website with class scheduling, multi-language and SEO.",
-    features: ["Class scheduling system", "English / Português / Español", "Custom CMS for content"],
-    href: "https://capoeira-aue.vercel.app",
-    result: "Classes fill from any phone, in 3 languages, with local SEO that actually ranks.",
-    accent: "from-amber-800 via-rose-900 to-ink-700",
-    image: "/shots/capoeira-aue.webp",
+    tier: "main",
   },
   {
     name: "Marco's · FTL",
@@ -108,6 +100,31 @@ export const projects: Project[] = [
     accent: "from-amber-900 via-rose-950 to-ink-800",
     image: "/shots/marcos.webp",
     badge: "Demo build",
+    tier: "main",
+  },
+  {
+    name: "Capoeira Auê",
+    tag: "Movement. Culture. Community.",
+    blurb:
+      "Local service website with class scheduling, multi-language and SEO.",
+    features: ["Class scheduling system", "English / Português / Español", "Custom CMS for content"],
+    href: "https://capoeira-aue.vercel.app",
+    result: "Classes fill from any phone, in 3 languages, with local SEO that actually ranks.",
+    accent: "from-amber-800 via-rose-900 to-ink-700",
+    image: "/shots/capoeira-aue.webp",
+    tier: "more",
+  },
+  {
+    name: "Above Air",
+    tag: "We turn Florida heat into comfort.",
+    blurb:
+      "A South-Florida HVAC site with an instant-estimate flow, live comfort slider, financing and bilingual support.",
+    features: ["Instant estimate flow", "First-responder rates", "English / Español"],
+    href: "https://above-air-inc.vercel.app",
+    result: "Turns after-hours heat emergencies into booked service calls.",
+    accent: "from-emerald-800 via-teal-900 to-ink-700",
+    image: "/shots/aboveair.webp",
+    tier: "more",
   },
 ];
 

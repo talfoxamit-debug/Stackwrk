@@ -76,9 +76,9 @@ const cardBase =
   "group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] transition-all duration-500 hover:border-lime/35 hover:shadow-[0_30px_80px_-42px_rgba(203,255,60,0.3)]";
 
 export default function FeaturedProjects() {
-  const clients = projects.filter((p) => (p.badge ?? "Live project") === "Live project");
-  const concepts = projects.filter((p) => (p.badge ?? "Live project") !== "Live project");
-  const [featured, ...supporting] = clients;
+  const featured = projects.find((p) => p.tier === "featured") ?? projects[0];
+  const main = projects.filter((p) => p.tier === "main");
+  const more = projects.filter((p) => p.tier === "more");
 
   return (
     <section
@@ -137,9 +137,9 @@ export default function FeaturedProjects() {
           </div>
         </Reveal>
 
-        {/* Supporting real client work — 2-up */}
+        {/* Prominent work — 2-up */}
         <div className="mt-5 grid gap-5 md:grid-cols-2">
-          {supporting.map((project, i) => (
+          {main.map((project, i) => (
             <Reveal
               as="article"
               key={project.name}
@@ -160,28 +160,25 @@ export default function FeaturedProjects() {
           ))}
         </div>
 
-        {/* Concept builds — quieter, kept honest and separate from client work */}
-        {concepts.length > 0 && (
+        {/* More work — quieter 2-up: screenshot + name + one line, no bullets */}
+        {more.length > 0 && (
           <div className="mt-9">
             <p className="mb-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/35">
               <span className="h-px w-8 bg-white/20" />
-              Concept builds
+              More work
             </p>
-            <div className="grid gap-5">
-              {concepts.map((project) => (
+            <div className="grid gap-5 md:grid-cols-2">
+              {more.map((project) => (
                 <Reveal
                   as="article"
                   key={project.name}
-                  className="group relative grid overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.015] transition-colors hover:border-white/15 sm:grid-cols-[0.9fr_1.1fr]"
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.015] transition-colors hover:border-white/15"
                 >
-                  <div className="border-b border-white/[0.06] sm:border-b-0 sm:border-r">
-                    <Shot project={project} ratio="aspect-[16/9]" />
-                  </div>
-                  <div className="flex flex-col justify-center gap-2 p-5 sm:p-6">
+                  <Shot project={project} ratio="aspect-[16/9]" />
+                  <div className="flex flex-1 flex-col gap-1.5 p-4">
                     <h3 className="font-display text-lg uppercase leading-none text-white/90">{project.name}</h3>
-                    <p className="text-[0.82rem] leading-relaxed text-white/55">{project.blurb}</p>
-                    <Bullets items={project.features} className="mt-0.5 flex flex-wrap gap-x-5 gap-y-1.5" />
-                    <LiveLink href={project.href} pin={false} />
+                    <p className="text-[0.8rem] leading-relaxed text-white/50">{project.blurb}</p>
+                    <LiveLink href={project.href} />
                   </div>
                 </Reveal>
               ))}

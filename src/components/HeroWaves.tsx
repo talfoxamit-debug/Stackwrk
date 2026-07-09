@@ -36,17 +36,17 @@ export default function HeroWaves() {
         </defs>
         {waves.map(([d, , delay], i) => (
           <g key={i} className="animate-pulse-glow" style={{ animationDelay: delay }}>
-            {/* soft halo */}
-            <path d={d} stroke={`url(#wave-${i})`} strokeWidth="7" strokeLinecap="round" fill="none" opacity="0.18" />
-            {/* bright core */}
-            <path d={d} stroke={`url(#wave-${i})`} strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.8" />
+            {/* Faint only — the waves should read as ambient energy, not hard
+                lines that make the fox look pasted on top of the page. */}
+            <path d={d} stroke={`url(#wave-${i})`} strokeWidth="6" strokeLinecap="round" fill="none" opacity="0.09" />
+            <path d={d} stroke={`url(#wave-${i})`} strokeWidth="1.3" strokeLinecap="round" fill="none" opacity="0.28" />
           </g>
         ))}
         {/* sparks along the flow */}
         <g fill="#CBFF3C">
-          <circle cx="640" cy="428" r="2.5" className="animate-pulse-glow" />
-          <circle cx="905" cy="497" r="2" className="animate-pulse-glow" style={{ animationDelay: "1.8s" }} />
-          <circle cx="1130" cy="575" r="2.5" className="animate-pulse-glow" style={{ animationDelay: "3.2s" }} />
+          <circle cx="640" cy="428" r="2" className="animate-pulse-glow" opacity="0.55" />
+          <circle cx="905" cy="497" r="1.6" className="animate-pulse-glow" style={{ animationDelay: "1.8s" }} opacity="0.55" />
+          <circle cx="1130" cy="575" r="2" className="animate-pulse-glow" style={{ animationDelay: "3.2s" }} opacity="0.55" />
         </g>
       </svg>
     </div>
