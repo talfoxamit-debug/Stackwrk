@@ -12,12 +12,49 @@ import Testimonials from "@/components/Testimonials";
 import Investment from "@/components/Investment";
 import Plans from "@/components/Plans";
 import Guarantee from "@/components/Guarantee";
+import Faq from "@/components/Faq";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import { site } from "@/lib/content";
+
+const orgJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `https://${site.domain}/#business`,
+    name: "Stackwrk",
+    description:
+      "Stackwrk builds fast, conversion-focused websites and web apps for small businesses — engineered to turn visitors into bookings, leads, and revenue.",
+    url: `https://${site.domain}`,
+    email: site.email,
+    legalName: site.legalEntity,
+    priceRange: "$$",
+    areaServed: "US",
+    knowsAbout: [
+      "Web development",
+      "Conversion rate optimization",
+      "Next.js",
+      "Website design",
+      "SEO",
+      "Web applications",
+    ],
+    sameAs: [site.socials.linkedin, site.socials.github].filter(Boolean),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `https://${site.domain}/#website`,
+    name: "Stackwrk",
+    url: `https://${site.domain}`,
+    publisher: { "@id": `https://${site.domain}/#business` },
+  },
+];
 
 export default function Home() {
   return (
     <>
+      <JsonLd data={orgJsonLd} />
       <Hero />
       <IndustryGreeting />
       <FeaturedProjects />
@@ -32,6 +69,7 @@ export default function Home() {
       <SectionSeam hue="magenta" />
       <Plans />
       <Guarantee />
+      <Faq />
       <FinalCTA />
       <Footer />
       <StickyCTA />

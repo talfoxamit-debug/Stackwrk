@@ -9,8 +9,7 @@ export const site = {
   domain: "stackwrk.com",
   legalEntity: "Fox Solutions LLC",
   email: "hello@stackwrk.com",
-  // TODO: confirm final Calendly link before launch.
-  calendlyUrl: "https://calendly.com/",
+  calendlyUrl: "https://calendly.com/tal-foxamit-seatophomes/30min",
   socials: {
     linkedin: "https://www.linkedin.com/",
     github: "https://github.com/",
@@ -22,6 +21,7 @@ export const nav = [
   { label: "Work", href: "#work" },
   { label: "Process", href: "#process" },
   { label: "Pricing", href: "#plans" },
+  { label: "Free tools", href: "/tools" },
   { label: "About", href: "#about" },
 ];
 

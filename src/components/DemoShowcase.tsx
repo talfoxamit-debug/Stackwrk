@@ -572,11 +572,135 @@ function BeforeAfterDemo() {
   );
 }
 
+/* ----------------------------------------------------------------- CRM */
+const CRM_STAGES = [
+  { key: "new", label: "New", dot: "bg-white/50", head: "text-white/70" },
+  { key: "contacted", label: "Contacted", dot: "bg-flare-blue", head: "text-flare-blue" },
+  { key: "booked", label: "Call booked", dot: "bg-flare-orange", head: "text-flare-orange" },
+  { key: "won", label: "Won", dot: "bg-lime", head: "text-lime" },
+] as const;
+
+type Stage = (typeof CRM_STAGES)[number]["key"];
+type Deal = { id: number; name: string; source: string; value: number; stage: Stage };
+
+const SEED_DEALS: Deal[] = [
+  { id: 1, name: "Marisa · Café", source: "Audit form", value: 3200, stage: "new" },
+  { id: 2, name: "Above Air HVAC", source: "AI chat", value: 5400, stage: "new" },
+  { id: 3, name: "Coastal Dental", source: "Booking", value: 4200, stage: "contacted" },
+  { id: 4, name: "YatHub", source: "Referral", value: 8000, stage: "contacted" },
+  { id: 5, name: "Marco's · FTL", source: "Audit form", value: 2600, stage: "booked" },
+  { id: 6, name: "SeaTop Homes", source: "Referral", value: 9500, stage: "won" },
+];
+
+const STAGE_ORDER: Stage[] = ["new", "contacted", "booked", "won"];
+const nextStage = (s: Stage): Stage =>
+  STAGE_ORDER[Math.min(STAGE_ORDER.indexOf(s) + 1, STAGE_ORDER.length - 1)];
+
+/**
+ * Interactive CRM demo — a live pipeline board. Every lead the site captures
+ * (audit form, AI chat, booking widget) lands here as a card. Tap a card to
+ * advance it down the pipeline; the pipeline value + won total update live.
+ * Pure client state — mirrors the real /crm board Stackwrk ships to clients.
+ */
+function CrmDemo() {
+  const [deals, setDeals] = useState<Deal[]>(SEED_DEALS);
+
+  const advance = (id: number) =>
+    setDeals((ds) => ds.map((d) => (d.id === id ? { ...d, stage: nextStage(d.stage) } : d)));
+  const reset = () => setDeals(SEED_DEALS);
+
+  const open = deals.filter((d) => d.stage !== "won");
+  const pipeline = open.reduce((s, d) => s + d.value, 0);
+  const won = deals.filter((d) => d.stage === "won").reduce((s, d) => s + d.value, 0);
+
+  return (
+    <div className="p-4 sm:p-6">
+      {/* live totals */}
+      <div className="mb-4 flex items-center gap-3">
+        <div className="flex-1 rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3">
+          <p className="text-[0.6rem] uppercase tracking-widest text-white/40">Open pipeline</p>
+          <p className="font-display text-xl text-white">{money(pipeline)}</p>
+        </div>
+        <div className="flex-1 rounded-xl border border-lime/30 bg-lime/[0.06] px-4 py-3">
+          <p className="text-[0.6rem] uppercase tracking-widest text-lime">Won this month</p>
+          <p className="font-display text-xl text-white">{money(won)}</p>
+        </div>
+      </div>
+
+      {/* board — scrolls sideways on small panels */}
+      <div className="overflow-x-auto pb-1">
+        <div className="flex min-w-[460px] gap-2">
+          {CRM_STAGES.map((stage) => {
+            const cards = deals.filter((d) => d.stage === stage.key);
+            return (
+              <div key={stage.key} className="min-w-0 flex-1">
+                <div className="mb-2 flex items-center gap-1.5 px-0.5">
+                  <span className={`h-1.5 w-1.5 rounded-full ${stage.dot}`} />
+                  <span className={`text-[0.65rem] font-semibold uppercase tracking-wide ${stage.head}`}>
+                    {stage.label}
+                  </span>
+                  <span className="ml-auto text-[0.65rem] tabular-nums text-white/35">{cards.length}</span>
+                </div>
+                <div className="min-h-[3rem] space-y-2 rounded-lg bg-white/[0.015] p-1.5">
+                  {cards.map((d) => {
+                    const done = d.stage === "won";
+                    return (
+                      <button
+                        key={d.id}
+                        onClick={() => !done && advance(d.id)}
+                        disabled={done}
+                        className={`group block w-full rounded-lg border p-2 text-left transition-all ${
+                          done
+                            ? "cursor-default border-lime/30 bg-lime/[0.07]"
+                            : "border-white/10 bg-ink-800/70 hover:-translate-y-0.5 hover:border-lime/40"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-1">
+                          <span className="truncate text-[0.72rem] font-semibold text-white">{d.name}</span>
+                          {done ? (
+                            <Check width={12} height={12} className="shrink-0 text-lime" />
+                          ) : (
+                            <ArrowRight
+                              width={12}
+                              height={12}
+                              className="shrink-0 text-white/25 transition-colors group-hover:text-lime"
+                            />
+                          )}
+                        </div>
+                        <div className="mt-1 flex items-center justify-between gap-1">
+                          <span className="truncate text-[0.58rem] text-white/40">{d.source}</span>
+                          <span className="shrink-0 text-[0.62rem] font-medium tabular-nums text-lime/80">
+                            {money(d.value)}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-3 flex items-center justify-between px-0.5">
+        <p className="text-[0.7rem] text-white/40">Tap a lead to move it down the pipeline.</p>
+        <button onClick={reset} className="text-[0.7rem] font-medium text-white/45 transition-colors hover:text-lime">
+          Reset
+        </button>
+      </div>
+
+      <DemoCTA label="Get a CRM like this on your site" />
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------- Showcase */
 const TABS = [
   { key: "booking", label: "Booking widget", note: "Let customers book 24/7", render: <BookingDemo /> },
   { key: "calc", label: "Revenue calculator", note: "Show ROI in real numbers", render: <CalculatorDemo /> },
   { key: "chat", label: "AI assistant", note: "Answer & capture leads", render: <ChatbotDemo /> },
+  { key: "crm", label: "Lead CRM", note: "Track every lead to won", render: <CrmDemo /> },
   { key: "redesign", label: "Before / After", note: "Modernize a tired site", render: <BeforeAfterDemo /> },
 ];
 

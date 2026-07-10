@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { ArrowRight } from "./icons";
 import { nav } from "@/lib/content";
@@ -10,6 +11,11 @@ export default function Nav() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const lastY = useRef(0);
+  const pathname = usePathname();
+  const onHome = pathname === "/";
+  // In-page anchors only resolve on the home page; from any other route send
+  // them to the home page first (e.g. "#plans" → "/#plans").
+  const to = (href: string) => (href.startsWith("#") && !onHome ? `/${href}` : href);
 
   useEffect(() => {
     const onScroll = () => {
@@ -37,7 +43,7 @@ export default function Nav() {
       }`}
     >
       <nav className="container-content flex h-14 items-center justify-between">
-        <a href="#top" aria-label="Stackwrk home" className="scale-90 origin-left">
+        <a href={onHome ? "#top" : "/"} aria-label="Stackwrk home" className="scale-90 origin-left">
           <Logo />
         </a>
 
@@ -45,7 +51,7 @@ export default function Nav() {
           {nav.map((item) => (
             <a
               key={item.href}
-              href={item.href}
+              href={to(item.href)}
               className="text-[0.82rem] font-medium uppercase tracking-wide text-white/85 transition-colors hover:text-lime"
             >
               {item.label}
@@ -54,7 +60,7 @@ export default function Nav() {
         </div>
 
         <div className="hidden md:block">
-          <a href="#about" className="btn-primary !rounded-md !px-5 !py-2.5 !text-[0.82rem]">
+          <a href={to("#about")} className="btn-primary !rounded-md !px-5 !py-2.5 !text-[0.82rem]">
             Book a Free Site Audit
             <ArrowRight width={15} height={15} />
           </a>
@@ -86,14 +92,14 @@ export default function Nav() {
           {nav.map((item) => (
             <a
               key={item.href}
-              href={item.href}
+              href={to(item.href)}
               onClick={() => setOpen(false)}
               className="rounded-lg px-3 py-3 text-sm font-medium uppercase tracking-wide text-white/80 hover:bg-white/[0.05]"
             >
               {item.label}
             </a>
           ))}
-          <a href="#about" onClick={() => setOpen(false)} className="btn-primary mt-2">
+          <a href={to("#about")} onClick={() => setOpen(false)} className="btn-primary mt-2">
             Book a Free Site Audit
             <ArrowRight width={16} height={16} />
           </a>
