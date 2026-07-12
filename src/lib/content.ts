@@ -26,15 +26,15 @@ export const nav = [
 ];
 
 export const hero = {
-  eyebrow: "Web development that delivers",
+  eyebrow: "Websites for fence & exterior contractors",
   // Hero mascot: transparent webp under /public (optimized from the original
   // upload). Renders via HeroMedia; falls back to the abstract gradient visual
   // if missing.
   image: "/fox.webp" as string | null,
-  titleLines: ["BOLD WEBSITES.", "REAL RESULTS."],
+  titleLines: ["WEBSITES THAT", "BOOK MORE JOBS."],
   subtitle:
-    "Custom web apps and sites that solve real problems, drive bookings, leads, and revenue.",
-  primaryCta: "Book a Free Site Audit",
+    "Custom, mobile-first sites for fence & exterior contractors — built to turn “near me” searches into quote requests. Live in about two weeks.",
+  primaryCta: "Get a Free Site Mockup",
   secondaryCta: "See My Work",
   highlights: [
     { title: "2-Week Launch", sub: "Most projects go live in ~2 weeks" },
@@ -66,37 +66,25 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    name: "SeaTop Homes",
-    tag: "Resilient homes, beautifully engineered.",
+    name: "Above Air",
+    tag: "South-Florida HVAC contractor.",
     blurb:
-      "Interactive tools that help buyers make smarter decisions with confidence.",
-    features: ["Flood zone checker", "ROI calculator", "Home configurator"],
-    href: "https://seatophomes.com",
-    result: "Buyers self-qualify with the flood-zone + ROI tools before they ever pick up the phone.",
-    accent: "from-sky-800 via-indigo-900 to-ink-700",
-    image: "/shots/seatophomes.webp",
+      "A contractor site with an instant-estimate flow, live comfort slider, financing and bilingual support — built to book service calls.",
+    features: ["Instant estimate flow", "Click-to-call + quote form", "English / Español"],
+    href: "https://above-air-inc.vercel.app",
+    result: "Turns after-hours emergencies into booked service calls — the same lead-first playbook I build for fence & exterior pros.",
+    accent: "from-emerald-800 via-teal-900 to-ink-700",
+    image: "/shots/aboveair.webp",
     tier: "featured",
   },
   {
-    name: "YatHub",
-    tag: "The pro network for people who run yachting.",
-    blurb:
-      "A dual-sided marketplace for verified docks, crew, yacht jobs and marinas — book in real time.",
-    features: ["Dock & marina search", "Crew & yacht jobs board", "Verified listings + instant book"],
-    href: "https://yathub.com",
-    result: "Owners, crew and captains match and book in real time — no more phone tag or double-bookings.",
-    accent: "from-teal-800 via-cyan-900 to-ink-700",
-    image: "/shots/yathub.webp",
-    tier: "main",
-  },
-  {
     name: "Marco's · FTL",
-    tag: "Where the steak sizzles and the band plays on.",
+    tag: "Local business, booked solid.",
     blurb:
       "An upscale steakhouse experience — editorial design with reservations, menus and live events.",
     features: ["Table reservations", "Digital menus & events", "High-end editorial design"],
     href: "https://marcos-restaurant-demo.vercel.app",
-    result: "A high-end first impression that turns browsers into booked tables the moment they land.",
+    result: "A first impression that turns browsers into booked tables the moment they land.",
     accent: "from-amber-900 via-rose-950 to-ink-800",
     image: "/shots/marcos.webp",
     badge: "Demo build",
@@ -104,26 +92,38 @@ export const projects: Project[] = [
   },
   {
     name: "Capoeira Auê",
-    tag: "Movement. Culture. Community.",
+    tag: "Local service, booked from any phone.",
     blurb:
-      "Local service website with class scheduling, multi-language and SEO.",
-    features: ["Class scheduling system", "English / Português / Español", "Custom CMS for content"],
+      "A local-service site with online scheduling, multi-language and local SEO that ranks.",
+    features: ["Online scheduling", "English / Português / Español", "Local SEO that ranks"],
     href: "https://capoeira-aue.vercel.app",
-    result: "Classes fill from any phone, in 3 languages, with local SEO that actually ranks.",
+    result: "Fills the schedule from any phone, in 3 languages, with local SEO that actually shows up.",
     accent: "from-amber-800 via-rose-900 to-ink-700",
     image: "/shots/capoeira-aue.webp",
+    tier: "main",
+  },
+  {
+    name: "SeaTop Homes",
+    tag: "Home services, self-qualifying leads.",
+    blurb:
+      "Interactive tools that help buyers make smarter decisions with confidence.",
+    features: ["Flood zone checker", "ROI calculator", "Home configurator"],
+    href: "https://seatophomes.com",
+    result: "Buyers self-qualify with the flood-zone + ROI tools before they ever pick up the phone.",
+    accent: "from-sky-800 via-indigo-900 to-ink-700",
+    image: "/shots/seatophomes.webp",
     tier: "more",
   },
   {
-    name: "Above Air",
-    tag: "We turn Florida heat into comfort.",
+    name: "YatHub",
+    tag: "Custom booking platform, built from scratch.",
     blurb:
-      "A South-Florida HVAC site with an instant-estimate flow, live comfort slider, financing and bilingual support.",
-    features: ["Instant estimate flow", "First-responder rates", "English / Español"],
-    href: "https://above-air-inc.vercel.app",
-    result: "Turns after-hours heat emergencies into booked service calls.",
-    accent: "from-emerald-800 via-teal-900 to-ink-700",
-    image: "/shots/aboveair.webp",
+      "A dual-sided marketplace for verified docks, crew, yacht jobs and marinas — book in real time.",
+    features: ["Real-time search & booking", "Verified listings", "Custom-coded, not a template"],
+    href: "https://yathub.com",
+    result: "Proof I build serious, custom software — not drag-and-drop sites — when the job calls for it.",
+    accent: "from-teal-800 via-cyan-900 to-ink-700",
+    image: "/shots/yathub.webp",
     tier: "more",
   },
 ];
@@ -143,8 +143,8 @@ export const whatYouGet = {
     },
     {
       icon: "stack",
-      title: "Modern Tech",
-      body: "Next.js, TypeScript, Tailwind, Supabase & more.",
+      title: "Custom-Coded",
+      body: "Hand-built to load fast and rank — never a slow, cookie-cutter template.",
     },
     {
       icon: "target",
@@ -158,20 +158,20 @@ export const investment = {
   eyebrow: "Investment",
   headline: "Projects starting at",
   price: "$2,000",
-  sub: "Quality builds that pay for themselves.",
-  cta: "Book a Free Site Audit",
+  sub: "Quality builds that pay for themselves in booked jobs.",
+  cta: "Get a Free Site Mockup",
 };
 
 export const finalCta = {
-  eyebrow: "Let’s build something great",
-  heading: "Ready to get started?",
-  body: "Book a free site audit and I’ll show you exactly how we can improve your online presence and drive more results.",
-  points: ["Free 30-min audit", "Actionable insights", "No obligation"],
-  formTitle: "Book a Free Site Audit",
-  formSub: "Tell me about your project — I’ll reply within one business day.",
-  formCta: "Request My Free Audit",
-  calendlyLabel: "Prefer to pick a time? Book on Calendly",
-  trust: "Trusted by business owners across the U.S. and beyond.",
+  eyebrow: "Let’s book you more jobs",
+  heading: "Ready to book more jobs?",
+  body: "Send me your current site (or just your Facebook page) and I’ll rebuild your homepage from your own project photos — a free mockup, no obligation.",
+  points: ["Free homepage mockup", "Built from your own photos", "No obligation"],
+  formTitle: "Get a Free Site Mockup",
+  formSub: "Tell me about your business — I’ll reply within one business day.",
+  formCta: "Get My Free Mockup",
+  calendlyLabel: "Prefer to pick a time? Book a call",
+  trust: "Trusted by contractors and local businesses across South Florida.",
 };
 
 export const howItWorks = {
@@ -180,8 +180,8 @@ export const howItWorks = {
   steps: [
     {
       n: "01",
-      title: "Free audit call",
-      body: "We look at your site and goals together. You leave with a clear plan and honest advice — no obligation.",
+      title: "Free mockup",
+      body: "I rebuild your homepage from your own project photos so you see the upgrade before you spend a dollar. No obligation.",
     },
     {
       n: "02",
