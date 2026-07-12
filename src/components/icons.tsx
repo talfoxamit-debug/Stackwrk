@@ -34,6 +34,19 @@ export const Check = (p: IconProps) => (
   </svg>
 );
 
+export const Star = (p: IconProps) => (
+  <svg {...base(p)} fill="currentColor" stroke="none">
+    <path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.3l6.5-.9L12 2.5Z" />
+  </svg>
+);
+
+export const Shield = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M12 3l7 3v5c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3Z" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>
+);
+
 export const Bolt = (p: IconProps) => (
   <svg {...base(p)}>
     <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" />
