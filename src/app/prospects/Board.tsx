@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { PROSPECT_STAGES, TEMPLATES, TIER_META, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
+import TodayDriver from "./TodayDriver";
 
 const todayISO = () => new Date().toISOString().slice(0, 10);
 const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
@@ -62,6 +63,7 @@ export default function Board({ user }: { user: string }) {
   const [q, setQ] = useState("");
   const [hotOnly, setHotOnly] = useState(false);
   const [tierFilter, setTierFilter] = useState<ProspectTier | "">("");
+  const [view, setView] = useState<"today" | "board">("today");
   const [sel, setSel] = useState<Prospect | null>(null);
   const [showImport, setShowImport] = useState(false);
   const [csv, setCsv] = useState("");
@@ -159,6 +161,15 @@ export default function Board({ user }: { user: string }) {
           </div>
         </div>
 
+        {/* view toggle — Today (daily driver) vs the full board */}
+        <div className="mt-4 inline-flex rounded-lg border border-white/12 p-0.5">
+          <button onClick={() => setView("today")} className={`rounded-md px-4 py-1.5 text-xs font-bold ${view === "today" ? "bg-lime text-ink" : "text-slate-400 hover:text-slate-200"}`}>▶ Today</button>
+          <button onClick={() => setView("board")} className={`rounded-md px-4 py-1.5 text-xs font-bold ${view === "board" ? "bg-lime text-ink" : "text-slate-400 hover:text-slate-200"}`}>Full board</button>
+        </div>
+
+        {view === "today" && <TodayDriver items={items} patch={patch} onOpen={setSel} />}
+
+        {view === "board" && (<>
         {/* stats */}
         <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {[["Total", items.length, "text-white"], ["No website (hot)", hot, "text-rose-400"], ["Follow-ups due", dueToday, "text-amber-400"], ["Won", won, "text-lime"]].map(([l, n, c]) => (
@@ -219,6 +230,7 @@ export default function Board({ user }: { user: string }) {
             })}
           </div>
         </div>
+        </>)}
       </div>
 
       {/* detail drawer */}
