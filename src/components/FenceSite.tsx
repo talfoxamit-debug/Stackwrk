@@ -4,6 +4,10 @@ import { Phone, ArrowRight, Check, Star, Calendar, Shield, TrendUp } from "@/com
 import { resolveConfig, type FenceConfig } from "@/lib/fence-config";
 import FenceEstimator from "@/components/FenceEstimator";
 import { GUIDES } from "@/lib/fence-guides";
+import { CITY_RULES } from "@/lib/fence-theme";
+
+const citySlug = (c: string) => c.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const CITY_PAGES = new Set(CITY_RULES.map((r) => citySlug(r.city)));
 
 const NAVY = "#0C2333";
 const GREEN = "#18894C";
@@ -87,7 +91,8 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
           </div>
           <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
             <a href="#services" className="hover:text-slate-900">Services</a>
-            <a href="#estimate" className="hover:text-slate-900">Cost Estimator</a>
+            <a href="#estimate" className="hover:text-slate-900">Estimator</a>
+            {demo && <Link href="/demos/apex-fence/tools" className="hover:text-slate-900">Free Tools</Link>}
             <a href="#work" className="hover:text-slate-900">Our Work</a>
             {demo && <Link href="/demos/apex-fence/guides" className="hover:text-slate-900">Guides</Link>}
             <a href="#reviews" className="hover:text-slate-900">Reviews</a>
@@ -176,6 +181,13 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
             <p className="mt-3 text-slate-600">Move the sliders for a real ballpark in seconds — no email required.</p>
           </div>
           <div className="mt-10"><FenceEstimator phone={c.phone} /></div>
+          {demo && (
+            <p className="mt-6 text-center text-sm">
+              <Link href="/demos/apex-fence/tools" className="font-bold" style={{ color: GREEN }}>
+                Explore all 7 free fence tools — comparison, permits, financing &amp; more →
+              </Link>
+            </p>
+          )}
         </div>
       </section>
 
@@ -298,8 +310,11 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
         <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>Service area</p>
         <h2 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl" style={{ color: NAVY }}>Proudly serving {c.region}</h2>
         <div className="mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2">
-          {c.areas.map((a) => <span key={a} className="rounded-full border border-black/10 bg-white px-4 py-1.5 text-sm font-medium text-slate-600">{a}</span>)}
+          {c.areas.map((a) => (demo && CITY_PAGES.has(citySlug(a)))
+            ? <Link key={a} href={`/demos/apex-fence/areas/${citySlug(a)}`} className="rounded-full border border-black/10 bg-white px-4 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:border-emerald-500 hover:text-slate-900">{a}</Link>
+            : <span key={a} className="rounded-full border border-black/10 bg-white px-4 py-1.5 text-sm font-medium text-slate-600">{a}</span>)}
         </div>
+        {demo && <p className="mt-4 text-xs text-slate-400">Each city links to its own local page — great for ranking in every town you serve.</p>}
       </section>
 
       {/* QUOTE CTA */}
