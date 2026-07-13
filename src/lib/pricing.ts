@@ -194,7 +194,7 @@ export const carePlans = [
     name: "Partner",
     price: 499,
     stripeUrl: "",
-    tagline: "A technical partner on retainer.",
+    tagline: "Your dedicated web & software partner, on call.",
     features: [
       "Everything in Growth",
       "4h dev time every month",

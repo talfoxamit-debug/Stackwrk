@@ -12,18 +12,15 @@ import { carePlans, money } from "@/lib/pricing";
 const capabilities = [
   {
     title: "Automations",
-    blurb: "Kill the manual work — ops, follow-ups and reporting wired together and running on their own.",
-    from: "$2,500",
+    blurb: "Kill the busywork — quotes, follow-ups, invoicing and reporting wired together and running on their own.",
   },
   {
     title: "AI & CRM",
-    blurb: "A 24/7 site assistant that qualifies and books leads, plus a custom CRM with no per-seat fees.",
-    from: "$1,500",
+    blurb: "A 24/7 site assistant that answers questions and books leads, plus a custom CRM built around your process — no per-seat fees.",
   },
   {
     title: "Growth systems",
-    blurb: "Ongoing CRO, landing pages and a fractional-CTO partner to keep everything compounding.",
-    from: "$1,000/mo",
+    blurb: "Landing pages, conversion tuning and a fractional-CTO partner on call to keep the whole thing improving.",
   },
 ];
 
@@ -49,20 +46,18 @@ export default function Plans() {
         {/* Care plans — the recurring core */}
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {carePlans.map((plan, i) => (
-            <Reveal
-              as="article"
-              key={plan.id}
-              delay={i * 110}
-              className={`card group relative flex flex-col overflow-hidden p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-lime/40 hover:shadow-[0_28px_70px_-38px_rgba(203,255,60,0.5)] ${
-                plan.highlight ? "border-lime/35 shadow-[0_0_50px_-24px_rgba(203,255,60,0.45)]" : ""
-              }`}
-            >
-              <CardSpotlight />
+            <Reveal as="div" key={plan.id} delay={i * 110} className="relative">
               {plan.highlight && (
-                <span className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 rounded-full bg-lime px-3 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-ink">
+                <span className="absolute -top-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full bg-lime px-3 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-ink shadow-lg">
                   Most popular
                 </span>
               )}
+              <article
+                className={`card group relative flex h-full flex-col overflow-hidden p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-lime/40 hover:shadow-[0_28px_70px_-38px_rgba(203,255,60,0.5)] ${
+                  plan.highlight ? "border-lime/35 shadow-[0_0_50px_-24px_rgba(203,255,60,0.45)]" : ""
+                }`}
+              >
+              <CardSpotlight />
               <h3 className="relative z-10 font-display text-xl uppercase tracking-wide text-white">{plan.name}</h3>
               <p className="relative z-10 mt-1 text-sm text-white/50">{plan.tagline}</p>
               <p className="relative z-10 mt-5">
@@ -89,7 +84,7 @@ export default function Plans() {
                     <ArrowRight width={16} height={16} />
                   </a>
                   <a
-                    href="#about"
+                    href="#audit"
                     className="mt-3 block text-center text-xs text-white/50 underline-offset-4 hover:text-lime hover:underline"
                   >
                     or start with a free audit
@@ -97,13 +92,14 @@ export default function Plans() {
                 </>
               ) : (
                 <a
-                  href="#about"
+                  href="#audit"
                   className={`${plan.highlight ? "btn-primary" : "btn-ghost"} mt-7 w-full !rounded-md`}
                 >
                   Start with a free audit
                   <ArrowRight width={16} height={16} />
                 </a>
               )}
+              </article>
             </Reveal>
           ))}
         </div>
@@ -127,15 +123,12 @@ export default function Plans() {
               <CardSpotlight />
               <h4 className="relative z-10 font-display text-lg uppercase tracking-wide text-white transition-colors duration-300 group-hover:text-lime">{c.title}</h4>
               <p className="relative z-10 mt-2 flex-1 text-sm leading-relaxed text-white/55">{c.blurb}</p>
-              <p className="relative z-10 mt-4 text-xs text-white/40">
-                from <span className="font-semibold text-white/70">{c.from}</span>
-              </p>
             </Reveal>
           ))}
         </div>
 
         <Reveal className="mt-8 text-center">
-          <a href="#about" className="btn-primary !rounded-md">
+          <a href="#audit" className="btn-primary !rounded-md">
             Start with a free audit
             <ArrowRight width={16} height={16} />
           </a>

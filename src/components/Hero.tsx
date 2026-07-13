@@ -131,7 +131,7 @@ export default function Hero() {
           </p>
 
           <div className="mt-9 flex animate-fade-up flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4" style={{ animationDelay: "240ms" }}>
-            <a href="#about" className="btn-primary w-full !rounded-md sm:w-auto">
+            <a href="#mockup" className="btn-primary w-full !rounded-md sm:w-auto">
               {hero.primaryCta}
               <ArrowRight width={18} height={18} />
             </a>

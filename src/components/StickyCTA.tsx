@@ -46,7 +46,7 @@ export default function StickyCTA() {
         show ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <a href="#about" className="btn-primary flex w-full !rounded-md">
+      <a href="#audit" className="btn-primary flex w-full !rounded-md">
         {label}
         <ArrowRight width={18} height={18} />
       </a>

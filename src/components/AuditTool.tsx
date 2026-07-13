@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowRight, Check, Mail } from "./icons";
+import { site } from "@/lib/content";
 
 type CheckStatus = "pass" | "warn" | "fail";
 type Check = { label: string; status: CheckStatus; detail: string };
@@ -258,7 +259,7 @@ function ReportCapture({ result }: { result: Result }) {
             </>
           )}
         </p>
-        <a href="#about" className="btn-primary mt-2 !rounded-md">
+        <a href={site.calendlyUrl} target="_blank" rel="noopener noreferrer" className="btn-primary mt-2 !rounded-md">
           Book my free call
           <ArrowRight width={18} height={18} />
         </a>

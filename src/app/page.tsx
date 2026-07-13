@@ -14,6 +14,7 @@ import Plans from "@/components/Plans";
 import Guarantee from "@/components/Guarantee";
 import Faq from "@/components/Faq";
 import FinalCTA from "@/components/FinalCTA";
+import MockupModal from "@/components/MockupModal";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { site } from "@/lib/content";
@@ -73,6 +74,7 @@ export default function Home() {
       <FinalCTA />
       <Footer />
       <StickyCTA />
+      <MockupModal />
     </>
   );
 }

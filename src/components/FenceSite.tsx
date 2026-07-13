@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Phone, ArrowRight, Check, Star, Calendar, Shield, TrendUp } from "@/components/icons";
 import { resolveConfig, type FenceConfig } from "@/lib/fence-config";
 import FenceEstimator from "@/components/FenceEstimator";
+import FenceTicker from "@/components/FenceTicker";
 import { GUIDES } from "@/lib/fence-guides";
 import { CITY_RULES } from "@/lib/fence-theme";
 
@@ -142,6 +143,9 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
         </div>
       </section>
 
+      {/* LIVE ACTIVITY TICKER */}
+      <FenceTicker green={GREEN} />
+
       {/* TRUST STRIP */}
       <section className="border-y border-black/5 bg-white">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-5 py-6 text-center sm:grid-cols-4 sm:px-8">
@@ -209,6 +213,31 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
               <Step icon={Calendar} n={1} t="Free on-site estimate" d="We measure, talk options, and hand you a written quote." />
               <Step icon={Shield} n={2} t="We build it" d="Permits pulled, materials delivered, installed in days — not weeks." />
               <Step icon={TrendUp} n={3} t="Enjoy — and it's warrantied" d="Backed for 5 years. Refer a neighbor, get $100." />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CREW / TRUCKS */}
+      <section className="mx-auto max-w-6xl px-5 pb-4 pt-2 sm:px-8">
+        <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-black/[0.07] bg-white shadow-sm lg:grid-cols-2">
+          <div className="relative h-64 lg:h-full">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/demo/fence/g-gate.webp" alt="Our crew on the job" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(12,35,51,0.15), rgba(12,35,51,0.55))" }} />
+            <span className="absolute bottom-4 left-4 rounded-full bg-black/45 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">On the job in {c.region}</span>
+          </div>
+          <div className="p-7 sm:p-9">
+            <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>The crew</p>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight" style={{ color: NAVY }}>Owner-run, from quote to cleanup.</h2>
+            <p className="mt-3 text-slate-600">The same local crew handles your job start to finish — no subcontractors, no surprises. Uniformed, background-checked, and we haul off every scrap before we leave.</p>
+            <div className="mt-5 flex items-center gap-4">
+              <div className="flex -space-x-3">
+                {["from-emerald-500 to-teal-600", "from-sky-500 to-indigo-600", "from-amber-500 to-orange-600", "from-rose-500 to-pink-600"].map((g, i) => (
+                  <span key={i} className={`h-11 w-11 rounded-full border-2 border-white bg-gradient-to-br ${g} shadow-sm`} />
+                ))}
+              </div>
+              <p className="text-sm font-semibold" style={{ color: NAVY }}>{c.jobs} fences installed · {c.rating}★ across {c.reviewCount} reviews</p>
             </div>
           </div>
         </div>

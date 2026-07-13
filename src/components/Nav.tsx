@@ -64,7 +64,7 @@ export default function Nav() {
         </div>
 
         <div className="hidden md:block">
-          <a href={to("#about")} className="btn-primary !rounded-md !px-5 !py-2.5 !text-[0.82rem]">
+          <a href={to("#mockup")} className="btn-primary !rounded-md !px-5 !py-2.5 !text-[0.82rem]">
             Get a Free Mockup
             <ArrowRight width={15} height={15} />
           </a>
@@ -103,7 +103,7 @@ export default function Nav() {
               {item.label}
             </a>
           ))}
-          <a href={to("#about")} onClick={() => setOpen(false)} className="btn-primary mt-2">
+          <a href={to("#mockup")} onClick={() => setOpen(false)} className="btn-primary mt-2">
             Get a Free Mockup
             <ArrowRight width={16} height={16} />
           </a>
