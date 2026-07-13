@@ -86,7 +86,7 @@ If it is, I'll build you a free homepage mockup from your own project photos —
     key: "call_vm",
     label: "Voicemail",
     channel: "call",
-    body: `"Hi {{owner}}, this is Tal with Stackwrk — I build websites for fence companies in {{city}}. I made a quick concept of what your site could look like and wanted to send it over. Shoot me a text at [your number] and I'll get it to you. Thanks!"`,
+    body: `"Hi {{owner}}, this is Tal with Stackwrk — I build websites for fence companies in {{city}}. I made a quick concept of what your site could look like and wanted to send it over. Shoot me a text at (754) 282-2149 and I'll get it to you. Thanks!"`,
   },
   {
     key: "sms",
