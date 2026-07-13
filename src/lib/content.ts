@@ -62,6 +62,7 @@ export type Project = {
   image?: string; // real screenshot under /public/shots
   badge?: string; // overlay label on the screenshot (default "Live project")
   tier?: "featured" | "main" | "more"; // showcase prominence
+  demo?: boolean; // a demo/concept build, not a client's live site — links say "View demo site"
 };
 
 export const projects: Project[] = [
@@ -75,8 +76,9 @@ export const projects: Project[] = [
     result: "This is the exact site I build for fence & exterior contractors — yours gets your name, your photos, your number.",
     accent: "from-emerald-800 via-teal-900 to-ink-700",
     image: "/shots/apexfence.webp",
-    badge: "Concept build",
+    badge: "Demo site",
     tier: "featured",
+    demo: true,
   },
   {
     name: "Above Air",
@@ -100,8 +102,9 @@ export const projects: Project[] = [
     result: "A first impression that turns browsers into booked tables the moment they land.",
     accent: "from-amber-900 via-rose-950 to-ink-800",
     image: "/shots/marcos.webp",
-    badge: "Demo build",
+    badge: "Demo site",
     tier: "main",
+    demo: true,
   },
   {
     name: "Capoeira Auê",

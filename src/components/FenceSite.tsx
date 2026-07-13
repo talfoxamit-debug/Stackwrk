@@ -1,25 +1,13 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { Phone, ArrowRight, Check, Star, Calendar, Shield, TrendUp } from "@/components/icons";
 import { resolveConfig, type FenceConfig } from "@/lib/fence-config";
+import FenceEstimator from "@/components/FenceEstimator";
+import { GUIDES } from "@/lib/fence-guides";
 
 const NAVY = "#0C2333";
 const GREEN = "#18894C";
 const GREEN_BRIGHT = "#1FA85E";
-
-function FenceBoards({ tone = "wood" }: { tone?: "wood" | "vinyl" | "aluminum" }) {
-  const palettes = {
-    wood: ["#b07d45", "#9a6a38", "#a5743f", "#8f6132", "#ac7a43", "#946835"],
-    vinyl: ["#f4f4f1", "#e9e9e4", "#efefea", "#e3e3dd", "#f1f1ec", "#e7e7e1"],
-    aluminum: ["#3a4650", "#313c45", "#37434c", "#2c363e", "#39454e", "#2f3a42"],
-  } as const;
-  return (
-    <div className="absolute inset-0 flex flex-col gap-[3px]">
-      {palettes[tone].map((c, i) => (
-        <div key={i} className="flex-1" style={{ background: `linear-gradient(180deg, ${c} 0%, rgba(0,0,0,0.18) 100%), ${c}`, boxShadow: "inset 0 2px 0 rgba(255,255,255,0.12), inset 0 -3px 6px rgba(0,0,0,0.22)", backgroundImage: "repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 9px)" }} />
-      ))}
-    </div>
-  );
-}
 
 function Step({ icon: Icon, n, t, d }: { icon: (p: { width?: number; height?: number }) => ReactNode; n: number; t: string; d: string }) {
   return (
@@ -44,19 +32,52 @@ function Wordmark({ business }: { business: string }) {
 
 const tel = (p: string) => `tel:${p.replace(/[^0-9]/g, "")}`;
 
+/** Services showcase — each card maps to one of our real project photos, so the
+ *  labels and imagery always match (no stock-photo mismatch). */
 const services = [
-  { t: "Wood Fences", d: "Cedar, pine & custom privacy fencing — warm, classic, built to last.", tone: "wood" as const },
-  { t: "Vinyl Fences", d: "Low-maintenance, storm-rated vinyl in white, tan & more.", tone: "vinyl" as const },
-  { t: "Aluminum & Metal", d: "Sleek, rust-proof ornamental fencing for pools & yards.", tone: "aluminum" as const },
-  { t: "Pool Safety Fences", d: "Code-compliant barriers that keep families safe.", tone: "aluminum" as const },
-  { t: "Gates & Access", d: "Automatic driveway gates, keypads & pedestrian gates.", tone: "wood" as const },
-  { t: "Chain-Link", d: "Durable, affordable perimeter and commercial fencing.", tone: "aluminum" as const },
+  { t: "Wood Privacy Fences", d: "Cedar & pine privacy fencing — warm, classic, built for South-Florida yards.", img: "/demo/fence/g-cedar.webp" },
+  { t: "Vinyl Fences", d: "Low-maintenance, storm-rated vinyl in white, tan & more. Zero upkeep.", img: "/demo/fence/g-vinyl.webp" },
+  { t: "Custom Gates & Access", d: "Matching walk gates, double drive gates, keypads & automation.", img: "/demo/fence/g-gate.webp" },
+  { t: "Modern Composite Screens", d: "Sleek horizontal-slat privacy screens for a contemporary look.", img: "/demo/fence/g-comp.webp" },
+  { t: "Ranch & Rail Fencing", d: "Classic 3- and 4-rail fencing for estates, acreage & paddocks.", img: "/demo/fence/g-ranch.webp" },
+  { t: "Waterfront & Estate", d: "Elegant rail and aluminum lines that hold up to salt air and sun.", img: "/demo/fence/g-rail.webp" },
 ];
 
-export default function FenceSite({ config }: { config?: Partial<FenceConfig> }) {
+const faqs = [
+  { q: "Do I need a permit for a fence in South Florida?", a: "Almost always, yes. Most Broward and Miami-Dade cities require a permit, and we pull it for you — plus the survey and inspection — so your install passes the first time." },
+  { q: "How long does installation take?", a: "Most residential fences are installed in 1–3 days once materials arrive and the permit clears. We give you a firm timeline in writing before we start." },
+  { q: "What does a new fence cost?", a: "Most projects land between $3,000 and $12,000 depending on material, height and length. Use our instant estimator above for a ballpark, then we confirm it free on-site." },
+  { q: "Do you offer financing?", a: "Yes — $0-down plans spread over 12 to 60 months, so you can start now and pay monthly. Ask us to check your rate; it won't affect your credit." },
+  { q: "Is your work warrantied?", a: "Every install is backed by a 5-year workmanship warranty on top of the manufacturer's material warranty. If anything shifts or fails, we make it right." },
+  { q: "What about my HOA?", a: "We build to HOA-approved materials, colors and heights, and can provide the spec sheets your architectural committee needs for approval." },
+];
+
+export default function FenceSite({ config, demo = false }: { config?: Partial<FenceConfig>; demo?: boolean }) {
   const c = resolveConfig(config);
+
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  };
+
   return (
     <div className="bg-[#FAFAF7] text-[#0C2333]" style={{ fontFeatureSettings: '"ss01"' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+
+      {/* DEMO BANNER — only on the showcase, never on a prospect's mockup */}
+      {demo && (
+        <div className="text-white" style={{ background: `linear-gradient(90deg, ${NAVY}, #123a52)` }}>
+          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-1.5 px-5 py-2 text-center sm:flex-row sm:px-8 sm:text-left">
+            <p className="text-xs font-semibold sm:text-sm">
+              <span className="mr-2 rounded bg-white/15 px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide">Demo</span>
+              This is a sample fencing website built by Stackwrk — not a real company.
+            </p>
+            <Link href="/" className="shrink-0 text-xs font-bold text-emerald-300 hover:text-emerald-200 sm:text-sm">Want one like this for your business? →</Link>
+          </div>
+        </div>
+      )}
+
       {/* NAV */}
       <header className="sticky top-0 z-50 border-b border-black/5 bg-white/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3 sm:px-8">
@@ -64,11 +85,12 @@ export default function FenceSite({ config }: { config?: Partial<FenceConfig> })
             <span className="flex h-8 w-8 items-center justify-center rounded-md text-white" style={{ background: GREEN }}><Shield width={17} height={17} /></span>
             <Wordmark business={c.business} />
           </div>
-          <nav className="hidden items-center gap-7 text-sm font-semibold text-slate-600 md:flex">
+          <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
             <a href="#services" className="hover:text-slate-900">Services</a>
+            <a href="#estimate" className="hover:text-slate-900">Cost Estimator</a>
             <a href="#work" className="hover:text-slate-900">Our Work</a>
+            {demo && <Link href="/demos/apex-fence/guides" className="hover:text-slate-900">Guides</Link>}
             <a href="#reviews" className="hover:text-slate-900">Reviews</a>
-            <a href="#areas" className="hover:text-slate-900">Service Area</a>
           </nav>
           <div className="flex items-center gap-3">
             <a href={tel(c.phone)} className="hidden items-center gap-1.5 text-sm font-bold sm:flex" style={{ color: NAVY }}><Phone width={15} height={15} /> {c.phone}</a>
@@ -133,15 +155,32 @@ export default function FenceSite({ config }: { config?: Partial<FenceConfig> })
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => (
             <div key={s.t} className="group overflow-hidden rounded-2xl border border-black/[0.07] bg-white shadow-sm transition-shadow hover:shadow-lg">
-              <div className="relative h-32"><FenceBoards tone={s.tone} /><div className="absolute inset-0 bg-black/10" /></div>
-              <div className="p-5"><h3 className="text-lg font-bold" style={{ color: NAVY }}>{s.t}</h3><p className="mt-1.5 text-sm leading-relaxed text-slate-600">{s.d}</p><a href="#quote" className="mt-3 inline-flex items-center gap-1 text-sm font-bold" style={{ color: GREEN }}>Get a quote <ArrowRight width={14} height={14} /></a></div>
+              <div className="relative h-40 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={s.img} alt={s.t} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(12,35,51,0) 45%, rgba(12,35,51,0.72) 100%)" }} />
+                <h3 className="absolute inset-x-0 bottom-0 p-4 text-lg font-bold text-white">{s.t}</h3>
+              </div>
+              <div className="p-5"><p className="text-sm leading-relaxed text-slate-600">{s.d}</p><a href="#quote" className="mt-3 inline-flex items-center gap-1 text-sm font-bold" style={{ color: GREEN }}>Get a quote <ArrowRight width={14} height={14} /></a></div>
             </div>
           ))}
         </div>
       </section>
 
+      {/* ESTIMATOR */}
+      <section id="estimate" className="bg-white">
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+          <div className="mx-auto max-w-xl text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>Instant estimate</p>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: NAVY }}>What will my fence cost?</h2>
+            <p className="mt-3 text-slate-600">Move the sliders for a real ballpark in seconds — no email required.</p>
+          </div>
+          <div className="mt-10"><FenceEstimator phone={c.phone} /></div>
+        </div>
+      </section>
+
       {/* WHY US */}
-      <section className="bg-white">
+      <section className="bg-[#FAFAF7]">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 sm:px-8 lg:grid-cols-2">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>Why us</p>
@@ -202,6 +241,50 @@ export default function FenceSite({ config }: { config?: Partial<FenceConfig> })
         </div>
       </section>
 
+      {/* RESOURCES / BLOG — demo only */}
+      {demo && (
+        <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>Resources</p>
+              <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: NAVY }}>Planning a fence? Start here.</h2>
+            </div>
+            <Link href="/demos/apex-fence/guides" className="hidden text-sm font-bold sm:inline" style={{ color: GREEN }}>All guides →</Link>
+          </div>
+          <div className="mt-8 grid gap-5 sm:grid-cols-3">
+            {GUIDES.map((g) => (
+              <Link key={g.slug} href={`/demos/apex-fence/guides/${g.slug}`} className="group flex flex-col rounded-2xl border border-black/[0.07] bg-white p-6 shadow-sm transition-shadow hover:shadow-lg">
+                <span className="inline-flex w-fit rounded-full bg-[#EAF6EF] px-3 py-1 text-xs font-bold" style={{ color: GREEN }}>{g.tag}</span>
+                <h3 className="mt-3 text-base font-bold leading-snug" style={{ color: NAVY }}>{g.title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{g.excerpt}</p>
+                <span className="mt-4 text-sm font-bold" style={{ color: GREEN }}>Read the guide →</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* FAQ */}
+      <section id="faq" className="bg-white">
+        <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+          <div className="text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>FAQ</p>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: NAVY }}>Questions, answered.</h2>
+          </div>
+          <div className="mt-8 divide-y divide-black/[0.07] rounded-2xl border border-black/[0.07]">
+            {faqs.map((f) => (
+              <details key={f.q} className="group px-5 py-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold" style={{ color: NAVY }}>
+                  {f.q}
+                  <span className="shrink-0 text-xl leading-none transition-transform group-open:rotate-45" style={{ color: GREEN }}>+</span>
+                </summary>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FINANCING */}
       <section className="px-5 py-6 sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 rounded-2xl px-7 py-6 text-white sm:flex-row" style={{ background: `linear-gradient(100deg,${NAVY},#123a52)` }}>
@@ -235,7 +318,7 @@ export default function FenceSite({ config }: { config?: Partial<FenceConfig> })
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-black/10 bg-white">
+      <footer className="border-t border-black/10 bg-white pb-20 sm:pb-0">
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 text-sm text-slate-500 sm:flex-row sm:justify-between sm:px-8">
           <div>
             <p className="text-base font-extrabold"><Wordmark business={c.business} /></p>
@@ -244,11 +327,18 @@ export default function FenceSite({ config }: { config?: Partial<FenceConfig> })
           </div>
           <div className="sm:text-right">
             <p className="font-semibold text-slate-700">Serving {c.region}</p>
+            {demo && <p className="mt-1"><Link href="/demos/apex-fence/guides" className="hover:text-slate-700">Fence guides &amp; resources</Link></p>}
             <p className="mt-2 text-xs">© 2026 {c.business} · Site by Stackwrk</p>
             {c.photoCredit && <p className="mt-1 text-[0.65rem] text-slate-400">{c.photoCredit}</p>}
           </div>
         </div>
       </footer>
+
+      {/* STICKY MOBILE CTA */}
+      <div className="fixed inset-x-0 bottom-0 z-50 flex gap-2 border-t border-black/10 bg-white/95 p-3 backdrop-blur sm:hidden">
+        <a href={tel(c.phone)} className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-black/10 py-2.5 text-sm font-bold" style={{ color: NAVY }}><Phone width={16} height={16} /> Call</a>
+        <a href="#quote" className="flex flex-[1.4] items-center justify-center rounded-lg py-2.5 text-sm font-bold text-white" style={{ background: GREEN }}>Get My Free Quote</a>
+      </div>
     </div>
   );
 }

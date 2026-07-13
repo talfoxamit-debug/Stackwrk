@@ -36,9 +36,9 @@ function Shot({ project, ratio = "aspect-[16/11]" }: { project: Project; ratio?:
             className="h-full w-full object-cover object-top brightness-[1.16] contrast-[1.04] saturate-[1.06] transition-transform duration-[1400ms] ease-out group-hover:scale-[1.05]"
           />
         )}
-        {/* premium glass pill — never competes with the screenshot */}
-        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-wide text-lime backdrop-blur-md">
-          <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_6px_rgba(203,255,60,0.9)]" />
+        {/* premium glass pill — a demo reads as a demo (no "live" pulse) */}
+        <span className={`absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-wide backdrop-blur-md ${project.demo ? "text-white/75" : "text-lime"}`}>
+          {!project.demo && <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_6px_rgba(203,255,60,0.9)]" />}
           {project.badge ?? "Live project"}
         </span>
       </div>
@@ -59,7 +59,7 @@ function Bullets({ items, className = "" }: { items: string[]; className?: strin
   );
 }
 
-function LiveLink({ href, pin = true }: { href: string; pin?: boolean }) {
+function LiveLink({ href, pin = true, demo = false }: { href: string; pin?: boolean; demo?: boolean }) {
   return (
     <a
       href={href}
@@ -67,7 +67,7 @@ function LiveLink({ href, pin = true }: { href: string; pin?: boolean }) {
       rel="noopener noreferrer"
       className={`${pin ? "mt-auto" : "mt-1"} inline-flex items-center gap-2 pt-4 text-[0.8rem] font-bold uppercase tracking-wide text-lime transition-[gap] group-hover:gap-3`}
     >
-      View live site
+      {demo ? "View demo site" : "View live site"}
       <ArrowRight width={15} height={15} />
     </a>
   );
@@ -154,7 +154,7 @@ export default function FeaturedProjects() {
               <p className="border-l-2 border-lime/50 pl-3 text-[0.8rem] italic leading-relaxed text-white/65">
                 {featured.result}
               </p>
-              <LiveLink href={featured.href} pin={false} />
+              <LiveLink href={featured.href} pin={false} demo={featured.demo} />
             </div>
           </div>
         </Reveal>
@@ -175,7 +175,7 @@ export default function FeaturedProjects() {
                   <h3 className="font-display text-xl uppercase leading-none text-white">{project.name}</h3>
                   <p className="text-[0.82rem] leading-relaxed text-white/55">{project.blurb}</p>
                   <Bullets items={project.features} className="mt-0.5 space-y-1.5" />
-                  <LiveLink href={project.href} />
+                  <LiveLink href={project.href} demo={project.demo} />
                 </div>
               </div>
             </Reveal>
@@ -200,7 +200,7 @@ export default function FeaturedProjects() {
                   <div className="flex flex-1 flex-col gap-1.5 p-4">
                     <h3 className="font-display text-lg uppercase leading-none text-white/90">{project.name}</h3>
                     <p className="text-[0.8rem] leading-relaxed text-white/50">{project.blurb}</p>
-                    <LiveLink href={project.href} />
+                    <LiveLink href={project.href} demo={project.demo} />
                   </div>
                 </Reveal>
               ))}
