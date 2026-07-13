@@ -39,3 +39,5 @@ next-env.d.ts
 /leads-fence-southfl.csv
 /instantly-fence-leads.csv
 /scratchpad/
+/guessed-emails-to-verify.csv
+/enrich-domains-apollo.csv

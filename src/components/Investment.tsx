@@ -44,7 +44,7 @@ export default function Investment() {
               />
               <p className="mt-3 max-w-sm text-sm text-white/55">{investment.sub}</p>
             </div>
-            <a href="#about" className="btn-primary shrink-0 !rounded-md">
+            <a href="#mockup" className="btn-primary shrink-0 !rounded-md">
               {investment.cta}
               <ArrowRight width={18} height={18} />
             </a>
