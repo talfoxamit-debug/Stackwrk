@@ -8,15 +8,29 @@ _Last updated: 2026-07-12_
 
 ---
 
-## 💳 Payments — Stripe (do this to actually collect deposits)
-- [ ] **You can wire Stripe now without the EIN** — onboard as a sole proprietor with
-      your SSN; switch it to the LLC once the EIN arrives.
-- [ ] Create Stripe **Payment Links**: a 50% deposit link per package (Launch/Growth/
-      Market Leader) + the recurring care-plan subscriptions ($99 / $249 / $499/mo).
-- [ ] Paste the deposit link into the CRM agreement generator (`payLink`) so the signed
-      agreement shows a **Pay deposit** button — one link closes + collects.
-- [ ] _(Claude)_ Wire the Stripe links into `src/lib/pricing.ts` + the agreement `payLink`.
-- [ ] Meanwhile: take deposits by **Zelle/Venmo** so a "yes" tomorrow never stalls.
+## 💳 Payments — Stripe (integration BUILT — just add your keys)
+The code is live: signed agreements show a **Pay deposit** button that creates a
+Stripe Checkout session (`/api/checkout`), a webhook records payments
+(`/api/webhooks/stripe`), and a `/agreement/paid` thank-you page. It all degrades
+gracefully until the keys are set.
+
+**To turn it on (you):**
+- [ ] **Onboard Stripe now without the EIN** — sign up as a sole proprietor with your
+      SSN; switch it to the LLC once the EIN arrives.
+- [ ] In **Vercel → Settings → Environment Variables**, add:
+      - `STRIPE_SECRET_KEY` = `sk_test_…` (test first, then `sk_live_…`)
+      - `STRIPE_WEBHOOK_SECRET` = `whsec_…` (from the webhook step below)
+      - `NEXT_PUBLIC_SITE_URL` = `https://stackwrk.com`
+- [ ] **Create the webhook:** Stripe Dashboard → Developers → Webhooks → Add endpoint
+      → URL `https://stackwrk.com/api/webhooks/stripe`, events:
+      `checkout.session.completed`, `invoice.paid`, `invoice.payment_failed`.
+      Copy its signing secret into `STRIPE_WEBHOOK_SECRET`, then redeploy.
+- [ ] _(optional)_ Run `supabase/payments.sql` to log payments in Supabase.
+- [ ] _(optional)_ For the recurring **care plans**, create 3 Stripe **Payment Links**
+      ($99 / $249 / $499/mo) and paste them into `src/lib/pricing.ts` (`stripeUrl`),
+      or send a subscription checkout via `/api/checkout` `{kind:"care"}`.
+- [ ] Test end-to-end with a test card (`4242 4242 4242 4242`) before going live.
+- [ ] Meanwhile: take deposits by **Zelle/Venmo** so a "yes" never stalls.
 
 ## 🔒 Decisions to lock (you)
 - [ ] Confirm niche: **fencing first → siding later**

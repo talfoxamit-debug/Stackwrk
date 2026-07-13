@@ -6,11 +6,28 @@ import type { AgreementConfig } from "@/lib/agreement";
 const GREEN = "#18894C";
 const NAVY = "#0C2333";
 
-export default function SignBlock({ config, depositLabel }: { config: AgreementConfig; depositLabel: string }) {
+export default function SignBlock({ config, depositLabel, depositAmount }: { config: AgreementConfig; depositLabel: string; depositAmount: number }) {
   const [signer, setSigner] = useState(config.contact || "");
   const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState<"idle" | "signing" | "signed" | "error">("idle");
   const [when, setWhen] = useState("");
+  const [paying, setPaying] = useState(false);
+  const [payMsg, setPayMsg] = useState("");
+
+  async function payDeposit() {
+    setPaying(true); setPayMsg("");
+    try {
+      const r = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kind: "deposit", amount: depositAmount, label: config.pkg, client: config.clientName, email: config.email }),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (j.ok && j.url) { window.location.href = j.url; return; }
+      setPayMsg("Online payment isn't set up yet — Tal will send you an invoice for the deposit.");
+    } catch { setPayMsg("Couldn't start checkout — Tal will send you an invoice."); }
+    setPaying(false);
+  }
 
   async function sign() {
     if (!agreed || signer.trim().length < 2 || status === "signing") return;
@@ -39,10 +56,12 @@ export default function SignBlock({ config, depositLabel }: { config: AgreementC
           <a href={config.payLink} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-lg px-6 py-3 text-sm font-bold text-white" style={{ background: GREEN }}>
             Pay {depositLabel} deposit to start →
           </a>
+        ) : payMsg ? (
+          <p className="mt-4 text-sm font-semibold" style={{ color: NAVY }}>{payMsg}</p>
         ) : (
-          <p className="mt-4 text-sm font-semibold" style={{ color: NAVY }}>
-            Next step: Tal will send your {depositLabel} deposit invoice to get started.
-          </p>
+          <button onClick={payDeposit} disabled={paying} className="mt-4 inline-flex rounded-lg px-6 py-3 text-sm font-bold text-white disabled:opacity-60" style={{ background: GREEN }}>
+            {paying ? "Starting secure checkout…" : `Pay ${depositLabel} deposit to start →`}
+          </button>
         )}
         <p className="mt-3 text-xs text-slate-400">A copy of this agreement has been recorded. Thank you!</p>
       </div>

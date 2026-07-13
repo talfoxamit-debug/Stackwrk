@@ -80,7 +80,7 @@ export default async function AgreementPage({ searchParams }: { searchParams: Pr
 
         {/* sign */}
         <div className="mt-5">
-          <SignBlock config={cfg} depositLabel={money(deposit)} />
+          <SignBlock config={cfg} depositLabel={money(deposit)} depositAmount={deposit} />
         </div>
 
         <p className="mt-4 text-center text-xs text-slate-400">Questions? Reply to Tal or email hello@stackwrk.com.</p>
