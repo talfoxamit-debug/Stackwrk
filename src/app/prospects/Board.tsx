@@ -50,15 +50,18 @@ function rowsToProspects(rows: string[][]): Prospect[] {
   }).filter((p) => p.name);
 }
 
-function fill(t: string, p: Prospect | null) {
-  const gap = p?.hasSite
+function gapFor(p: Prospect | null): string {
+  return p?.hasSite
     ? "your website could be doing a lot more to turn visitors into quote requests"
     : `you don't have a website yet — so you're invisible when homeowners search "fence company ${p?.city?.split(",")[0] || "near me"}"`;
+}
+
+function fill(t: string, p: Prospect | null) {
   return t
     .replaceAll("{{business}}", p?.name || "your company")
     .replaceAll("{{owner}}", p?.owner || "there")
     .replaceAll("{{city}}", p?.city?.split(",")[0] || "your area")
-    .replaceAll("{{gap}}", gap);
+    .replaceAll("{{gap}}", gapFor(p));
 }
 
 export default function Board({ user }: { user: string }) {
@@ -248,6 +251,22 @@ export default function Board({ user }: { user: string }) {
     a.download = "stackwrk-prospects.csv"; a.click();
   }
 
+  // Instantly needs an email per row; everything else is a custom column you
+  // can drop in as a {{merge var}} in your sequence. `icebreaker` reuses the
+  // exact same opening line as the CRM's own cold-email templates.
+  function exportInstantlyCSV() {
+    const rows = items.filter((p) => p.email && p.email.includes("@"));
+    const cols = ["email", "first_name", "company_name", "phone", "city", "website", "icebreaker"];
+    const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+    const body = [cols.join(","), ...rows.map((p) => [
+      p.email, (p.owner || "").split(" ")[0], p.name, p.phone, p.city?.split(",")[0] || "", p.website, gapFor(p),
+    ].map(esc).join(","))].join("\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([body], { type: "text/csv" }));
+    a.download = "stackwrk-instantly-leads.csv"; a.click();
+    flash(`Exported ${rows.length} with an email · ${items.length - rows.length} skipped (no email on file)`);
+  }
+
   return (
     <main className="crm-page min-h-screen">
       <div className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6">
@@ -262,6 +281,7 @@ export default function Board({ user }: { user: string }) {
             <button onClick={() => { setDraft(emptyLead()); setShowAdd(true); }} className="rounded-lg bg-lime px-3 py-2 text-xs font-bold text-ink">+ Add lead</button>
             <button onClick={() => setShowImport(true)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Import CSV</button>
             <button onClick={exportCSV} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Export</button>
+            <button onClick={exportInstantlyCSV} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">✉️ Export for Instantly</button>
             <button onClick={logout} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Sign out</button>
           </div>
         </div>

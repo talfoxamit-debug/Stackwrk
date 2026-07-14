@@ -24,6 +24,12 @@ type QuoEvent = {
  * Copy the signing secret into QUO_WEBHOOK_SECRET (new-style, starts
  * "whsec_") or QUO_WEBHOOK_SECRET_LEGACY (older app-created webhooks) —
  * Quo hands you one or the other depending on which system creates it.
+ *
+ * If your Quo workspace has numbers for more than one business (e.g. a
+ * "receive updates from all phone numbers" webhook also covers an
+ * unrelated line), set QUO_ALLOWED_NUMBERS to a comma-separated list of
+ * the Stackwrk number(s) — any event from a number not in that list is
+ * ignored, so a different business's calls never leak into this CRM.
  */
 export async function POST(req: Request) {
   const raw = await req.text();
@@ -42,8 +48,13 @@ export async function POST(req: Request) {
   const callId = (resource.id || resource.callId || context.callId) as string | undefined;
   if (!callId) return NextResponse.json({ received: true });
 
-  // File this under whichever participant isn't our own Quo line.
+  // Optional allowlist so a workspace shared with another business (a
+  // different Quo line) can't leak its calls into this CRM.
   const ownDigits = phoneDigits((context.phoneNumber as string) || "");
+  const allowlist = (process.env.QUO_ALLOWED_NUMBERS || "").split(",").map((s) => phoneDigits(s)).filter(Boolean);
+  if (allowlist.length && ownDigits && !allowlist.includes(ownDigits)) return NextResponse.json({ received: true });
+
+  // File this under whichever participant isn't our own Quo line.
   const candidates = [context.from, context.to, resource.from, resource.to].filter((x): x is string => typeof x === "string" && x.length > 0);
   const otherRaw = candidates.find((p) => phoneDigits(p) !== ownDigits) || candidates[0] || "";
   const digits = phoneDigits(otherRaw);
