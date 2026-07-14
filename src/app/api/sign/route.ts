@@ -13,7 +13,7 @@ export const runtime = "nodejs";
 // naive burst against a warm instance. IP → recent hit timestamps (ms).
 const HITS = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 5;
+const MAX_PER_WINDOW = 12;
 function rateLimited(ip: string): boolean {
   const key = ip || "unknown";
   const now = Date.now();
@@ -63,7 +63,10 @@ export async function POST(req: Request) {
       signed_at: signedAt,
       user_agent: userAgent,
     });
-    if (error) return NextResponse.json({ ok: false, error: "save_failed" }, { status: 500 });
+    // Best-effort: a DB error (e.g. the `signatures` table not created yet) must
+    // NOT block a real client from signing and paying. Log it and continue —
+    // the signed confirmation + emailed copy still go through.
+    if (error) console.error("[sign] signature insert failed:", error.message);
   }
 
   // Email a permanent copy to the client (and Tal) — best-effort, never blocks

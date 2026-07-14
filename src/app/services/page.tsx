@@ -3,7 +3,9 @@ import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import CardSpotlight from "@/components/CardSpotlight";
-import { ArrowRight } from "@/components/icons";
+import SectionSeam from "@/components/SectionSeam";
+import BrushWord from "@/components/BrushWord";
+import { ArrowRight, Check } from "@/components/icons";
 import { priceItems, money, type PriceItem } from "@/lib/pricing";
 
 export const metadata: Metadata = {
@@ -34,18 +36,30 @@ export default function ServicesPage() {
   return (
     <>
       {/* hero */}
-      <section className="relative overflow-hidden pb-6 pt-28 sm:pt-32">
-        <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-violet-600/10 blur-[100px]" />
-        <div className="container-content relative text-center">
+      <section className="relative overflow-hidden pb-8 pt-28 sm:pt-32">
+        <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.14]" />
+        <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.18),transparent_70%)] blur-2xl" />
+        <div className="pointer-events-none absolute left-[6%] top-28 h-72 w-72 rounded-full bg-lime/[0.07] blur-[90px]" />
+        {/* floating fox mascot (desktop) */}
+        <div className="pointer-events-none absolute -left-4 top-16 z-0 hidden w-[20%] max-w-[220px] xl:block" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static decorative asset */}
+          <img src="/fox-run.webp" alt="" loading="eager" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_40px_rgba(255,90,40,0.16)]" />
+        </div>
+        <div className="container-content relative z-10 text-center">
           <Reveal className="mx-auto max-w-2xl">
             <p className="eyebrow">Services</p>
-            <h1 className="mt-3 font-display text-5xl uppercase leading-[0.95] text-white sm:text-6xl">
-              More than a website. <span className="text-accent-glow">The whole stack.</span>
+            <h1 className="mt-3 font-display text-5xl uppercase leading-[0.92] text-white sm:text-6xl">
+              More than a website.<br /><BrushWord>The whole stack.</BrushWord>
             </h1>
-            <p className="mt-5 text-lg leading-relaxed text-white/60">
+            <p className="mt-8 text-lg leading-relaxed text-white/60">
               Most clients start with a website, then grow into the systems that run the business:
               automation, AI, a CRM, and a technical partner who ships. Here&rsquo;s everything we build for you.
             </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-white/50">
+              <span className="inline-flex items-center gap-1.5"><Check width={15} height={15} className="text-lime" /> One partner, whole stack</span>
+              <span className="inline-flex items-center gap-1.5"><Check width={15} height={15} className="text-lime" /> Custom-built, not templates</span>
+              <span className="inline-flex items-center gap-1.5"><Check width={15} height={15} className="text-lime" /> No lock-in</span>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -57,14 +71,17 @@ export default function ServicesPage() {
             const items = priceItems.filter((it) => it.category === g.key);
             if (!items.length) return null;
             return (
-              <Reveal as="div" key={g.key} delay={gi * 60} className="rounded-2xl border border-white/[0.07] bg-white/[0.015] p-6 sm:p-7">
+              <Reveal as="div" key={g.key} delay={gi * 60} className="rounded-2xl border border-white/[0.07] bg-white/[0.015] p-6 transition-all duration-300 hover:border-lime/20 hover:bg-white/[0.025] sm:p-7">
                 <div className="sm:flex sm:items-baseline sm:justify-between sm:gap-6">
-                  <h2 className="font-display text-2xl uppercase tracking-wide text-white">{g.title}</h2>
-                  <p className="mt-1 max-w-xl text-sm leading-relaxed text-white/55 sm:mt-0 sm:text-right">{g.blurb}</p>
+                  <h2 className="flex items-center gap-3 font-display text-2xl uppercase tracking-wide text-white">
+                    <span className="h-6 w-1 rounded-full bg-lime" />
+                    {g.title}
+                  </h2>
+                  <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-white/55 sm:mt-0 sm:text-right">{g.blurb}</p>
                 </div>
                 <div className="mt-5 grid gap-3 sm:grid-cols-2">
                   {items.map((it) => (
-                    <div key={it.id} className="group relative flex flex-col overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.02] p-4 transition-colors hover:border-lime/25">
+                    <div key={it.id} className="group relative flex flex-col overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.02] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-lime/25 hover:bg-white/[0.04] hover:shadow-[0_18px_44px_-30px_rgba(203,255,60,0.5)]">
                       <CardSpotlight />
                       <div className="relative z-10 flex items-start justify-between gap-3">
                         <h3 className="text-sm font-bold text-white">{it.label}</h3>
@@ -91,6 +108,7 @@ export default function ServicesPage() {
         </a>
       </div>
 
+      <SectionSeam hue="magenta" />
       <FinalCTA />
       <Footer />
     </>

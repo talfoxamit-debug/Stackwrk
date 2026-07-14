@@ -5,6 +5,9 @@ import { ArrowRight, Check } from "./icons";
 import { promo } from "@/lib/content";
 
 const SEEN_KEY = "stackwrk_audit_popup_seen";
+// Module-level guard: survives any component remount within a page load, so the
+// popup can never appear twice in one visit even if React re-mounts it.
+let popupHandled = false;
 const field =
   "w-full rounded-lg border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-white placeholder-white/35 outline-none transition-colors focus:border-lime/60 focus:ring-2 focus:ring-lime/20";
 
@@ -26,12 +29,18 @@ export default function AuditPopup() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    try { if (sessionStorage.getItem(SEEN_KEY)) return; } catch { /* private mode */ }
-    const t = setTimeout(() => setOpen(true), 2500);
+    if (popupHandled) return; // already shown/handled this page load
+    try { if (sessionStorage.getItem(SEEN_KEY)) { popupHandled = true; return; } } catch { /* private mode */ }
+    const t = setTimeout(() => {
+      if (popupHandled || window.location.hash === "#mockup") return; // never stack on the mockup modal
+      popupHandled = true;
+      setOpen(true);
+    }, 2500);
     return () => clearTimeout(t);
   }, []);
 
   function close() {
+    popupHandled = true;
     setOpen(false);
     try { sessionStorage.setItem(SEEN_KEY, "1"); } catch { /* ignore */ }
   }

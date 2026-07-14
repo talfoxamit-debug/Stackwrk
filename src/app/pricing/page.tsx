@@ -5,7 +5,9 @@ import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import CardSpotlight from "@/components/CardSpotlight";
-import { ArrowRight, Check } from "@/components/icons";
+import SectionSeam from "@/components/SectionSeam";
+import BrushWord from "@/components/BrushWord";
+import { ArrowRight, Check, Bolt, TrendUp } from "@/components/icons";
 import { PLAN_PRESETS } from "@/lib/agreement";
 
 export const metadata: Metadata = {
@@ -58,25 +60,43 @@ export default function PricingPage() {
   return (
     <>
       {/* hero */}
-      <section className="relative overflow-hidden pb-6 pt-28 sm:pt-32">
-        <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-lime/[0.06] blur-[100px]" />
-        <div className="container-content relative text-center">
+      <section className="relative overflow-hidden pb-8 pt-28 sm:pt-32">
+        <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.14]" />
+        <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(203,255,60,0.12),transparent_70%)] blur-2xl" />
+        <div className="pointer-events-none absolute right-[6%] top-24 h-72 w-72 rounded-full bg-violet-600/15 blur-[90px]" />
+        {/* floating fox mascot (desktop) */}
+        <div className="pointer-events-none absolute -right-6 top-16 z-0 hidden w-[22%] max-w-[240px] xl:block" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static decorative asset */}
+          <img src="/fox-proud.webp" alt="" loading="eager" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_40px_rgba(203,255,60,0.18)]" />
+        </div>
+        <div className="container-content relative z-10 text-center">
           <Reveal className="mx-auto max-w-2xl">
             <p className="eyebrow">Pricing</p>
-            <h1 className="mt-3 font-display text-5xl uppercase leading-[0.95] text-white sm:text-6xl">
-              Fixed prices. <span className="text-accent-glow">No surprises.</span>
+            <h1 className="mt-3 font-display text-5xl uppercase leading-[0.92] text-white sm:text-6xl">
+              Fixed prices.<br /><BrushWord>No surprises.</BrushWord>
             </h1>
-            <p className="mt-5 text-lg leading-relaxed text-white/60">
+            <p className="mt-8 text-lg leading-relaxed text-white/60">
               You see the full price before you start. Build once, then a care plan keeps
               your site fast, secure, and bringing in jobs every month.
             </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-white/50">
+              <span className="inline-flex items-center gap-1.5"><Check width={15} height={15} className="text-lime" /> Refundable deposit</span>
+              <span className="inline-flex items-center gap-1.5"><Check width={15} height={15} className="text-lime" /> Love-the-design guarantee</span>
+              <span className="inline-flex items-center gap-1.5"><Check width={15} height={15} className="text-lime" /> You own 100%</span>
+            </div>
           </Reveal>
         </div>
       </section>
 
       {/* build tiers */}
-      <section className="py-10 sm:py-12">
+      <section className="py-8 sm:py-10">
         <div className="container-content">
+          <Reveal className="mb-7 text-center">
+            <p className="inline-flex items-center gap-2 rounded-full border border-lime/30 bg-lime/[0.08] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-lime">
+              <Bolt width={13} height={13} />
+              Founding-client rates: first 5 clients only
+            </p>
+          </Reveal>
           <div className="grid gap-5 md:grid-cols-3">
             {tiers.map((t, i) => {
               const p = PLAN_PRESETS[t.key];
@@ -122,8 +142,31 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <SectionSeam hue="violet" />
+
       {/* care plans (recurring) */}
       <Plans />
+
+      {/* value strip */}
+      <section className="py-8">
+        <div className="container-content">
+          <Reveal className="mx-auto flex max-w-3xl flex-col items-center gap-6 rounded-2xl border border-white/[0.08] bg-gradient-to-br from-violet-800/20 via-[#0b0616] to-[#0b0616] px-7 py-7 text-center sm:flex-row sm:text-left">
+            <TrendUp width={40} height={40} className="shrink-0 text-lime" />
+            <div>
+              <p className="font-display text-xl uppercase text-white sm:text-2xl">A website that pays for itself</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-white/60">
+                Most contractors make back a Growth build with a handful of extra booked jobs. Start with a free audit and we&rsquo;ll show you exactly where the leads are leaking.
+              </p>
+            </div>
+            <a href="/#audit" className="btn-primary shrink-0 !rounded-md">
+              Free audit
+              <ArrowRight width={16} height={16} />
+            </a>
+          </Reveal>
+        </div>
+      </section>
+
+      <SectionSeam hue="magenta" />
 
       {/* FAQ + CTA */}
       <Faq />
