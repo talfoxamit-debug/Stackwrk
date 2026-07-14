@@ -9,12 +9,11 @@ import DemoSection from "@/components/DemoSection";
 import WhatYouGet from "@/components/WhatYouGet";
 import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
-import Investment from "@/components/Investment";
-import Plans from "@/components/Plans";
 import Guarantee from "@/components/Guarantee";
 import Faq from "@/components/Faq";
 import FinalCTA from "@/components/FinalCTA";
 import MockupModal from "@/components/MockupModal";
+import AuditPopup from "@/components/AuditPopup";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { site } from "@/lib/content";
@@ -58,23 +57,22 @@ export default function Home() {
       <JsonLd data={orgJsonLd} />
       <Hero />
       <IndustryGreeting />
-      <FeaturedProjects />
-      <MetricsBand />
+      {/* Free audit first — the highest-value, lowest-friction entry point */}
       <AuditSection />
       <DemoSection />
+      <FeaturedProjects />
+      <MetricsBand />
       <SectionSeam hue="violet" />
       <WhatYouGet />
       <HowItWorks />
       <Testimonials />
-      <Investment />
-      <SectionSeam hue="magenta" />
-      <Plans />
       <Guarantee />
       <Faq />
       <FinalCTA />
       <Footer />
       <StickyCTA />
       <MockupModal />
+      <AuditPopup />
     </>
   );
 }

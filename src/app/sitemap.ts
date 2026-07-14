@@ -9,6 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: base, lastModified, changeFrequency: "weekly", priority: 1 },
+    { url: `${base}/services`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${base}/pricing`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/tools`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     ...freeTools.map((t) => ({
       url: `${base}/tools/${t.slug}`,

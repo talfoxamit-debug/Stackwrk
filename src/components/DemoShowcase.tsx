@@ -112,7 +112,7 @@ function BookingDemo() {
         <h4 className="mt-4 font-display text-2xl uppercase text-white">You&rsquo;re booked!</h4>
         <p className="mt-2 max-w-xs text-sm text-white/65">
           <span className="font-semibold text-lime">{confirmed.when}</span>.{" "}
-          {emailed ? "A confirmation just hit your inbox." : "I’ll confirm by email shortly."}
+          {emailed ? "A confirmation just hit your inbox." : "We’ll confirm by email shortly."}
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <a href={confirmed.cal} target="_blank" rel="noopener noreferrer" className="btn-primary !rounded-md !py-2.5 !text-xs">
@@ -765,7 +765,7 @@ export default function DemoShowcase() {
               <Sparkles width={14} height={14} /> Live product lab
             </p>
             <p className="mt-2 hidden text-sm leading-relaxed text-white/55 lg:block">
-              Real features I build into client sites. Pick one and try it. Every click works.
+              Real features we build into client sites. Pick one and try it. Every click works.
             </p>
             {/* Mobile hint that the tools scroll sideways */}
             <p className="mt-2 flex items-center gap-1.5 text-[0.75rem] font-medium text-white/40 lg:hidden">

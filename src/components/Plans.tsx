@@ -4,25 +4,9 @@ import { ArrowRight, Bolt, Check } from "./icons";
 import { carePlans, money } from "@/lib/pricing";
 
 /**
- * Public pricing. Care tiers sit on the market's tier boundaries ($99/$249/$499)
- * with founding-client framing. The main goal of the page is still booking a
- * free audit — so "Beyond websites" is presented as capabilities, not a menu.
+ * Public care-plan pricing (the recurring core). Lives on /pricing. The wider
+ * capabilities menu lives on /services.
  */
-
-const capabilities = [
-  {
-    title: "Automations",
-    blurb: "Kill the busywork: quotes, follow-ups, invoicing and reporting wired together and running on their own.",
-  },
-  {
-    title: "AI & CRM",
-    blurb: "A 24/7 site assistant that answers questions and books leads, plus a custom CRM built around your process, with no per-seat fees.",
-  },
-  {
-    title: "Growth systems",
-    blurb: "Landing pages, conversion tuning and a fractional-CTO partner on call to keep the whole thing improving.",
-  },
-];
 
 export default function Plans() {
   return (
@@ -104,34 +88,15 @@ export default function Plans() {
           ))}
         </div>
 
-        {/* Beyond websites — capabilities, not a price menu */}
-        <Reveal className="mt-12 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Beyond websites</p>
-          <h3 className="mt-2 font-display text-2xl uppercase text-white/90 sm:text-3xl">
-            I build the whole stack
-          </h3>
-        </Reveal>
-
-        <div className="mt-7 grid gap-4 md:grid-cols-3">
-          {capabilities.map((c, i) => (
-            <Reveal
-              as="div"
-              key={c.title}
-              delay={i * 90}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.015] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-lime/25 hover:bg-white/[0.03]"
-            >
-              <CardSpotlight />
-              <h4 className="relative z-10 font-display text-lg uppercase tracking-wide text-white transition-colors duration-300 group-hover:text-lime">{c.title}</h4>
-              <p className="relative z-10 mt-2 flex-1 text-sm leading-relaxed text-white/55">{c.blurb}</p>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal className="mt-8 text-center">
-          <a href="#audit" className="btn-primary !rounded-md">
+        <Reveal className="mt-9 text-center">
+          <a href="/#audit" className="btn-primary !rounded-md">
             Start with a free audit
             <ArrowRight width={16} height={16} />
           </a>
+          <p className="mt-3 text-sm text-white/45">
+            Need more than a website?{" "}
+            <a href="/services" className="text-lime underline-offset-4 hover:underline">See all services →</a>
+          </p>
         </Reveal>
       </div>
     </section>

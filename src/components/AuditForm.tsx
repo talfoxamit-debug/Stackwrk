@@ -36,7 +36,7 @@ export default function AuditForm() {
       if (res.status === 503) {
         // Not configured yet — still give the user a path forward.
         setErrorMsg(
-          "The form isn’t live just yet. Please email hello@stackwrk.com and I’ll get right back to you.",
+          "The form isn’t live just yet. Please email hello@stackwrk.com and we’ll get right back to you.",
         );
       } else if (json.message) {
         setErrorMsg(json.message);
@@ -58,7 +58,7 @@ export default function AuditForm() {
         </span>
         <h4 className="mt-4 font-display text-xl uppercase text-white">Request received</h4>
         <p className="mt-2 max-w-xs text-sm text-white/60">
-          Thanks, I’ll review your site and reply within one business day.
+          Thanks, we’ll review your site and reply within one business day.
         </p>
       </div>
     );
@@ -96,11 +96,11 @@ export default function AuditForm() {
       </label>
 
       <label className="block">
-        <span className="sr-only">What can I help with?</span>
+        <span className="sr-only">What can we help with?</span>
         <textarea
           name="message"
           rows={3}
-          placeholder="What can I help with? (optional)"
+          placeholder="What can we help with? (optional)"
           className={`${field} resize-none`}
         />
       </label>

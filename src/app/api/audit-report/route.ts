@@ -86,7 +86,9 @@ export async function POST(req: Request) {
     );
   }
 
-  const summary = reportSummaryText(name, result);
+  const note = clamp(body.note, 200);
+  const source = clamp(body.source, 40) || "instant_audit";
+  const summary = (note ? `[${note}] ` : "") + reportSummaryText(name, result);
 
   // 1) Store the lead + audit in the CRM (best-effort; graceful if unconfigured).
   let stored = false;
@@ -98,7 +100,7 @@ export async function POST(req: Request) {
         email,
         website: result.finalUrl || null,
         message: summary,
-        source: "instant_audit",
+        source,
       });
       if (error) console.error("[audit-report] lead insert failed:", error.message);
       else stored = true;

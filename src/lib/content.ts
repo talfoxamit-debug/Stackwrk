@@ -19,11 +19,19 @@ export const site = {
 
 export const nav = [
   { label: "Work", href: "#work" },
-  { label: "Process", href: "#process" },
-  { label: "Pricing", href: "#plans" },
+  { label: "Services", href: "/services" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Free tools", href: "/tools" },
-  { label: "About", href: "#about" },
+  { label: "Contact", href: "#mockup" },
 ];
+
+// Limited-time offer surfaced in the entry popup + audit section.
+export const promo = {
+  badge: "Limited time",
+  headline: "Free website audit + 10% off your new site",
+  sub: "See exactly what's costing you jobs, then get 10% off your build when you start with us.",
+  discountNote: "Your 10% founding discount is locked in.",
+};
 
 export const hero = {
   eyebrow: "Websites for fence & exterior contractors",
@@ -31,15 +39,15 @@ export const hero = {
   // upload). Renders via HeroMedia; falls back to the abstract gradient visual
   // if missing.
   image: "/fox.webp" as string | null,
-  titleLines: ["WEBSITES THAT", "BOOK MORE JOBS."],
+  titleLines: ["DESIGNED TO", "GROW YOUR BUSINESS"],
   subtitle:
-    "Custom, mobile-first sites for fence & exterior contractors, built to turn “near me” searches into quote requests. Live in about two weeks.",
+    "Custom, mobile-first websites that turn “near me” searches into booked jobs for your fence or exterior business, so you win more work without the busywork. Live in about two weeks.",
   primaryCta: "Get a Free Site Mockup",
   secondaryCta: "See Live Examples",
   highlights: [
-    { title: "2-Week Launch", sub: "Most projects go live in ~2 weeks" },
-    { title: "Built to Convert", sub: "Engineered for leads & bookings" },
-    { title: "Work Direct With Me", sub: "No agencies. No handoffs." },
+    { title: "Live In ~2 Weeks", sub: "Your site up and earning fast" },
+    { title: "More Booked Jobs", sub: "Built to turn visitors into leads" },
+    { title: "A Team Behind You", sub: "Direct access, no agency runaround" },
   ],
 };
 
@@ -73,7 +81,7 @@ export const projects: Project[] = [
       "A homeowner-facing fence company site with an instant quote widget, reviews, financing and service-area pages, all built to turn searches into quote requests.",
     features: ["Instant quote form + click-to-call", "Reviews, warranty & trust signals", "Financing + service-area pages"],
     href: "/demos/apex-fence",
-    result: "This is the exact site I build for fence & exterior contractors. Yours gets your name, your photos, your number.",
+    result: "This is the exact site we build for fence & exterior contractors. Yours gets your name, your photos, your number.",
     accent: "from-emerald-800 via-teal-900 to-ink-700",
     image: "/shots/apexfence.webp",
     badge: "Demo site",
@@ -137,7 +145,7 @@ export const projects: Project[] = [
       "A dual-sided marketplace for verified docks, crew, yacht jobs and marinas, all bookable in real time.",
     features: ["Real-time search & booking", "Verified listings", "Custom-coded, not a template"],
     href: "https://yathub.com",
-    result: "Proof I build serious, custom software (not drag-and-drop sites) when the job calls for it.",
+    result: "Proof we build serious, custom software (not drag-and-drop sites) when the job calls for it.",
     accent: "from-teal-800 via-cyan-900 to-ink-700",
     image: "/shots/yathub.webp",
     tier: "more",
@@ -181,10 +189,10 @@ export const investment = {
 export const finalCta = {
   eyebrow: "Let’s book you more jobs",
   heading: "Ready to book more jobs?",
-  body: "Send me your current site (or just your Facebook page) and I’ll rebuild your homepage from your own project photos. A free mockup, no obligation.",
+  body: "Send us your current site (or just your Facebook page) and we’ll rebuild your homepage from your own project photos. A free mockup, no obligation.",
   points: ["Free homepage mockup", "Built from your own photos", "No obligation"],
   formTitle: "Get a Free Site Mockup",
-  formSub: "Tell me about your business, and I’ll reply within one business day.",
+  formSub: "Tell us about your business, and we’ll reply within one business day.",
   formCta: "Get My Free Mockup",
   calendlyLabel: "Prefer to pick a time? Book a call",
   trust: "Trusted by contractors and local businesses across South Florida.",
@@ -197,11 +205,11 @@ export const howItWorks = {
     {
       n: "01",
       title: "Free mockup",
-      body: "I rebuild your homepage from your own project photos so you see the upgrade before you spend a dollar. No obligation.",
+      body: "We rebuild your homepage from your own project photos so you see the upgrade before you spend a dollar. No obligation.",
     },
     {
       n: "02",
-      title: "I design & build",
+      title: "We design & build",
       body: "A custom, mobile-first site with the exact tools you need: booking, calculators, chat. You review as it comes to life.",
     },
     {
@@ -240,7 +248,7 @@ export const testimonials = [
 export const guarantee = {
   eyebrow: "Zero-risk",
   heading: "Love it, or your money back.",
-  body: "You approve the design before I build the full site. If you're not thrilled, I refund your deposit, and you walk away owing nothing.",
+  body: "You approve the design before we build the full site. If you're not thrilled, we refund your deposit, and you walk away owing nothing.",
   points: [
     "Free audit, no obligation",
     "Fixed price, no surprise invoices",

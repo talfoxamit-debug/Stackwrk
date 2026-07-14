@@ -1,5 +1,6 @@
 import AuditTool from "./AuditTool";
 import Reveal from "./Reveal";
+import { Bolt } from "./icons";
 
 export default function AuditSection() {
   return (
@@ -14,6 +15,10 @@ export default function AuditSection() {
           <p className="mt-4 text-base leading-relaxed text-white/60">
             Drop in your website for an instant scorecard: speed, mobile, SEO and the
             conversion gaps quietly costing you customers.
+          </p>
+          <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-lime/30 bg-lime/[0.08] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-lime">
+            <Bolt width={13} height={13} />
+            Limited time: get 10% off your build when you start with us
           </p>
         </Reveal>
 

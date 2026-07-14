@@ -254,7 +254,7 @@ function ReportCapture({ result }: { result: Result }) {
             </>
           ) : (
             <>
-              Got it. I&rsquo;ll send the full prioritized report to{" "}
+              Got it. We&rsquo;ll send the full prioritized report to{" "}
               <span className="text-lime">{sentTo}</span> shortly, then follow up personally.
             </>
           )}

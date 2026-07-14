@@ -28,8 +28,8 @@ export default function IndustryGreeting() {
       <div className="container-content flex items-center gap-3 py-3">
         <Sparkles width={18} height={18} className="hidden shrink-0 text-lime sm:block" />
         <p className="flex-1 text-sm leading-snug text-white/90">
-          Got my note about your <span className="font-semibold capitalize text-lime">{industry}</span>{" "}
-          website? This is a taste of what I&rsquo;d build for you.
+          Got our note about your <span className="font-semibold capitalize text-lime">{industry}</span>{" "}
+          website? This is a taste of what we&rsquo;d build for you.
         </p>
         <a
           href="#audit"
