@@ -137,19 +137,39 @@ export const TEMPLATES: { key: string; label: string; channel: "email" | "call" 
   // ---------- PHONE-FIRST pipeline ----------
   {
     key: "call_open",
-    label: "1. Cold-call opener",
+    label: "1. Cold-call opener (permission-based)",
     channel: "call",
     flow: "phone",
-    body: `"Hi, is this {{owner}}? — Hey {{owner}}, my name's Tal, I build websites for fence companies here in {{city}}. I'll be quick — I actually put together a rough concept of what {{business}}'s website could look like. Can I text or email you the link? … Great, and while I've got you — are you guys getting most of your jobs from referrals right now, or online too?"
+    body: `[Pattern interrupt — lowers their guard so they don't hang up]
+"Hey, is this {{owner}}? ... Hey {{owner}}, I know you're probably out on a job so I'll be real quick — did I catch you at an okay second?"
 
-[If interested] "Perfect. Give me 10 minutes this week and I'll walk you through it — what's better, Thursday or Friday afternoon?"`,
+[If yes:]
+"Appreciate it. My name's Tal, I build websites for fence companies here in {{city}}. I was looking you up and noticed {{gap}}. So I actually put together a rough concept of what {{business}}'s site could look like — can I text you the link so you can check it out whenever?"
+
+[Goal of the call = get the YES to the text, not to sell:]
+"Perfect, what's the best cell? ... Sending it now. No pressure at all — take a look, and if you like it we'll talk. Sound good?"`,
   },
   {
     key: "call_vm",
     label: "1b. Voicemail (no answer)",
     channel: "call",
     flow: "phone",
-    body: `"Hi {{owner}}, this is Tal with Stackwrk — I build websites for fence companies in {{city}}. I made a quick concept of what your site could look like and wanted to send it over. Shoot me a text at (754) 551-2828 and I'll get it to you. Thanks!"`,
+    body: `"Hey {{owner}}, this is Tal with Stackwrk, I build websites for fence companies in {{city}}. I put together a quick concept of what your site could look like and wanted to send it over, no charge. Shoot me a text at (754) 551-2828 and I'll get it right to you. Thanks {{owner}}."`,
+  },
+  {
+    key: "call_objections",
+    label: "1c. Objection handlers",
+    channel: "call",
+    flow: "phone",
+    body: `"Not interested" → "Totally fair, most guys I call already get plenty of referrals. Quick one though: when a homeowner Googles you before they call, what do they find? ... That's the only reason I reached out. Mind if I just text you the free mockup? Zero obligation."
+
+"How much?" → "Sites start at $2,000, but honestly the mockup's free and there's no commitment. Want to just see it first, before we even talk price?"
+
+"I'm busy / on a job" → "I hear you, that's exactly why I'll just text it instead of taking your time now. What's the best cell?"
+
+"I already have a website" → "Saw it. Real quick, is it actually bringing you quote requests, or mostly just sitting there? ... I built a version focused on turning 'near me' searches into calls, want me to text it so you can compare?"
+
+"Just email me" → "Will do. So it doesn't get buried, I'll text the link too, cool? Best number?"`,
   },
   {
     key: "post_call_offer",

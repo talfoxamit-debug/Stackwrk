@@ -72,6 +72,8 @@ export default function Board({ user }: { user: string }) {
   const [view, setView] = useState<"today" | "board">("today");
   const [sel, setSel] = useState<Prospect | null>(null);
   const [showImport, setShowImport] = useState(false);
+  const [showAdd, setShowAdd] = useState(false);
+  const [draft, setDraft] = useState<Prospect>(() => emptyLead());
   const [csv, setCsv] = useState("");
   const [toast, setToast] = useState("");
   const [tagDraft, setTagDraft] = useState("");
@@ -169,11 +171,45 @@ export default function Board({ user }: { user: string }) {
 
   function doImport() {
     const parsed = rowsToProspects(parseCSV(csv));
-    const existing = new Set(items.map((i) => (i.name + i.phone).toLowerCase()));
-    const fresh = parsed.filter((d) => !existing.has((d.name + d.phone).toLowerCase()));
+    const existingKeys = new Set(items.map((i) => (i.name + i.phone).toLowerCase()));
+    const existingDials = new Set(items.map((i) => phoneDigits(i.phone)).filter((d) => d.length === 10));
+    const seenDials = new Set<string>();
+    let dupes = 0, tollfree = 0;
+    const fresh: Prospect[] = [];
+    for (const d of parsed) {
+      const pc = phoneCheck(d.phone);
+      if (pc.flag === "tollfree") { tollfree++; continue; } // chains/aggregators — never enter the CRM
+      const dial = phoneDigits(d.phone);
+      const isDup = existingKeys.has((d.name + d.phone).toLowerCase())
+        || (dial.length === 10 && (existingDials.has(dial) || seenDials.has(dial)));
+      if (isDup) { dupes++; continue; }
+      if (dial.length === 10) seenDials.add(dial);
+      if (pc.flag === "outarea") d.tier = "verify"; // out-of-area → verify before dialing
+      fresh.push(d);
+    }
     setItems((xs) => [...xs, ...fresh]);
     setShowImport(false); setCsv("");
-    flash(`Imported ${fresh.length} new (${parsed.length - fresh.length} dupes skipped)`);
+    flash(`Imported ${fresh.length} · skipped ${dupes} dupes, ${tollfree} toll-free`);
+  }
+
+  function emptyLead(): Prospect {
+    return {
+      id: uid(), name: "", phone: "", email: "", website: "", hasSite: false,
+      city: "", street: "", owner: "", stage: "new", nextFollowUp: "", lastContacted: "",
+      notes: "", createdAt: Date.now(), source: "manual", tier: "call",
+    };
+  }
+  function addLead() {
+    const name = draft.name.trim();
+    if (!name) { flash("Business name is required"); return; }
+    const lead: Prospect = {
+      ...draft, name, phone: draft.phone.trim(), email: draft.email.trim(),
+      website: draft.website.trim(), owner: draft.owner.trim(), city: draft.city.trim(),
+      hasSite: !!draft.website.trim(), tier: draft.website.trim() ? undefined : "call",
+    };
+    setItems((xs) => [lead, ...xs]);
+    setShowAdd(false); setDraft(emptyLead());
+    flash(`Added ${name}`);
   }
 
   function skipBadNumbers() {
@@ -205,6 +241,7 @@ export default function Board({ user }: { user: string }) {
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <button onClick={toggleTheme} title="Toggle day / night" className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">{theme === "day" ? "🌙 Night" : "☀️ Day"}</button>
+            <button onClick={() => { setDraft(emptyLead()); setShowAdd(true); }} className="rounded-lg bg-lime px-3 py-2 text-xs font-bold text-ink">+ Add lead</button>
             <button onClick={() => setShowImport(true)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Import CSV</button>
             <button onClick={exportCSV} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Export</button>
             <button onClick={logout} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Sign out</button>
@@ -374,7 +411,7 @@ export default function Board({ user }: { user: string }) {
               {/* call script — exactly what to say, filled in for this lead */}
               <div className="mt-5 rounded-lg border border-emerald-200 bg-emerald-50/60 p-3 dark:border-lime/25 dark:bg-lime/[0.06]">
                 <p className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-lime">📞 Call script — {p.owner || "them"}</p>
-                {["call_open", "call_vm"].map((key) => {
+                {["call_open", "call_vm", "call_objections"].map((key) => {
                   const t = TEMPLATES.find((x) => x.key === key);
                   if (!t) return null;
                   return (
@@ -510,6 +547,40 @@ export default function Board({ user }: { user: string }) {
             <div className="mt-3 flex justify-end gap-2">
               <button onClick={() => setShowImport(false)} className="rounded-lg px-4 py-2 text-sm crm-btn">Cancel</button>
               <button onClick={doImport} className="rounded-lg bg-lime px-4 py-2 text-sm font-bold text-ink">Import</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* add-lead modal — for a business you called or found that isn't in the list */}
+      {showAdd && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowAdd(false)}>
+          <div className="w-full max-w-md rounded-2xl border p-5 crm-drawer" onClick={(e) => e.stopPropagation()}>
+            <h2 className="text-lg font-bold crm-strong">Add a lead</h2>
+            <p className="mt-1 text-xs crm-muted">A business you called or found that isn&rsquo;t in the list. It drops into the New column, ready to work.</p>
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <label className="col-span-2 text-xs font-semibold crm-muted">Business name *
+                <input autoFocus value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} onKeyDown={(e) => { if (e.key === "Enter") addLead(); }} placeholder="e.g. Apex Fence Co." className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
+              </label>
+              <label className="text-xs font-semibold crm-muted">Phone
+                <input type="tel" value={draft.phone} onChange={(e) => setDraft({ ...draft, phone: e.target.value })} placeholder="(954) 555-0100" className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
+              </label>
+              <label className="text-xs font-semibold crm-muted">City
+                <input value={draft.city} onChange={(e) => setDraft({ ...draft, city: e.target.value })} placeholder="Fort Lauderdale" className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
+              </label>
+              <label className="text-xs font-semibold crm-muted">Contact name
+                <input value={draft.owner} onChange={(e) => setDraft({ ...draft, owner: e.target.value })} placeholder="e.g. Mike" className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
+              </label>
+              <label className="text-xs font-semibold crm-muted">Email
+                <input type="email" value={draft.email} onChange={(e) => setDraft({ ...draft, email: e.target.value })} placeholder="optional" className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
+              </label>
+              <label className="col-span-2 text-xs font-semibold crm-muted">Website
+                <input value={draft.website} onChange={(e) => setDraft({ ...draft, website: e.target.value })} placeholder="leave blank if they have no site — that's your pitch" className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
+              </label>
+            </div>
+            <div className="mt-4 flex justify-end gap-2">
+              <button onClick={() => setShowAdd(false)} className="rounded-lg px-4 py-2 text-sm crm-btn">Cancel</button>
+              <button onClick={addLead} className="rounded-lg bg-lime px-4 py-2 text-sm font-bold text-ink">Add lead</button>
             </div>
           </div>
         </div>
