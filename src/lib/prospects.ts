@@ -140,13 +140,18 @@ export const TEMPLATES: { key: string; label: string; channel: "email" | "call" 
     label: "1. Cold-call opener (permission-based)",
     channel: "call",
     flow: "phone",
-    body: `[Pattern interrupt — lowers their guard so they don't hang up]
-"Hey, is this {{owner}}? ... Hey {{owner}}, I know you're probably out on a job so I'll be real quick — did I catch you at an okay second?"
+    body: `[TONALITY: say it relaxed and a little bored — like a peer calling back, NOT a chipper telemarketer. That tone is 80% of why it lands.]
 
-[If yes:]
-"Appreciate it. My name's Tal, I build websites for fence companies here in {{city}}. I was looking you up and noticed {{gap}}. So I actually put together a rough concept of what {{business}}'s site could look like — can I text you the link so you can check it out whenever?"
+[PATTERN INTERRUPT — reference something REAL about them so it doesn't sound like a mass call. Run their site in the "Run audit" button above FIRST, so "I'm looking at it right now" is true, not a line — that's your version of "holding it in my hand."]
+"Hey, is this {{owner}}? ... {{owner}}, it's just Tal — I'm actually looking at your website right now and noticed {{gap}}. That's the only reason I called. Got a quick second?"
 
-[Goal of the call = get the YES to the text, not to sell:]
+[No website? Even stronger — a hole they can't see:]
+"Hey {{owner}}, it's just Tal — I was searching fence companies in {{city}} and noticed you don't really come up anywhere. Figured you'd want to know. Quick second?"
+
+[If yes — go straight to the GIVE, not a pitch:]
+"So I actually put together a rough concept of what {{business}}'s site could look like. Can I text you the link so you can check it whenever?"
+
+[Goal of the call = get the YES to the text, NOT to close:]
 "Perfect, what's the best cell? ... Sending it now. No pressure at all — take a look, and if you like it we'll talk. Sound good?"`,
   },
   {
@@ -162,6 +167,10 @@ BEST CASE — you know the owner's name. Just ask, warm and confident, no explan
 
 IF SHE ASKS "what's this about?" — frame THEIR problem, never your product:
 "Sure — I'm honestly not sure who I should be talking to. I'm trying to reach whoever's responsible for how {{business}} shows up when a homeowner Googles a fence company in {{city}} — because there could be quote requests slipping to competitors every month that nobody there even sees. Who would that be?"
+
+IF SHE HESITATES to transfer — shrink the ask, assume the yes:
+"No worries — could you just put me through to his voicemail so I can leave the details, and he can call back if he wants? Takes 20 seconds."
+(Asking for a voicemail is easy to say yes to — and it often rings him live anyway, or drops you into his personal cell VM where you leave the mockup pitch.)
 
 IF IT'S AN ANSWERING SERVICE (only takes messages, can't transfer) — don't pitch, get the asset:
 "No problem — what's the best cell or email to reach {{owner}} directly? I've got something to send over for him."
