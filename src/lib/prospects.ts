@@ -45,7 +45,26 @@ export type Prospect = {
   source?: "audit" | "manual" | "import"; // where the lead came from
   auditScore?: number; // score if they ran the site audit
   tags?: string[]; // manual labels (Hot, Cold, Many reviews, …)
+  // Structured fields captured on a call (kept separate from freeform notes).
+  callOutcome?: string; // last call result (see CALL_OUTCOMES)
+  bestTime?: string; // when they said to call back (see BEST_TIMES)
 };
+
+/** Structured outcome of the last call — a dropdown, not freeform. */
+export const CALL_OUTCOMES = [
+  "No answer",
+  "Left voicemail",
+  "Gatekeeper — no decision-maker",
+  "Spoke — interested",
+  "Spoke — asked to email info",
+  "Spoke — not interested",
+  "Callback scheduled",
+  "Wrong number",
+  "Do not call",
+] as const;
+
+/** Best time to reach them, captured on a call. */
+export const BEST_TIMES = ["Morning", "Afternoon", "Evening", "Weekend"] as const;
 
 /** One-tap tags to set before/after a call. Stored on prospect.tags. */
 export const QUICK_TAGS = [
@@ -64,12 +83,79 @@ export function tagStyle(tag: string): string {
   return "bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-slate-200";
 }
 
-/** Message templates surfaced in the CRM with one-click copy + {{merge}} fields. */
-export const TEMPLATES: { key: string; label: string; channel: "email" | "call" | "sms"; subject?: string; body: string }[] = [
+/** The two outreach pipelines. Templates are tagged with the flow they belong
+ *  to so the CRM can present them as ordered sequences, not a flat pile. */
+export const TEMPLATE_FLOWS = [
+  { key: "phone", label: "📞 Phone-first", hint: "You call them, then send the follow-up email/text." },
+  { key: "email", label: "✉️ Email-first", hint: "You email cold, then chase and try to get them on a call." },
+  { key: "both", label: "📦 Delivery", hint: "Use in either pipeline once they're warm." },
+] as const;
+
+export type TemplateFlow = (typeof TEMPLATE_FLOWS)[number]["key"];
+
+/** Message templates surfaced in the CRM with one-click copy + {{merge}} fields.
+ *  Ordered within each flow so they read as a step-by-step sequence. */
+export const TEMPLATES: { key: string; label: string; channel: "email" | "call" | "sms"; flow: TemplateFlow; subject?: string; body: string }[] = [
+  // ---------- PHONE-FIRST pipeline ----------
+  {
+    key: "call_open",
+    label: "1. Cold-call opener",
+    channel: "call",
+    flow: "phone",
+    body: `"Hi, is this {{owner}}? — Hey {{owner}}, my name's Tal, I build websites for fence companies here in {{city}}. I'll be quick — I actually put together a rough concept of what {{business}}'s website could look like. Can I text or email you the link? … Great, and while I've got you — are you guys getting most of your jobs from referrals right now, or online too?"
+
+[If interested] "Perfect. Give me 10 minutes this week and I'll walk you through it — what's better, Thursday or Friday afternoon?"`,
+  },
+  {
+    key: "call_vm",
+    label: "1b. Voicemail (no answer)",
+    channel: "call",
+    flow: "phone",
+    body: `"Hi {{owner}}, this is Tal with Stackwrk — I build websites for fence companies in {{city}}. I made a quick concept of what your site could look like and wanted to send it over. Shoot me a text at (754) 551-2828 and I'll get it to you. Thanks!"`,
+  },
+  {
+    key: "post_call_offer",
+    label: "2. After the call — what we offer (email)",
+    channel: "email",
+    flow: "phone",
+    subject: "Stackwrk — what I can build for {{business}}",
+    body: `Hi {{owner}},
+
+Great talking with you just now. As promised, here's exactly what I do for fence companies like {{business}}:
+
+• A fast, mobile-first website built to turn "fence company near me" searches into quote requests
+• Instant quote form + click-to-call so a homeowner reaches you in one tap
+• Reviews, financing, warranty and service-area pages that build trust and rank on Google
+• Live in about 2 weeks — and you own 100% of it, no lock-in
+
+Here's the exact kind of site I build (yours gets your name, photos and number):
+stackwrk.com/demos/apex-fence
+
+Simple, fixed pricing:
+• Launch — $2,000 (5-page lead-capture site)
+• Growth — $4,500 (8 pages + custom tools like an instant quote/estimator)
+• Optional care plan from $99/mo — hosting, updates, backups and edits handled for you
+
+No-risk next step: I'll build you a FREE homepage mockup from your own project photos — no cost, no obligation. If you love it, we go live; if not, no hard feelings. Want me to start on it?
+
+Thanks,
+Tal — Stackwrk
+stackwrk.com · (754) 551-2828 · hello@stackwrk.com`,
+  },
+  {
+    key: "sms",
+    label: "2b. Text after a call/VM",
+    channel: "sms",
+    flow: "phone",
+    body: `Hi {{owner}}, Tal from Stackwrk here — here's that fence-website concept I mentioned: stackwrk.com/demos/apex-fence. Happy to build you a free mockup with your own photos. Worth a quick call?`,
+  },
+
+  // ---------- EMAIL-FIRST pipeline ----------
   {
     key: "email_1",
-    label: "Cold email #1 — mockup offer",
+    label: "1. Cold email — mockup offer",
     channel: "email",
+    flow: "email",
     subject: "quick idea for {{business}}'s website",
     body: `Hi {{owner}} — I build websites for fence companies here in {{city}}.
 
@@ -78,12 +164,13 @@ I saw {{business}} on Google and noticed {{gap}}. Homeowners comparing fence con
 I put together a quick concept of what your homepage could look like — takes 30 seconds to look at. Want me to send the link?
 
 — Tal
-Stackwrk · stackwrk.com`,
+Stackwrk · stackwrk.com · (754) 551-2828`,
   },
   {
     key: "email_2",
-    label: "Follow-up #1 (day 3)",
+    label: "2. Follow-up (day 3)",
     channel: "email",
+    flow: "email",
     subject: "re: quick idea for {{business}}'s website",
     body: `Hi {{owner}} — following up on the fence-website concept I mentioned.
 
@@ -95,8 +182,9 @@ Worth a 10-minute call this week?
   },
   {
     key: "email_3",
-    label: "Follow-up #2 (day 7 — breakup)",
+    label: "3. Breakup (day 7)",
     channel: "email",
+    flow: "email",
     subject: "should I close your file?",
     body: `Hi {{owner}} — I don't want to be a pest. If a better website isn't a priority right now, no problem and I'll stop reaching out.
 
@@ -104,30 +192,13 @@ If it is, I'll build you a free homepage mockup from your own project photos —
 
 — Tal`,
   },
-  {
-    key: "call_open",
-    label: "Cold-call opener",
-    channel: "call",
-    body: `"Hi, is this {{owner}}? — Hey {{owner}}, my name's Tal, I build websites for fence companies here in {{city}}. I'll be quick — I actually put together a rough concept of what {{business}}'s website could look like. Can I text or email you the link? … Great, and while I've got you — are you guys getting most of your jobs from referrals right now, or online too?"
 
-[If interested] "Perfect. Give me 10 minutes this week and I'll walk you through it — what's better, Thursday or Friday afternoon?"`,
-  },
-  {
-    key: "call_vm",
-    label: "Voicemail",
-    channel: "call",
-    body: `"Hi {{owner}}, this is Tal with Stackwrk — I build websites for fence companies in {{city}}. I made a quick concept of what your site could look like and wanted to send it over. Shoot me a text at (754) 551-2828 and I'll get it to you. Thanks!"`,
-  },
-  {
-    key: "sms",
-    label: "Text after a call/VM",
-    channel: "sms",
-    body: `Hi {{owner}}, Tal from Stackwrk here — here's that fence-website concept I mentioned: stackwrk.com/demos/apex-fence. Happy to build you a free mockup with your own photos. Worth a quick call?`,
-  },
+  // ---------- DELIVERY (either pipeline) ----------
   {
     key: "mockup_deliver",
     label: "Mockup delivery",
     channel: "email",
+    flow: "both",
     subject: "your new homepage — {{business}}",
     body: `Hi {{owner}} — here's the mockup I built for {{business}}: [link].
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { PROSPECT_STAGES, TEMPLATES, TIER_META, QUICK_TAGS, tagStyle, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
+import { PROSPECT_STAGES, TEMPLATES, TEMPLATE_FLOWS, TIER_META, QUICK_TAGS, CALL_OUTCOMES, BEST_TIMES, tagStyle, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
 import TodayDriver from "./TodayDriver";
 import LeadAudit from "./LeadAudit";
 import AgreementGen from "./AgreementGen";
@@ -196,7 +196,7 @@ export default function Board({ user }: { user: string }) {
           <button onClick={() => setView("board")} className={`rounded-md px-4 py-1.5 text-xs font-bold ${view === "board" ? "bg-lime text-ink" : "crm-muted"}`}>Full board</button>
         </div>
 
-        {view === "today" && <TodayDriver items={items} patch={patch} onOpen={setSel} />}
+        {view === "today" && <TodayDriver items={items} patch={patch} onOpen={setSel} onCopy={flash} />}
 
         {view === "board" && (<>
         {/* stats */}
@@ -295,10 +295,13 @@ export default function Board({ user }: { user: string }) {
                 : !p.hasSite && <div className="mt-3 rounded-lg bg-rose-100 px-3 py-2 text-xs font-semibold text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">🔥 No website — top prospect. Call first.</div>}
 
               {/* contact quick actions */}
-              <div className="mt-4 grid grid-cols-2 gap-2">
-                {p.phone && <a href={`tel:${p.phone.replace(/[^0-9]/g, "")}`} className="rounded-lg bg-lime px-3 py-2 text-center text-sm font-bold text-ink">Call {p.phone}</a>}
-                {p.email && <button onClick={() => copy(p.email)} className="rounded-lg px-3 py-2 text-sm font-semibold crm-btn">Copy email</button>}
-              </div>
+              {p.phone && (
+                <div className="mt-4 grid grid-cols-2 gap-2">
+                  <button onClick={() => { navigator.clipboard?.writeText(p.phone); flash("Number copied — paste into Quo to call"); }} className="rounded-lg bg-lime px-3 py-2 text-center text-sm font-bold text-ink">📋 Copy {p.phone}</button>
+                  <a href={`tel:${p.phone.replace(/[^0-9]/g, "")}`} className="rounded-lg px-3 py-2 text-center text-sm font-semibold crm-btn">📞 Dial (tel:)</a>
+                </div>
+              )}
+              {p.email && <button onClick={() => copy(p.email)} className="mt-2 w-full rounded-lg px-3 py-2 text-sm font-semibold crm-btn">Copy email</button>}
 
               {/* contact on file — confirm it's really them before you dial */}
               <div className="mt-4 rounded-lg p-3 crm-stat">
@@ -385,9 +388,33 @@ export default function Board({ user }: { user: string }) {
                   <input type="date" value={p.nextFollowUp} onChange={(e) => patch(p.id, { nextFollowUp: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
                 </label>
               </div>
-              <label className="mt-3 block text-xs font-semibold crm-muted">Owner / contact name
-                <input value={p.owner} onChange={(e) => patch(p.id, { owner: e.target.value })} placeholder="e.g. Mike" className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
-              </label>
+              {/* structured contact details — fill these from the call, not freeform */}
+              <div className="mt-4">
+                <p className="text-[0.7rem] font-bold uppercase tracking-wide crm-subtle">Contact details</p>
+                <div className="mt-1.5 grid grid-cols-2 gap-3">
+                  <label className="text-xs font-semibold crm-muted">Contact name
+                    <input value={p.owner} onChange={(e) => patch(p.id, { owner: e.target.value })} placeholder="e.g. Mike" className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
+                  </label>
+                  <label className="text-xs font-semibold crm-muted">Best time to reach
+                    <select value={p.bestTime || ""} onChange={(e) => patch(p.id, { bestTime: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input">
+                      <option value="">—</option>
+                      {BEST_TIMES.map((t) => <option key={t} value={t}>{t}</option>)}
+                    </select>
+                  </label>
+                  <label className="text-xs font-semibold crm-muted">Email
+                    <input type="email" value={p.email} onChange={(e) => patch(p.id, { email: e.target.value })} placeholder="add from call" className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
+                  </label>
+                  <label className="text-xs font-semibold crm-muted">Phone
+                    <input type="tel" value={p.phone} onChange={(e) => patch(p.id, { phone: e.target.value })} placeholder="add / fix number" className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
+                  </label>
+                </div>
+                <label className="mt-3 block text-xs font-semibold crm-muted">Call outcome
+                  <select value={p.callOutcome || ""} onChange={(e) => patch(p.id, { callOutcome: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input">
+                    <option value="">— not called yet —</option>
+                    {CALL_OUTCOMES.map((o) => <option key={o} value={o}>{o}</option>)}
+                  </select>
+                </label>
+              </div>
 
               {/* log actions */}
               <div className="mt-3 flex gap-2">
@@ -402,21 +429,31 @@ export default function Board({ user }: { user: string }) {
               {/* client agreement — generate a personalized e-sign link with a shown discount */}
               <AgreementGen key={p.id} prospect={p} onCopy={flash} />
 
-              {/* templates */}
+              {/* templates — grouped into the two pipelines (phone-first / email-first) */}
               <div className="mt-5">
                 <p className="text-xs font-bold uppercase tracking-wide crm-muted">Templates (auto-filled for {p.name})</p>
-                <div className="mt-2 space-y-2">
-                  {TEMPLATES.map((t) => (
-                    <div key={t.key} className="rounded-lg p-2.5 crm-stat">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold crm-strong">{t.label}</span>
-                        <button onClick={() => copy((t.subject ? `Subject: ${fill(t.subject, p)}\n\n` : "") + fill(t.body, p))} className="rounded bg-slate-100 px-2 py-0.5 text-[0.65rem] font-bold text-slate-700 hover:bg-slate-200 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/20">Copy</button>
+                {TEMPLATE_FLOWS.map((flow) => {
+                  const group = TEMPLATES.filter((t) => t.flow === flow.key);
+                  if (!group.length) return null;
+                  return (
+                    <div key={flow.key} className="mt-3">
+                      <p className="text-[0.7rem] font-bold crm-strong">{flow.label}</p>
+                      <p className="text-[0.6rem] crm-subtle">{flow.hint}</p>
+                      <div className="mt-1.5 space-y-2">
+                        {group.map((t) => (
+                          <div key={t.key} className="rounded-lg p-2.5 crm-stat">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-xs font-semibold crm-strong">{t.label}</span>
+                              <button onClick={() => copy((t.subject ? `Subject: ${fill(t.subject, p)}\n\n` : "") + fill(t.body, p))} className="shrink-0 rounded bg-slate-100 px-2 py-0.5 text-[0.65rem] font-bold text-slate-700 hover:bg-slate-200 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/20">Copy</button>
+                            </div>
+                            {t.subject && <p className="mt-1 text-[0.68rem] crm-subtle">Subject: {fill(t.subject, p)}</p>}
+                            <p className="mt-1 whitespace-pre-wrap text-[0.68rem] leading-relaxed crm-muted">{fill(t.body, p).slice(0, 140)}…</p>
+                          </div>
+                        ))}
                       </div>
-                      {t.subject && <p className="mt-1 text-[0.68rem] crm-subtle">Subject: {fill(t.subject, p)}</p>}
-                      <p className="mt-1 whitespace-pre-wrap text-[0.68rem] leading-relaxed crm-muted">{fill(t.body, p).slice(0, 140)}…</p>
                     </div>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
 
               <button onClick={() => { if (confirm("Delete this prospect?")) { setItems((xs) => xs.filter((x) => x.id !== p.id)); setSel(null); } }} className="mt-5 text-xs text-rose-500/80 hover:text-rose-600 dark:text-rose-400/70 dark:hover:text-rose-400">Delete prospect</button>

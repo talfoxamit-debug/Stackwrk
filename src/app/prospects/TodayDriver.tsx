@@ -17,10 +17,12 @@ export default function TodayDriver({
   items,
   patch,
   onOpen,
+  onCopy,
 }: {
   items: Prospect[];
   patch: (id: string, d: Partial<Prospect>) => void;
   onOpen: (p: Prospect) => void;
+  onCopy: (msg: string) => void;
 }) {
   const today = todayISO();
 
@@ -52,6 +54,10 @@ export default function TodayDriver({
   const snooze = (p: Prospect) => patch(p.id, { nextFollowUp: plusDays(3) });
 
   const tel = (phone: string) => `tel:${phone.replace(/[^0-9]/g, "")}`;
+  const copyNum = (phone: string) => { navigator.clipboard?.writeText(phone); onCopy("Number copied — paste into Quo to call"); };
+  const CopyNum = ({ phone }: { phone: string }) => (
+    <button onClick={() => copyNum(phone)} className="rounded-md bg-lime px-2.5 py-1.5 text-[0.7rem] font-bold text-ink">📋 {phone}</button>
+  );
   const Btn = ({ onClick, children, tone = "ghost" }: { onClick: () => void; children: React.ReactNode; tone?: "ghost" | "lime" | "rose" }) => (
     <button
       onClick={onClick}
@@ -75,7 +81,8 @@ export default function TodayDriver({
         {p.tier && <span className={`shrink-0 rounded px-1 text-[0.55rem] font-bold ${TIER_META[p.tier].cls}`}>{TIER_META[p.tier].short}</span>}
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-1.5">
-        {p.phone && <a href={tel(p.phone)} className="rounded-md bg-lime px-2.5 py-1.5 text-[0.7rem] font-bold text-ink">📞 {p.phone}</a>}
+        {p.phone && <CopyNum phone={p.phone} />}
+        {p.phone && <a href={tel(p.phone)} className="rounded-md px-2 py-1.5 text-[0.7rem] font-bold crm-btn" title="Open your dialer (tel:)">Dial</a>}
         <Btn onClick={() => logCall(p)}>Log call</Btn>
         <Btn onClick={() => book(p)} tone="lime">Booked ✓</Btn>
         <Btn onClick={() => lose(p)} tone="rose">Not interested</Btn>
@@ -119,7 +126,8 @@ export default function TodayDriver({
                   </div>
                   {p.notes && <p className="mt-1 line-clamp-2 text-[0.7rem] crm-subtle">{p.notes}</p>}
                   <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                    {p.phone && <a href={tel(p.phone)} className="rounded-md bg-lime px-2.5 py-1.5 text-[0.7rem] font-bold text-ink">📞 {p.phone}</a>}
+                    {p.phone && <CopyNum phone={p.phone} />}
+                    {p.phone && <a href={tel(p.phone)} className="rounded-md px-2 py-1.5 text-[0.7rem] font-bold crm-btn" title="Open your dialer (tel:)">Dial</a>}
                     <Btn onClick={() => logCall(p)}>Log touch</Btn>
                     <Btn onClick={() => book(p)} tone="lime">Booked ✓</Btn>
                     <Btn onClick={() => snooze(p)}>Snooze +3d</Btn>

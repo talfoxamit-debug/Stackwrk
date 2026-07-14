@@ -32,6 +32,28 @@ gracefully until the keys are set.
 - [ ] Test end-to-end with a test card (`4242 4242 4242 4242`) before going live.
 - [ ] Meanwhile: take deposits by **Zelle/Venmo** so a "yes" never stalls.
 
+## 📇 CRM & outreach (BUILT — /prospects)
+The CRM now runs the whole call/email motion. Built and live:
+- [x] **Copy-number button** on every lead (Today view + drawer) — Quo isn't a
+      `tel:` handler on Windows, so tap **📋 Copy** and paste into Quo to dial.
+- [x] **Structured contact fields** per lead — contact name, editable email &
+      phone, best time to reach, and a **Call outcome** dropdown (no answer,
+      left VM, asked to email, interested, etc.) — plus freeform notes.
+- [x] **Two template pipelines**, grouped in the drawer:
+      **📞 Phone-first** (opener → voicemail → *after-call "what we offer" email* → text)
+      and **✉️ Email-first** (cold email → day-3 follow-up → day-7 breakup).
+- [x] **Run the site audit** on a lead's website in-drawer for call talking points.
+- [x] **Per-client e-sign agreement link** with a discount slider.
+
+**To turn email fully on (you) — carried over, still needed:**
+- [ ] **Verify `stackwrk.com` in Resend** (add its DNS records) and set
+      `REPORT_FROM_EMAIL` = `Stackwrk <audit@stackwrk.com>`, then redeploy.
+      Until this is done, audit reports / lead alerts / booking + agreement
+      copies do **not** send (Resend rejects the current unverified sender).
+- [ ] _(nice-to-have)_ Install the **Quo (OpenPhone) Chrome extension** on
+      Othman's machine for real click-to-call, so `tel:` links dial Quo directly
+      instead of the "pick an app" popup. The copy-number button works regardless.
+
 ## 🔒 Decisions to lock (you)
 - [ ] Confirm niche: **fencing first → siding later**
 - [ ] Pick the **target metro** (for lead lists + naming local competitors)
@@ -57,7 +79,7 @@ gracefully until the keys are set.
 
 ## 📈 Weeks 3–8 — outreach machine
 - [ ] Weekly: **100 manual dials + 150 personalized emails + 10–15 Looms (repliers only)**
-- [ ] Move to **full price** ($3,900 Growth); present all 3 tiers live, deposit on the call
+- [ ] Move to **full price** ($4,500 Growth founding rate); present all 3 tiers live, deposit on the call
 - [ ] Target **2–3 paying clients / month**
 
 ## 🔁 Ongoing — compound
@@ -67,15 +89,17 @@ gracefully until the keys are set.
 
 ---
 
-## The offer (lead with the middle)
-| Tier | Build | Care plan |
-|---|---|---|
-| Launch | $2,500 | $99/mo |
-| **Growth ★** | **$3,900** | **$199/mo** |
-| Market Leader | $6,500 | $399/mo |
+## The offer (lead with the middle) — matches the CRM agreement generator
+| Tier | Build (list → founding) | Pages | Care plan |
+|---|---|---|---|
+| Launch | $3,000 → **$2,000** | 5 | Essential $99/mo |
+| **Growth ★** | $6,500 → **$4,500** | 8 | Growth $249/mo |
+| Market Leader | $12,000 → **$8,000** | 12 | Partner $499/mo |
 
+- The **founding rate** is the built-in discount shown to the client (list price
+  struck through). Adjust per client with the discount slider in the drawer.
 - Care plan quoted as **opt-out**, not opt-in
-- First 3–5 = **founder pricing $1,500** for a testimonial + case study + 2 referral intros
+- First 3–5 = **founder pricing** for a testimonial + case study + 2 referral intros
 - Risk reversal: deposit to start, balance when happy, 30-day money-back, "live in 10 days or a free month"
 
 ## Money math (base case, ~2 clients/mo)
