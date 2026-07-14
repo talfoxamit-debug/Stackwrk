@@ -273,7 +273,20 @@ export default function Board({ user }: { user: string }) {
   // can drop in as a {{merge var}} in your sequence. `icebreaker` reuses the
   // exact same opening line as the CRM's own cold-email templates.
   function exportInstantlyCSV() {
-    const rows = items.filter((p) => p.email && p.email.includes("@"));
+    const withEmail = items.filter((p) => p.email && p.email.includes("@"));
+    // Same email on 2+ businesses is either a shared inbox or a templated /
+    // fake listing (both common in scraped directory data) — either way it's
+    // not a distinct contact worth a second send, so keep the first and skip
+    // the rest instead of letting Instantly catch it after the fact.
+    const seen = new Set<string>();
+    const rows: Prospect[] = [];
+    let dupes = 0;
+    for (const p of withEmail) {
+      const key = p.email.trim().toLowerCase();
+      if (seen.has(key)) { dupes++; continue; }
+      seen.add(key);
+      rows.push(p);
+    }
     const cols = ["email", "first_name", "company_name", "phone", "city", "website", "icebreaker"];
     const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
     const body = [cols.join(","), ...rows.map((p) => [
@@ -282,7 +295,7 @@ export default function Board({ user }: { user: string }) {
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([body], { type: "text/csv" }));
     a.download = "stackwrk-instantly-leads.csv"; a.click();
-    flash(`Exported ${rows.length} with an email · ${items.length - rows.length} skipped (no email on file)`);
+    flash(`Exported ${rows.length} unique · ${dupes} duplicate emails skipped · ${items.length - withEmail.length} had no email`);
   }
 
   return (
