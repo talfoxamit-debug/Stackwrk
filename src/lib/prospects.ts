@@ -48,6 +48,9 @@ export type Prospect = {
   // Structured fields captured on a call (kept separate from freeform notes).
   callOutcome?: string; // last call result (see CALL_OUTCOMES)
   bestTime?: string; // when they said to call back (see BEST_TIMES)
+  // Automation bookkeeping — so work never repeats itself.
+  emailCheckedAt?: number; // ms epoch: when "Find emails" last scanned this site (found or not)
+  exportedAt?: number; // ms epoch: when last included in an Instantly export
 };
 
 /** Structured outcome of the last call — a dropdown, not freeform. */

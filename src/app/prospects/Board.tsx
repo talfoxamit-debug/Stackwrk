@@ -88,6 +88,7 @@ export default function Board({ user }: { user: string }) {
   const [q, setQ] = useState("");
   const [hotOnly, setHotOnly] = useState(false);
   const [auditOnly, setAuditOnly] = useState(false);
+  const [newLeadsOnly, setNewLeadsOnly] = useState(false);
   const [badPhoneOnly, setBadPhoneOnly] = useState(false);
   const [tierFilter, setTierFilter] = useState<ProspectTier | "">("");
   const [view, setView] = useState<"today" | "board">("today");
@@ -195,14 +196,24 @@ export default function Board({ user }: { user: string }) {
     return items.filter((p) =>
       (!hotOnly || !p.hasSite) &&
       (!auditOnly || p.source === "audit") &&
+      (!newLeadsOnly || p.source === "audit" || p.source === "quo") &&
       (!badPhoneOnly || flaggedPhone(p)) &&
       (!tierFilter || p.tier === tierFilter) &&
       (!s || (p.name + p.city + p.phone + p.owner).toLowerCase().includes(s)));
-  }, [items, q, hotOnly, auditOnly, badPhoneOnly, tierFilter, dialCounts]);
+  }, [items, q, hotOnly, auditOnly, newLeadsOnly, badPhoneOnly, tierFilter, dialCounts]);
 
   const dueToday = items.filter((p) => p.nextFollowUp && p.nextFollowUp <= todayISO() && p.stage !== "won" && p.stage !== "lost").length;
   const hot = items.filter((p) => !p.hasSite).length;
-  const noEmailWithSite = items.filter((p) => !p.email?.trim() && p.website?.trim()).length;
+  // Email-hunt bookkeeping: leads with a site but no email, split by whether
+  // we've already scanned the site (so we never re-check the same sites).
+  const uncheckedWithSite = items.filter((p) => !p.email?.trim() && p.website?.trim() && !p.emailCheckedAt).length;
+  const triedEmptyWithSite = items.filter((p) => !p.email?.trim() && p.website?.trim() && p.emailCheckedAt).length;
+  // Export bookkeeping: emailed leads not yet sent to Instantly.
+  const unexportedWithEmail = items.filter((p) => p.email?.includes("@") && !p.exportedAt).length;
+  const exportedCount = items.filter((p) => p.exportedAt).length;
+  // "New" = auto-collected by the system (inbound audits + Quo calls), the
+  // leads that appeared without you adding them.
+  const newLeadsCount = items.filter((p) => p.source === "audit" || p.source === "quo").length;
   const auditCount = items.filter((p) => p.source === "audit").length;
   const won = items.filter((p) => p.stage === "won").length;
   const tierCounts = { call: 0, verify: 0, skip: 0 } as Record<ProspectTier, number>;
@@ -274,8 +285,10 @@ export default function Board({ user }: { user: string }) {
   // Instantly needs an email per row; everything else is a custom column you
   // can drop in as a {{merge var}} in your sequence. `icebreaker` reuses the
   // exact same opening line as the CRM's own cold-email templates.
-  function exportInstantlyCSV() {
-    const withEmail = items.filter((p) => p.email && p.email.includes("@"));
+  // newOnly (default) skips leads already sent to Instantly and stamps each
+  // exported lead so it's never sent twice; "Re-export all" passes false.
+  function exportInstantlyCSV(newOnly = true) {
+    const withEmail = items.filter((p) => p.email && p.email.includes("@") && (!newOnly || !p.exportedAt));
     // Same email on 2+ businesses is either a shared inbox or a templated /
     // fake listing (both common in scraped directory data) — either way it's
     // not a distinct contact worth a second send, so keep the first and skip
@@ -289,6 +302,7 @@ export default function Board({ user }: { user: string }) {
       seen.add(key);
       rows.push(p);
     }
+    if (!rows.length) { flash(newOnly ? "Nothing new — every emailed lead has already been exported" : "No emails on file yet"); return; }
     const cols = ["email", "first_name", "company_name", "phone", "city", "website", "icebreaker"];
     const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
     const body = [cols.join(","), ...rows.map((p) => [
@@ -297,32 +311,43 @@ export default function Board({ user }: { user: string }) {
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([body], { type: "text/csv" }));
     a.download = "stackwrk-instantly-leads.csv"; a.click();
-    flash(`Exported ${rows.length} unique · ${dupes} duplicate emails skipped · ${items.length - withEmail.length} had no email`);
+    // Stamp what we just exported so the next "Export new" skips them.
+    const now = Date.now();
+    const ids = new Set(rows.map((r) => r.id));
+    setItems((xs) => xs.map((x) => (ids.has(x.id) ? { ...x, exportedAt: now } : x)));
+    flash(`Exported ${rows.length}${newOnly ? " new" : ""} · ${dupes} duplicate email${dupes === 1 ? "" : "s"} skipped`);
   }
 
   // Checks each lead's own website for a published contact email (mailto:
   // link or plain text, homepage then one contact-page hop) — never guesses,
   // only fills in what's actually published. Runs a handful of sites at once
   // client-side rather than one big server request, since checking 100+
-  // external sites can take a few minutes.
-  async function findMissingEmails() {
+  // external sites can take a few minutes. Every scanned lead is stamped
+  // with emailCheckedAt so the same sites are never re-checked; recheckAll
+  // re-scans the ones that came back empty last time.
+  async function findMissingEmails(recheckAll = false) {
     if (emailHunt) return; // already running
-    const targets = items.filter((p) => !p.email?.trim() && p.website?.trim());
+    const targets = items.filter((p) => !p.email?.trim() && p.website?.trim() && (recheckAll || !p.emailCheckedAt));
     if (!targets.length) return;
-    if (!confirm(`Check ${targets.length} lead websites for a published contact email? This runs in the background and can take a few minutes.`)) return;
+    if (!confirm(`Check ${targets.length} lead website${targets.length === 1 ? "" : "s"} for a published contact email? This runs in the background and can take a few minutes.`)) return;
 
     setEmailHunt({ done: 0, total: targets.length, found: 0 });
     let idx = 0, done = 0, found = 0;
+    const now = Date.now();
     const CONCURRENCY = 5;
     async function worker() {
       while (idx < targets.length) {
         const p = targets[idx++];
+        let email = "";
         try {
           const r = await fetch("/api/leads/find-email", {
             method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: p.website }),
           }).then((res) => res.json());
-          if (r.ok && r.email) { patch(p.id, { email: r.email }); found++; }
-        } catch { /* skip — site unreachable or blocked, leave email blank */ }
+          if (r.ok && r.email) email = r.email;
+        } catch { /* site unreachable or blocked — leave email blank, still mark checked */ }
+        // Stamp emailCheckedAt whether or not we found one, so it isn't re-scanned.
+        patch(p.id, email ? { email, emailCheckedAt: now } : { emailCheckedAt: now });
+        if (email) found++;
         done++;
         setEmailHunt({ done, total: targets.length, found });
       }
@@ -346,12 +371,17 @@ export default function Board({ user }: { user: string }) {
             <button onClick={() => { setDraft(emptyLead()); setShowAdd(true); }} className="rounded-lg bg-lime px-3 py-2 text-xs font-bold text-ink">+ Add lead</button>
             <button onClick={() => setShowImport(true)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Import CSV</button>
             <button onClick={exportCSV} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Export</button>
-            {(noEmailWithSite > 0 || emailHunt) && (
-              <button onClick={findMissingEmails} disabled={!!emailHunt} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn disabled:opacity-60">
-                {emailHunt ? `🔍 Checking ${emailHunt.done}/${emailHunt.total} · ${emailHunt.found} found` : `🔍 Find emails (${noEmailWithSite})`}
-              </button>
+            {emailHunt ? (
+              <button disabled className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn opacity-60">🔍 Checking {emailHunt.done}/{emailHunt.total} · {emailHunt.found} found</button>
+            ) : uncheckedWithSite > 0 ? (
+              <button onClick={() => findMissingEmails(false)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn" title="Scan each unchecked lead's website for a published contact email">🔍 Find emails ({uncheckedWithSite})</button>
+            ) : triedEmptyWithSite > 0 ? (
+              <button onClick={() => findMissingEmails(true)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn" title="Re-scan the sites that had no email last time">↻ Re-check {triedEmptyWithSite}</button>
+            ) : null}
+            <button onClick={() => exportInstantlyCSV(true)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn" title="Only leads not yet sent to Instantly">✉️ Export new{unexportedWithEmail > 0 ? ` (${unexportedWithEmail})` : ""}</button>
+            {exportedCount > 0 && (
+              <button onClick={() => exportInstantlyCSV(false)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn" title="Re-download every emailed lead, including ones already exported">Export all</button>
             )}
-            <button onClick={exportInstantlyCSV} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">✉️ Export for Instantly</button>
             <button onClick={logout} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Sign out</button>
           </div>
         </div>
@@ -379,6 +409,9 @@ export default function Board({ user }: { user: string }) {
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, city, phone…" className="w-56 rounded-lg px-3 py-2 text-sm crm-input" />
           <button onClick={() => setHotOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-semibold ${hotOnly ? "bg-rose-100 text-rose-700 ring-1 ring-rose-300 dark:bg-rose-500/20 dark:text-rose-300 dark:ring-rose-500/40" : "crm-btn"}`}>🔥 No-website only</button>
+          {newLeadsCount > 0 && (
+            <button onClick={() => setNewLeadsOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${newLeadsOnly ? "bg-violet-100 text-violet-700 ring-1 ring-violet-300 dark:bg-violet-500/20 dark:text-violet-300 dark:ring-violet-500/40" : "crm-btn"}`} title="Leads the system collected for you — inbound site audits + numbers you dialed/texted in Quo">🆕 New leads {newLeadsCount}</button>
+          )}
           {auditCount > 0 && (
             <button onClick={() => setAuditOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${auditOnly ? "bg-sky-100 text-sky-700 ring-1 ring-sky-300 dark:bg-sky-500/20 dark:text-sky-300 dark:ring-sky-500/40" : "crm-btn"}`} title="People who ran your site audit — warm inbound leads">🔎 Audited {auditCount}</button>
           )}
