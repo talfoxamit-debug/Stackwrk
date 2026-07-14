@@ -33,7 +33,7 @@ function StatusDot({ status }: { status: CheckStatus }) {
     fail: { bg: "bg-rose-500/15 text-rose-300", char: "✕" },
   }[status];
   return (
-    <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-bold ${map.bg}`}>
+    <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[12px] font-bold ${map.bg}`}>
       {map.char}
     </span>
   );
@@ -81,7 +81,7 @@ function ScoreRing({ score }: { score: number }) {
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="font-display text-4xl leading-none text-white">{shown}</span>
-        <span className="text-[0.6rem] uppercase tracking-widest text-white/45">/ 100</span>
+        <span className="text-[0.75rem] uppercase tracking-widest text-white/45">/ 100</span>
       </div>
     </div>
   );
@@ -129,10 +129,10 @@ function SampleScorecard() {
       <div className="absolute -inset-8 rounded-[2rem] bg-[radial-gradient(ellipse,rgba(203,255,60,0.07),rgba(124,58,237,0.08)_55%,transparent_75%)] blur-2xl" />
       <div className="relative rotate-2 rounded-2xl border border-white/12 bg-[#0b0616]/85 p-5 shadow-[0_50px_100px_-50px_rgba(0,0,0,0.9)] backdrop-blur-md transition-transform duration-500 hover:rotate-0">
         <div className="flex items-center justify-between">
-          <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/40">
+          <span className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-white/40">
             Sample scorecard
           </span>
-          <span className="rounded-full border border-rose-400/30 bg-rose-500/10 px-2 py-0.5 text-[0.6rem] font-semibold text-rose-300">
+          <span className="rounded-full border border-rose-400/30 bg-rose-500/10 px-2 py-0.5 text-[0.75rem] font-semibold text-rose-300">
             23 issues found
           </span>
         </div>
@@ -165,7 +165,7 @@ function SampleScorecard() {
                   }}
                 />
               </div>
-              <span className="w-6 shrink-0 text-right font-mono text-[0.7rem]" style={{ color: ringColor(b.score) }}>
+              <span className="w-6 shrink-0 text-right font-mono text-[0.75rem]" style={{ color: ringColor(b.score) }}>
                 {b.score}
               </span>
             </div>
@@ -185,7 +185,7 @@ function SampleScorecard() {
       </div>
 
       {/* floating chip */}
-      <span className="absolute -bottom-3 -left-5 animate-float rounded-lg border border-lime/30 bg-[#0b0616]/90 px-3 py-1.5 text-[0.65rem] font-semibold text-lime shadow-[0_0_24px_-8px_rgba(203,255,60,0.6)] backdrop-blur">
+      <span className="absolute -bottom-3 -left-5 animate-float rounded-lg border border-lime/30 bg-[#0b0616]/90 px-3 py-1.5 text-[0.75rem] font-semibold text-lime shadow-[0_0_24px_-8px_rgba(203,255,60,0.6)] backdrop-blur">
         Free · takes ~10 seconds
       </span>
     </div>

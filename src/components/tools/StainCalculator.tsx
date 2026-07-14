@@ -56,7 +56,7 @@ export default function StainCalculator() {
         <p className="mt-1 text-4xl font-extrabold" style={{ color: GREEN }}>{gallons} gal</p>
         <p className="mt-1 text-sm text-slate-500">of stain / sealer</p>
         <p className="mt-3 text-sm font-semibold" style={{ color: NAVY }}>≈ ${cost} in product</p>
-        <p className="mt-3 text-[0.7rem] leading-relaxed text-slate-400">Based on ~{COVERAGE} sq ft/gallon. Rough, porous or new wood soaks up more on the first coat.</p>
+        <p className="mt-3 text-[0.75rem] leading-relaxed text-slate-400">Based on ~{COVERAGE} sq ft/gallon. Rough, porous or new wood soaks up more on the first coat.</p>
       </div>
     </div>
   );

@@ -31,7 +31,7 @@ export default function FenceTicker({ green = "#18894C" }: { green?: string }) {
   return (
     <div className="border-b border-black/5 bg-white">
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-2 sm:px-8">
-        <span className="flex items-center gap-1.5 text-[0.7rem] font-bold uppercase tracking-wide" style={{ color: green }}>
+        <span className="flex items-center gap-1.5 text-[0.75rem] font-bold uppercase tracking-wide" style={{ color: green }}>
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ background: green }} />
             <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: green }} />

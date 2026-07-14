@@ -39,7 +39,7 @@ const codeColor: Record<string, string> = {
 function CodeCard({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`rounded-2xl border border-violet-400/40 bg-ink-800/55 p-5 font-mono text-[11px] leading-5 shadow-[0_0_36px_-8px_rgba(139,92,246,0.55)] backdrop-blur-xl sm:text-xs ${className}`}
+      className={`rounded-2xl border border-violet-400/40 bg-ink-800/55 p-5 font-mono text-[12px] leading-5 shadow-[0_0_36px_-8px_rgba(139,92,246,0.55)] backdrop-blur-xl sm:text-xs ${className}`}
     >
       <div className="mb-3 flex items-center gap-1.5">
         <span className="h-2.5 w-2.5 rounded-full bg-flare-red/80" />
@@ -144,7 +144,7 @@ export default function Hero() {
           {/* Built with — infinite marquee (pauses on hover, frozen by the
               global reduced-motion rule) */}
           <div className="mt-10 flex max-w-md animate-fade-up items-center gap-x-5" style={{ animationDelay: "320ms" }}>
-            <span className="shrink-0 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white/40">
+            <span className="shrink-0 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-white/40">
               Built with
             </span>
             <div

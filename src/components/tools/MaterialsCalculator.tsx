@@ -68,7 +68,7 @@ export default function MaterialsCalculator() {
           {pickets && <Row label="Privacy boards (5.5″)" value={`${bom.picketCount}`} />}
           <Row label="Concrete (60-lb bags)" value={`${bom.concrete}`} />
         </div>
-        <p className="mt-3 text-[0.7rem] leading-relaxed text-slate-400">Rough estimate for planning. Actual counts vary with terrain, corners and gate hardware — we spec it exactly on-site.</p>
+        <p className="mt-3 text-[0.75rem] leading-relaxed text-slate-400">Rough estimate for planning. Actual counts vary with terrain, corners and gate hardware — we spec it exactly on-site.</p>
       </div>
     </div>
   );

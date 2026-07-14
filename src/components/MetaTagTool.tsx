@@ -19,7 +19,7 @@ function Counter({ n, ideal }: { n: number; ideal: [number, number] }) {
   const under = n > 0 && n < ideal[0];
   const tone = over ? "text-flare-red" : under ? "text-flare-orange" : "text-lime";
   return (
-    <span className={`text-[0.7rem] tabular-nums ${n === 0 ? "text-white/30" : tone}`}>
+    <span className={`text-[0.75rem] tabular-nums ${n === 0 ? "text-white/30" : tone}`}>
       {n}/{ideal[1]}
     </span>
   );
@@ -114,7 +114,7 @@ export default function MetaTagTool() {
               {copied ? <><Check width={13} height={13} /> Copied</> : "Copy tags"}
             </button>
           </div>
-          <pre className="max-h-56 overflow-auto rounded-lg border border-white/10 bg-ink-900/80 p-3 text-[0.7rem] leading-relaxed text-white/75">
+          <pre className="max-h-56 overflow-auto rounded-lg border border-white/10 bg-ink-900/80 p-3 text-[0.75rem] leading-relaxed text-white/75">
             <code>{code}</code>
           </pre>
         </div>
@@ -124,15 +124,15 @@ export default function MetaTagTool() {
       <div className="space-y-4">
         {/* Google */}
         <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5">
-          <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-widest text-white/40">Google result</p>
+          <p className="mb-3 text-[0.75rem] font-semibold uppercase tracking-widest text-white/40">Google result</p>
           <div className="rounded-lg bg-white p-4">
             <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 text-[0.6rem] font-bold text-gray-600">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 text-[0.75rem] font-bold text-gray-600">
                 {(site || domain).charAt(0).toUpperCase()}
               </span>
               <div className="leading-tight">
-                <div className="text-[0.72rem] text-gray-800">{site || domain}</div>
-                <div className="text-[0.62rem] text-gray-500">{url}</div>
+                <div className="text-[0.78rem] text-gray-800">{site || domain}</div>
+                <div className="text-[0.75rem] text-gray-500">{url}</div>
               </div>
             </div>
             <div className="mt-1.5 truncate text-[1.05rem] leading-snug text-[#1a0dab]">{title || "Your page title"}</div>
@@ -142,7 +142,7 @@ export default function MetaTagTool() {
 
         {/* Social card */}
         <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5">
-          <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-widest text-white/40">Social card (X · Facebook · LinkedIn)</p>
+          <p className="mb-3 text-[0.75rem] font-semibold uppercase tracking-widest text-white/40">Social card (X · Facebook · LinkedIn)</p>
           <div className="overflow-hidden rounded-lg border border-white/10 bg-ink-800">
             <div className="flex aspect-[1.91/1] items-center justify-center bg-gradient-to-br from-violet-900/60 to-ink-900 text-center">
               {image ? (
@@ -153,7 +153,7 @@ export default function MetaTagTool() {
               )}
             </div>
             <div className="border-t border-white/10 p-3">
-              <div className="text-[0.6rem] uppercase tracking-wide text-white/40">{domain}</div>
+              <div className="text-[0.75rem] uppercase tracking-wide text-white/40">{domain}</div>
               <div className="mt-1 truncate text-sm font-semibold text-white">{title || "Your page title"}</div>
               <div className="mt-0.5 line-clamp-2 text-xs text-white/55">{desc || "Your description will appear here."}</div>
             </div>

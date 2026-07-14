@@ -55,12 +55,12 @@ export default function RoiCalculator() {
 
       <div className="mt-7 grid grid-cols-2 gap-3">
         <div className="rounded-xl border border-white/10 bg-ink-800/60 p-4">
-          <p className="text-[0.65rem] uppercase tracking-widest text-white/40">Your site now</p>
+          <p className="text-[0.75rem] uppercase tracking-widest text-white/40">Your site now</p>
           <p className="mt-1 font-display text-2xl text-white/70">{money(currentRev)}</p>
           <p className="text-xs text-white/40">/mo · {current.toFixed(1)}% convert</p>
         </div>
         <div className="rounded-xl border border-lime/30 bg-lime/[0.06] p-4">
-          <p className="text-[0.65rem] uppercase tracking-widest text-lime">With a Stackwrk site</p>
+          <p className="text-[0.75rem] uppercase tracking-widest text-lime">With a Stackwrk site</p>
           <p className="mt-1 font-display text-2xl text-white">{money(improvedRev)}</p>
           <p className="text-xs text-white/50">/mo · {improved.toFixed(1)}% convert</p>
         </div>
@@ -76,7 +76,7 @@ export default function RoiCalculator() {
         </span>
       </div>
 
-      <p className="mt-3 text-center text-[0.72rem] text-white/35">
+      <p className="mt-3 text-center text-[0.78rem] text-white/35">
         Illustrative — real lift depends on your traffic quality &amp; offer.
       </p>
 

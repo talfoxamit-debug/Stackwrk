@@ -72,8 +72,8 @@ export default function MockupBuilder() {
               <div><span className={label}>Hero photo URL <span className="font-normal text-slate-500">(their best fence)</span></span><input className={field} value={f.heroImg} onChange={set("heroImg")} placeholder="https://…/their-fence.jpg" /></div>
               <div>
                 <span className={label}>Gallery photos <span className="font-normal text-slate-500">— one per line: URL | title | city</span></span>
-                <textarea className={`${field} font-mono text-[0.7rem]`} rows={5} value={f.gallery} onChange={set("gallery")} placeholder={"https://…/1.jpg | Cedar privacy | Davie\nhttps://…/2.jpg | White vinyl | Weston"} />
-                <p className="mt-1 text-[0.65rem] text-slate-500">Grab photo URLs from their Google listing / Facebook. Leave blank to keep the sample photos.</p>
+                <textarea className={`${field} font-mono text-[0.75rem]`} rows={5} value={f.gallery} onChange={set("gallery")} placeholder={"https://…/1.jpg | Cedar privacy | Davie\nhttps://…/2.jpg | White vinyl | Weston"} />
+                <p className="mt-1 text-[0.75rem] text-slate-500">Grab photo URLs from their Google listing / Facebook. Leave blank to keep the sample photos.</p>
               </div>
 
               <button onClick={() => setAdv((v) => !v)} className="text-xs font-semibold text-lime">{adv ? "− Hide" : "+ More"} details (reviews, stats, license)</button>
@@ -96,7 +96,7 @@ export default function MockupBuilder() {
             {applied && (
               <div className="mt-4 rounded-lg border border-lime/25 bg-lime/[0.06] p-3">
                 <p className="text-xs font-semibold text-lime">Shareable link</p>
-                <p className="mt-1 break-all rounded bg-black/30 p-2 font-mono text-[0.62rem] text-slate-300">{link}</p>
+                <p className="mt-1 break-all rounded bg-black/30 p-2 font-mono text-[0.75rem] text-slate-300">{link}</p>
                 <div className="mt-2 flex gap-2">
                   <button onClick={copy} className="flex-1 rounded-lg bg-white/10 py-2 text-xs font-bold hover:bg-white/20">{copied ? "✓ Copied" : "Copy link"}</button>
                   <a href={applied} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-white/15 py-2 text-center text-xs font-bold">Open ↗</a>

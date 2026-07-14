@@ -54,7 +54,7 @@ export default async function AgreementPage({ searchParams }: { searchParams: Pr
             <p className="text-xs font-bold uppercase tracking-wide" style={{ color: GREEN }}>Project summary</p>
             <div className="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-4">
               {[["Package", cfg.pkg], ["Project fee", money(cfg.projectFee)], ["Deposit to start", money(deposit)], ["Care plan", `${money(cfg.careMonthly)}/mo`]].map(([l, v]) => (
-                <div key={l}><p className="text-[0.65rem] uppercase tracking-wide text-slate-400">{l}</p><p className="text-sm font-extrabold" style={{ color: NAVY }}>{v}</p></div>
+                <div key={l}><p className="text-[0.75rem] uppercase tracking-wide text-slate-400">{l}</p><p className="text-sm font-extrabold" style={{ color: NAVY }}>{v}</p></div>
               ))}
             </div>
           </div>

@@ -48,7 +48,7 @@ export default function Plans() {
           {carePlans.map((plan, i) => (
             <Reveal as="div" key={plan.id} delay={i * 110} className="relative">
               {plan.highlight && (
-                <span className="absolute -top-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full bg-lime px-3 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-ink shadow-lg">
+                <span className="absolute -top-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full bg-lime px-3 py-1 text-[0.75rem] font-bold uppercase tracking-widest text-ink shadow-lg">
                   Most popular
                 </span>
               )}

@@ -21,7 +21,7 @@ function Shot({ project, ratio = "aspect-[16/11]" }: { project: Project; ratio?:
         <span className="h-2 w-2 rounded-full bg-white/20" />
         <span className="h-2 w-2 rounded-full bg-white/20" />
         <span className="h-2 w-2 rounded-full bg-white/20" />
-        <span className="ml-2 flex h-3.5 flex-1 items-center rounded bg-white/[0.05] px-2 text-[0.55rem] font-medium text-white/35">
+        <span className="ml-2 flex h-3.5 flex-1 items-center rounded bg-white/[0.05] px-2 text-[0.75rem] font-medium text-white/35">
           {hostOf(project.href)}
         </span>
       </div>
@@ -37,7 +37,7 @@ function Shot({ project, ratio = "aspect-[16/11]" }: { project: Project; ratio?:
           />
         )}
         {/* premium glass pill — a demo reads as a demo (no "live" pulse) */}
-        <span className={`absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-wide backdrop-blur-md ${project.demo ? "text-white/75" : "text-lime"}`}>
+        <span className={`absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-2.5 py-1 text-[0.75rem] font-semibold uppercase tracking-wide backdrop-blur-md ${project.demo ? "text-white/75" : "text-lime"}`}>
           {!project.demo && <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_6px_rgba(203,255,60,0.9)]" />}
           {project.badge ?? "Live project"}
         </span>
@@ -128,7 +128,7 @@ export default function FeaturedProjects() {
               <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
                 <div className="absolute right-5 top-14 w-40 animate-float rounded-xl border border-white/15 bg-[#0b0616]/85 p-3 shadow-2xl backdrop-blur-md">
                   <div className="flex items-center justify-between">
-                    <span className="text-[0.55rem] font-bold uppercase tracking-wide text-white/60">Quote requests</span>
+                    <span className="text-[0.75rem] font-bold uppercase tracking-wide text-white/60">Quote requests</span>
                     <span className="font-display text-sm text-lime">3.2×</span>
                   </div>
                   <svg viewBox="0 0 130 30" className="mt-2 h-7 w-full" fill="none">
@@ -137,8 +137,8 @@ export default function FeaturedProjects() {
                   </svg>
                 </div>
                 <div className="absolute bottom-16 right-24 animate-float-slow rounded-lg border border-white/15 bg-[#0b0616]/85 px-3 py-2 shadow-xl backdrop-blur-md" style={{ animationDelay: "1.2s" }}>
-                  <span className="flex items-center gap-2 text-[0.62rem] font-semibold text-white/80">
-                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-lime text-[0.55rem] text-ink">✓</span>
+                  <span className="flex items-center gap-2 text-[0.75rem] font-semibold text-white/80">
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-lime text-[0.75rem] text-ink">✓</span>
                     New quote · Vinyl fence · Coral Springs
                   </span>
                 </div>
@@ -146,7 +146,7 @@ export default function FeaturedProjects() {
             </div>
             <div className="flex flex-col justify-center gap-3 p-5 sm:p-7">
               <div>
-                <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-violet-300/70">Featured build</span>
+                <span className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-violet-300/70">Featured build</span>
                 <h3 className="mt-1.5 font-display text-[1.7rem] uppercase leading-none text-white">{featured.name}</h3>
               </div>
               <p className="text-[0.85rem] leading-relaxed text-white/60">{featured.blurb}</p>

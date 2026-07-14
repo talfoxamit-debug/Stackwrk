@@ -75,7 +75,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
         <div className="text-white" style={{ background: `linear-gradient(90deg, ${NAVY}, #123a52)` }}>
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-1.5 px-5 py-2 text-center sm:flex-row sm:px-8 sm:text-left">
             <p className="text-xs font-semibold sm:text-sm">
-              <span className="mr-2 rounded bg-white/15 px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide">Demo</span>
+              <span className="mr-2 rounded bg-white/15 px-1.5 py-0.5 text-[0.75rem] font-bold uppercase tracking-wide">Demo</span>
               This is a sample fencing website built by Stackwrk — not a real company.
             </p>
             <Link href="/" className="shrink-0 text-xs font-bold text-emerald-300 hover:text-emerald-200 sm:text-sm">Want one like this for your business? →</Link>
@@ -138,7 +138,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
               <select className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-600 outline-none focus:border-emerald-500"><option>Fence type…</option><option>Wood</option><option>Vinyl</option><option>Aluminum</option><option>Pool safety</option><option>Gate</option></select>
               <button className="w-full rounded-lg py-3 text-sm font-bold text-white" style={{ background: GREEN }}>Get My Free Quote →</button>
             </div>
-            <p className="mt-2 text-center text-[0.7rem] text-slate-400">No spam. We&rsquo;ll text you a quote, not a sales pitch.</p>
+            <p className="mt-2 text-center text-[0.75rem] text-slate-400">No spam. We&rsquo;ll text you a quote, not a sales pitch.</p>
           </div>
         </div>
       </section>
@@ -373,7 +373,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
             <p className="font-semibold text-slate-700">Serving {c.region}</p>
             {demo && <p className="mt-1"><Link href="/demos/apex-fence/guides" className="hover:text-slate-700">Fence guides &amp; resources</Link></p>}
             <p className="mt-2 text-xs">© 2026 {c.business} · Site by Stackwrk</p>
-            {c.photoCredit && <p className="mt-1 text-[0.65rem] text-slate-400">{c.photoCredit}</p>}
+            {c.photoCredit && <p className="mt-1 text-[0.75rem] text-slate-400">{c.photoCredit}</p>}
           </div>
         </div>
       </footer>

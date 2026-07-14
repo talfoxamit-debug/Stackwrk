@@ -77,7 +77,7 @@ export default function FenceEstimator({ phone }: { phone: string }) {
           onChange={(e) => setFeet(Number(e.target.value))}
           className="mt-2 w-full accent-emerald-600"
         />
-        <div className="flex justify-between text-[0.65rem] text-slate-400"><span>20 ft</span><span>500 ft</span></div>
+        <div className="flex justify-between text-[0.75rem] text-slate-400"><span>20 ft</span><span>500 ft</span></div>
 
         <div className="mt-5 grid grid-cols-2 gap-5">
           <div>

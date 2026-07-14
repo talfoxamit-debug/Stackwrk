@@ -49,7 +49,7 @@ export default function MaterialComparison() {
                 <th key={m.key} className="p-3 text-center align-bottom">
                   <div className="rounded-xl border p-2 transition-colors" style={m.key === winner ? { borderColor: GREEN, background: "#EAF6EF" } : { borderColor: "rgba(0,0,0,0.08)" }}>
                     <span className="block font-extrabold" style={{ color: NAVY }}>{m.name}</span>
-                    {m.key === winner && <span className="text-[0.65rem] font-bold uppercase tracking-wide" style={{ color: GREEN }}>Best pick</span>}
+                    {m.key === winner && <span className="text-[0.75rem] font-bold uppercase tracking-wide" style={{ color: GREEN }}>Best pick</span>}
                   </div>
                 </th>
               ))}

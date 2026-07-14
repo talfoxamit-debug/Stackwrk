@@ -163,7 +163,7 @@ export default function CrmBoard() {
                   </a>
                 )}
                 {lead.message && <p className="mt-1.5 text-xs text-white/55">{lead.message}</p>}
-                <p className="mt-1.5 text-[0.65rem] uppercase tracking-wide text-white/30">
+                <p className="mt-1.5 text-[0.75rem] uppercase tracking-wide text-white/30">
                   {new Date(lead.created_at).toLocaleString()} · {lead.source ?? "form"}
                 </p>
               </div>

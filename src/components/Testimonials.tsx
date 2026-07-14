@@ -20,7 +20,7 @@ export default function Testimonials() {
               delay={i * 90}
               className="flex flex-col rounded-xl border border-white/[0.06] bg-white/[0.015] p-5"
             >
-              <div className="flex gap-0.5 text-[0.7rem] text-lime/80" aria-hidden="true">
+              <div className="flex gap-0.5 text-[0.75rem] text-lime/80" aria-hidden="true">
                 {"★★★★★".split("").map((s, j) => (
                   <span key={j}>{s}</span>
                 ))}

@@ -26,7 +26,7 @@ function MiniAudit() {
       <div className="min-w-0 flex-1 space-y-1.5">
         {cats.map(([label, w, color]) => (
           <div key={label} className="flex items-center gap-2">
-            <span className="w-12 shrink-0 text-[0.55rem] uppercase tracking-wide text-white/40">{label}</span>
+            <span className="w-12 shrink-0 text-[0.75rem] uppercase tracking-wide text-white/40">{label}</span>
             <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.07]">
               <div className="h-full rounded-full" style={{ width: `${w}%`, background: color }} />
             </div>
@@ -69,7 +69,7 @@ function MiniGrowth() {
         <path d="M4 42 C 30 40, 46 30, 66 22 S 102 8, 116 5 L 116 46 L 4 46 Z" fill="rgba(203,255,60,0.07)" />
         <circle cx="116" cy="5" r="3.5" fill="#CBFF3C" className="animate-pulse-glow" />
       </svg>
-      <span className="shrink-0 rounded-md border border-lime/30 bg-lime/10 px-2 py-1 text-[0.7rem] font-bold text-lime">
+      <span className="shrink-0 rounded-md border border-lime/30 bg-lime/10 px-2 py-1 text-[0.75rem] font-bold text-lime">
         ↑ 3.2× leads
       </span>
     </div>

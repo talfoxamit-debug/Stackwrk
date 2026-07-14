@@ -44,7 +44,7 @@ export default function FenceTools() {
       {/* demo banner */}
       <div className="text-white" style={{ background: `linear-gradient(90deg, ${NAVY}, #123a52)` }}>
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-5 py-2 sm:px-8">
-          <p className="text-xs font-semibold sm:text-sm"><span className="mr-2 rounded bg-white/15 px-1.5 py-0.5 text-[0.65rem] font-bold uppercase">Demo</span>Sample tools built by Stackwrk.</p>
+          <p className="text-xs font-semibold sm:text-sm"><span className="mr-2 rounded bg-white/15 px-1.5 py-0.5 text-[0.75rem] font-bold uppercase">Demo</span>Sample tools built by Stackwrk.</p>
           <Link href="/" className="shrink-0 text-xs font-bold text-emerald-300 hover:text-emerald-200 sm:text-sm">Want these on your site? →</Link>
         </div>
       </div>

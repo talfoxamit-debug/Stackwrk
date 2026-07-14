@@ -20,7 +20,7 @@ export default function MetricsBand() {
             <p className="font-display text-4xl leading-none text-lime">
               {s.value !== undefined ? <CountUp value={s.value} /> : s.text}
             </p>
-            <p className="mx-auto mt-1.5 max-w-[11rem] text-[0.68rem] font-medium uppercase tracking-wider text-white/40">
+            <p className="mx-auto mt-1.5 max-w-[11rem] text-[0.75rem] font-medium uppercase tracking-wider text-white/40">
               {s.label}
             </p>
           </div>

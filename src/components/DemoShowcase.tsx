@@ -146,7 +146,7 @@ function BookingDemo() {
             {submitting ? "Booking…" : "Confirm meeting"}
             {!submitting && <ArrowRight width={18} height={18} />}
           </button>
-          <p className="text-center text-[0.7rem] text-white/35">Instant confirmation + calendar invite. No spam.</p>
+          <p className="text-center text-[0.75rem] text-white/35">Instant confirmation + calendar invite. No spam.</p>
         </form>
       </div>
     );
@@ -170,7 +170,7 @@ function BookingDemo() {
                   dayIdx === i ? "border-lime bg-lime/15 text-lime" : "border-white/12 text-white/70 hover:border-white/30"
                 }`}
               >
-                <span className="block text-[0.6rem] uppercase tracking-wide opacity-70">
+                <span className="block text-[0.75rem] uppercase tracking-wide opacity-70">
                   {d.toLocaleDateString("en-US", { weekday: "short" })}
                 </span>
                 {d.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
@@ -236,12 +236,12 @@ function CalculatorDemo() {
 
       <div className="mt-6 grid grid-cols-2 gap-3">
         <div className="rounded-xl border border-white/10 bg-ink-800/60 p-4">
-          <p className="text-[0.65rem] uppercase tracking-widest text-white/40">Your site now</p>
+          <p className="text-[0.75rem] uppercase tracking-widest text-white/40">Your site now</p>
           <p className="mt-1 font-display text-2xl text-white/70">{money(currentRev)}</p>
           <p className="text-xs text-white/40">/mo · {current}% convert</p>
         </div>
         <div className="rounded-xl border border-lime/30 bg-lime/[0.06] p-4">
-          <p className="text-[0.65rem] uppercase tracking-widest text-lime">With a Stackwrk site</p>
+          <p className="text-[0.75rem] uppercase tracking-widest text-lime">With a Stackwrk site</p>
           <p className="mt-1 font-display text-2xl text-white">{money(improvedRev)}</p>
           <p className="text-xs text-white/50">/mo · {improved}% convert</p>
         </div>
@@ -252,7 +252,7 @@ function CalculatorDemo() {
           <span className="font-display text-lg text-lime">+{money(uplift)}/mo</span> in recovered revenue
         </span>
       </div>
-      <p className="mt-3 text-center text-[0.7rem] text-white/35">
+      <p className="mt-3 text-center text-[0.75rem] text-white/35">
         Illustrative — real lift depends on your traffic &amp; offer.
       </p>
       <DemoCTA label="Get this uplift on your site" />
@@ -420,7 +420,7 @@ function BeforeAfterDemo() {
   return (
     <div className="p-5 sm:p-7">
       {/* legend — makes it unmistakable which side is which */}
-      <div className="mb-3 flex items-center justify-between text-[0.7rem] font-bold uppercase tracking-wider">
+      <div className="mb-3 flex items-center justify-between text-[0.75rem] font-bold uppercase tracking-wider">
         <span className="flex items-center gap-1.5 text-white/45">
           <span aria-hidden="true">◀</span> Before · dated
         </span>
@@ -470,13 +470,13 @@ function BeforeAfterDemo() {
           {/* top nav */}
           <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-2.5 sm:px-5">
             <div className="flex items-center gap-1.5">
-              <span className="flex h-4 w-4 items-center justify-center rounded bg-lime text-[0.55rem] font-black leading-none text-ink">B</span>
-              <span className="text-[0.62rem] font-bold uppercase tracking-wider text-white">Bold Studio</span>
+              <span className="flex h-4 w-4 items-center justify-center rounded bg-lime text-[0.75rem] font-black leading-none text-ink">B</span>
+              <span className="text-[0.75rem] font-bold uppercase tracking-wider text-white">Bold Studio</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="hidden text-[0.55rem] font-medium text-white/60 sm:inline">Menu</span>
-              <span className="hidden text-[0.55rem] font-medium text-white/60 sm:inline">About</span>
-              <span className="rounded-md bg-white/10 px-2.5 py-1 text-[0.52rem] font-bold uppercase text-white ring-1 ring-inset ring-white/15 backdrop-blur">
+              <span className="hidden text-[0.75rem] font-medium text-white/60 sm:inline">Menu</span>
+              <span className="hidden text-[0.75rem] font-medium text-white/60 sm:inline">About</span>
+              <span className="rounded-md bg-white/10 px-2.5 py-1 text-[0.75rem] font-bold uppercase text-white ring-1 ring-inset ring-white/15 backdrop-blur">
                 Book
               </span>
             </div>
@@ -485,21 +485,21 @@ function BeforeAfterDemo() {
           {/* hero copy — right-anchored so the punchline shows at a middle split */}
           <div className="absolute right-4 top-[52%] z-10 max-w-[70%] -translate-y-1/2 text-right sm:right-6 sm:max-w-[60%]">
             <div className="mb-1.5 flex items-center justify-end gap-1.5">
-              <span className="text-[0.62rem] leading-none tracking-tight text-lime">★★★★★</span>
-              <span className="text-[0.5rem] text-white/60">5.0 · 240 reviews</span>
+              <span className="text-[0.75rem] leading-none tracking-tight text-lime">★★★★★</span>
+              <span className="text-[0.75rem] text-white/60">5.0 · 240 reviews</span>
             </div>
             <p className="font-display text-2xl uppercase leading-[0.88] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.55)] sm:text-[2.5rem]">
               Modern.<br />Fast.<br />
               <span className="text-accent-glow">Converts.</span>
             </p>
-            <p className="mt-2 hidden text-[0.66rem] leading-snug text-white/75 sm:ml-auto sm:block sm:max-w-[15rem]">
+            <p className="mt-2 hidden text-[0.75rem] leading-snug text-white/75 sm:ml-auto sm:block sm:max-w-[15rem]">
               A site that turns visitors into booked customers — on any device.
             </p>
             <div className="mt-3 flex items-center justify-end gap-2">
-              <span className="hidden items-center rounded-md border border-white/25 px-2.5 py-1.5 text-[0.56rem] font-semibold text-white/85 sm:inline-flex">
+              <span className="hidden items-center rounded-md border border-white/25 px-2.5 py-1.5 text-[0.75rem] font-semibold text-white/85 sm:inline-flex">
                 View menu
               </span>
-              <span className="inline-flex items-center gap-1 rounded-md bg-lime px-3 py-1.5 text-[0.6rem] font-bold uppercase text-ink shadow-[0_0_24px_-4px_rgba(203,255,60,0.85)]">
+              <span className="inline-flex items-center gap-1 rounded-md bg-lime px-3 py-1.5 text-[0.75rem] font-bold uppercase text-ink shadow-[0_0_24px_-4px_rgba(203,255,60,0.85)]">
                 Book now →
               </span>
             </div>
@@ -509,26 +509,26 @@ function BeforeAfterDemo() {
                   <span key={i} className={`h-4 w-4 rounded-full border border-ink bg-gradient-to-br ${g}`} />
                 ))}
               </div>
-              <span className="text-[0.5rem] text-white/55">2,000+ booked this year</span>
+              <span className="text-[0.75rem] text-white/55">2,000+ booked this year</span>
             </div>
           </div>
 
           {/* floating glass booking widget — the "wow" element */}
           <div className="absolute bottom-3 left-3 z-10 hidden w-40 rounded-xl border border-white/15 bg-white/[0.08] p-2.5 shadow-2xl backdrop-blur-md md:block">
             <div className="flex items-center justify-between">
-              <span className="text-[0.55rem] font-bold uppercase tracking-wide text-white">Book a table</span>
-              <span className="flex items-center gap-1 text-[0.48rem] text-lime">
+              <span className="text-[0.75rem] font-bold uppercase tracking-wide text-white">Book a table</span>
+              <span className="flex items-center gap-1 text-[0.75rem] text-lime">
                 <span className="h-1 w-1 rounded-full bg-lime" /> Live
               </span>
             </div>
             <div className="mt-2 grid grid-cols-3 gap-1">
               {["6:00", "7:30", "8:00", "8:30", "9:00", "9:30"].map((t, i) => (
-                <span key={t} className={`rounded py-1 text-center text-[0.5rem] font-medium ${i === 2 ? "bg-lime text-ink" : "bg-white/10 text-white/70"}`}>
+                <span key={t} className={`rounded py-1 text-center text-[0.75rem] font-medium ${i === 2 ? "bg-lime text-ink" : "bg-white/10 text-white/70"}`}>
                   {t}
                 </span>
               ))}
             </div>
-            <div className="mt-2 rounded-md bg-lime py-1 text-center text-[0.52rem] font-bold uppercase text-ink">Confirm</div>
+            <div className="mt-2 rounded-md bg-lime py-1 text-center text-[0.75rem] font-bold uppercase text-ink">Confirm</div>
           </div>
         </div>
         {/* BEFORE (dated) — a cluttered 2003 site; fixed inner width so it never reflows */}
@@ -544,46 +544,46 @@ function BeforeAfterDemo() {
             {/* title bar */}
             <div className="flex items-center justify-between border-b-2 border-[#8a8677] bg-gradient-to-b from-[#3b6ea5] to-[#26456f] px-4 py-1.5">
               <span className="text-sm font-bold text-yellow-200 [text-shadow:1px_1px_0_#000]">★ Bob&rsquo;s Plumbing &amp; Sons ★</span>
-              <span className="text-[0.55rem] italic text-white/80">est. 2003</span>
+              <span className="text-[0.75rem] italic text-white/80">est. 2003</span>
             </div>
             {/* welcome marquee */}
             <div className="overflow-hidden border-b border-[#b8b4a8] bg-[#fff7c4] py-[3px]">
-              <div className="w-max animate-marquee whitespace-nowrap text-[0.6rem] font-bold text-[#a2331f]">
+              <div className="w-max animate-marquee whitespace-nowrap text-[0.75rem] font-bold text-[#a2331f]">
                 ◆ Welcome to our homepage! ◆ Best viewed in Internet Explorer 6 at 800×600 ◆ Sign our guestbook! ◆&nbsp;&nbsp;&nbsp;&nbsp;
               </div>
             </div>
             {/* nav */}
-            <div className="flex gap-3 border-b border-[#c4c0b4] bg-[#c8c4b8] px-4 py-1 text-[0.6rem] text-[#1a3b8f] underline">
+            <div className="flex gap-3 border-b border-[#c4c0b4] bg-[#c8c4b8] px-4 py-1 text-[0.75rem] text-[#1a3b8f] underline">
               <span>Home</span><span>About Us</span><span>Services</span><span>Guestbook</span><span>Contact</span>
             </div>
             {/* body: sidebar + main */}
             <div className="flex gap-3 px-4 py-3">
               <div className="w-24 shrink-0 space-y-1.5 text-center">
                 <div className="border-2 border-[#a8a498] bg-[#e8e6de] p-1">
-                  <div className="text-[0.5rem] font-bold text-[#556]">Visitors</div>
-                  <div className="mt-0.5 bg-black px-1 font-mono text-[0.6rem] font-bold text-[#33ff33]">0012427</div>
+                  <div className="text-[0.75rem] font-bold text-[#556]">Visitors</div>
+                  <div className="mt-0.5 bg-black px-1 font-mono text-[0.75rem] font-bold text-[#33ff33]">0012427</div>
                 </div>
-                <div className="animate-pulse-glow text-[0.55rem] font-bold leading-tight text-[#c33]">★ Under<br />Construction ★</div>
-                <div className="border border-[#8888aa] bg-[#dde] px-1 py-0.5 text-[0.5rem] leading-tight text-[#2222aa]">Sign our<br />Guestbook!</div>
+                <div className="animate-pulse-glow text-[0.75rem] font-bold leading-tight text-[#c33]">★ Under<br />Construction ★</div>
+                <div className="border border-[#8888aa] bg-[#dde] px-1 py-0.5 text-[0.75rem] leading-tight text-[#2222aa]">Sign our<br />Guestbook!</div>
               </div>
               <div className="min-w-0 flex-1">
                 <span className="block text-lg font-bold text-[#2a2a3a]">Welcome To Our Business!!!</span>
-                <span className="mt-0.5 block text-[0.7rem] italic text-[#556677]">Quality plumbing you can trust since 2003.</span>
+                <span className="mt-0.5 block text-[0.75rem] italic text-[#556677]">Quality plumbing you can trust since 2003.</span>
                 <div className="mt-2 flex gap-2">
-                  <div className="flex h-16 w-20 shrink-0 items-center justify-center border-2 border-[#a8a498] bg-[#e6e4dc] text-[0.5rem] text-[#8899aa]">[ photo.jpg ]</div>
-                  <span className="text-[0.6rem] leading-relaxed text-[#445566]">
+                  <div className="flex h-16 w-20 shrink-0 items-center justify-center border-2 border-[#a8a498] bg-[#e6e4dc] text-[0.75rem] text-[#8899aa]">[ photo.jpg ]</div>
+                  <span className="text-[0.75rem] leading-relaxed text-[#445566]">
                     We are a family-owned company providing the BEST service in town! Call us during business
                     hours Mon–Fri 9–5. We fix drains, pipes &amp; water heaters. Ask about our specials!
                   </span>
                 </div>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="border border-[#888] bg-gradient-to-b from-[#f4f4f0] to-[#c8c4b8] px-2 py-0.5 text-[0.55rem] text-[#333]">Submit »</span>
-                  <span className="text-[0.5rem] text-[#8899aa]">✉ webmaster@aol.com</span>
+                  <span className="border border-[#888] bg-gradient-to-b from-[#f4f4f0] to-[#c8c4b8] px-2 py-0.5 text-[0.75rem] text-[#333]">Submit »</span>
+                  <span className="text-[0.75rem] text-[#8899aa]">✉ webmaster@aol.com</span>
                 </div>
               </div>
             </div>
             {/* footer */}
-            <div className="border-t border-[#c4c0b4] px-4 py-1 text-center text-[0.5rem] text-[#778899]">
+            <div className="border-t border-[#c4c0b4] px-4 py-1 text-center text-[0.75rem] text-[#778899]">
               © 2003 Bob&rsquo;s Plumbing &amp; Sons · This site is under construction · HTML 4.0
             </div>
           </div>
@@ -600,7 +600,7 @@ function BeforeAfterDemo() {
           </div>
           {/* explicit drag hint above the handle */}
           <span
-            className={`absolute left-1/2 top-2 -translate-x-1/2 rounded-full bg-lime px-2 py-0.5 text-[0.5rem] font-bold uppercase tracking-wider text-ink shadow transition-opacity ${
+            className={`absolute left-1/2 top-2 -translate-x-1/2 rounded-full bg-lime px-2 py-0.5 text-[0.75rem] font-bold uppercase tracking-wider text-ink shadow transition-opacity ${
               dragging ? "opacity-0" : "opacity-100"
             }`}
           >
@@ -662,11 +662,11 @@ function CrmDemo() {
       {/* live totals */}
       <div className="mb-4 flex items-center gap-3">
         <div className="flex-1 rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3">
-          <p className="text-[0.6rem] uppercase tracking-widest text-white/40">Open pipeline</p>
+          <p className="text-[0.75rem] uppercase tracking-widest text-white/40">Open pipeline</p>
           <p className="font-display text-xl text-white">{money(pipeline)}</p>
         </div>
         <div className="flex-1 rounded-xl border border-lime/30 bg-lime/[0.06] px-4 py-3">
-          <p className="text-[0.6rem] uppercase tracking-widest text-lime">Won this month</p>
+          <p className="text-[0.75rem] uppercase tracking-widest text-lime">Won this month</p>
           <p className="font-display text-xl text-white">{money(won)}</p>
         </div>
       </div>
@@ -680,10 +680,10 @@ function CrmDemo() {
               <div key={stage.key} className="min-w-0 flex-1">
                 <div className="mb-2 flex items-center gap-1.5 px-0.5">
                   <span className={`h-1.5 w-1.5 rounded-full ${stage.dot}`} />
-                  <span className={`text-[0.65rem] font-semibold uppercase tracking-wide ${stage.head}`}>
+                  <span className={`text-[0.75rem] font-semibold uppercase tracking-wide ${stage.head}`}>
                     {stage.label}
                   </span>
-                  <span className="ml-auto text-[0.65rem] tabular-nums text-white/35">{cards.length}</span>
+                  <span className="ml-auto text-[0.75rem] tabular-nums text-white/35">{cards.length}</span>
                 </div>
                 <div className="min-h-[3rem] space-y-2 rounded-lg bg-white/[0.015] p-1.5">
                   {cards.map((d) => {
@@ -700,7 +700,7 @@ function CrmDemo() {
                         }`}
                       >
                         <div className="flex items-center justify-between gap-1">
-                          <span className="truncate text-[0.72rem] font-semibold text-white">{d.name}</span>
+                          <span className="truncate text-[0.78rem] font-semibold text-white">{d.name}</span>
                           {done ? (
                             <Check width={12} height={12} className="shrink-0 text-lime" />
                           ) : (
@@ -712,8 +712,8 @@ function CrmDemo() {
                           )}
                         </div>
                         <div className="mt-1 flex items-center justify-between gap-1">
-                          <span className="truncate text-[0.58rem] text-white/40">{d.source}</span>
-                          <span className="shrink-0 text-[0.62rem] font-medium tabular-nums text-lime/80">
+                          <span className="truncate text-[0.75rem] text-white/40">{d.source}</span>
+                          <span className="shrink-0 text-[0.75rem] font-medium tabular-nums text-lime/80">
                             {money(d.value)}
                           </span>
                         </div>
@@ -728,8 +728,8 @@ function CrmDemo() {
       </div>
 
       <div className="mt-3 flex items-center justify-between px-0.5">
-        <p className="text-[0.7rem] text-white/40">Tap a lead to move it down the pipeline.</p>
-        <button onClick={reset} className="text-[0.7rem] font-medium text-white/45 transition-colors hover:text-lime">
+        <p className="text-[0.75rem] text-white/40">Tap a lead to move it down the pipeline.</p>
+        <button onClick={reset} className="text-[0.75rem] font-medium text-white/45 transition-colors hover:text-lime">
           Reset
         </button>
       </div>
@@ -768,7 +768,7 @@ export default function DemoShowcase() {
               Real features I build into client sites. Pick one and try it — every click works.
             </p>
             {/* Mobile hint that the tools scroll sideways */}
-            <p className="mt-2 flex items-center gap-1.5 text-[0.7rem] font-medium text-white/40 lg:hidden">
+            <p className="mt-2 flex items-center gap-1.5 text-[0.75rem] font-medium text-white/40 lg:hidden">
               Swipe for more tools <ArrowRight width={12} height={12} />
             </p>
             <div className="mt-2 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 [mask-image:linear-gradient(to_right,#000_84%,transparent)] lg:mt-5 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0 lg:[mask-image:none]">
