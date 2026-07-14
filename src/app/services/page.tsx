@@ -5,8 +5,10 @@ import Reveal from "@/components/Reveal";
 import CardSpotlight from "@/components/CardSpotlight";
 import SectionSeam from "@/components/SectionSeam";
 import BrushWord from "@/components/BrushWord";
-import { ArrowRight, Check } from "@/components/icons";
+import { ArrowRight, Check, Code, Bolt, Sparkles, Stack, TrendUp, Shield } from "@/components/icons";
 import { priceItems, money, type PriceItem } from "@/lib/pricing";
+
+type IconCmp = React.ComponentType<{ width?: number; height?: number; className?: string }>;
 
 export const metadata: Metadata = {
   title: "Services | Stackwrk",
@@ -16,13 +18,13 @@ export const metadata: Metadata = {
 };
 
 // What the client gets, grouped for the services page. Care plans live on /pricing.
-const GROUPS: { key: PriceItem["category"]; title: string; blurb: string }[] = [
-  { key: "build", title: "Websites & Apps", blurb: "Fast, custom sites and full web apps built to turn visitors into booked jobs." },
-  { key: "automation", title: "Automations", blurb: "Kill the busywork: quotes, follow-ups, invoicing and reporting, wired together and running on their own." },
-  { key: "ai", title: "AI Assistant", blurb: "A 24/7 assistant on your site that answers questions, qualifies leads, and books appointments while you work." },
-  { key: "crm", title: "Custom CRM", blurb: "Your process and your data in one place, with no per-seat fees, built around how you actually sell." },
-  { key: "growth", title: "Growth Systems", blurb: "Landing pages and conversion tuning that keep turning more of your traffic into revenue." },
-  { key: "cto", title: "Fractional CTO", blurb: "An operator-developer in your corner for strategy, vendors, and roadmap, without a full-time hire." },
+const GROUPS: { key: PriceItem["category"]; title: string; blurb: string; Icon: IconCmp }[] = [
+  { key: "build", title: "Websites & Apps", Icon: Code, blurb: "Fast, custom sites and full web apps built to turn visitors into booked jobs." },
+  { key: "automation", title: "Automations", Icon: Bolt, blurb: "Kill the busywork: quotes, follow-ups, invoicing and reporting, wired together and running on their own." },
+  { key: "ai", title: "AI Assistant", Icon: Sparkles, blurb: "A 24/7 assistant on your site that answers questions, qualifies leads, and books appointments while you work." },
+  { key: "crm", title: "Custom CRM", Icon: Stack, blurb: "Your process and your data in one place, with no per-seat fees, built around how you actually sell." },
+  { key: "growth", title: "Growth Systems", Icon: TrendUp, blurb: "Landing pages and conversion tuning that keep turning more of your traffic into revenue." },
+  { key: "cto", title: "Fractional CTO", Icon: Shield, blurb: "An operator-developer in your corner for strategy, vendors, and roadmap, without a full-time hire." },
 ];
 
 function priceLabel(it: PriceItem): string {
@@ -71,10 +73,12 @@ export default function ServicesPage() {
             const items = priceItems.filter((it) => it.category === g.key);
             if (!items.length) return null;
             return (
-              <Reveal as="div" key={g.key} delay={gi * 60} className="rounded-2xl border border-white/[0.07] bg-white/[0.015] p-6 transition-all duration-300 hover:border-lime/20 hover:bg-white/[0.025] sm:p-7">
+              <Reveal as="div" key={g.key} delay={gi * 60} className="group/section rounded-2xl border border-white/[0.07] bg-white/[0.015] p-6 transition-all duration-300 hover:border-lime/20 hover:bg-white/[0.025] sm:p-7">
                 <div className="sm:flex sm:items-baseline sm:justify-between sm:gap-6">
                   <h2 className="flex items-center gap-3 font-display text-2xl uppercase tracking-wide text-white">
-                    <span className="h-6 w-1 rounded-full bg-lime" />
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-lime/40 bg-lime/[0.06] text-lime shadow-glow-lime transition-transform duration-300 group-hover/section:-translate-y-0.5 group-hover/section:scale-110 group-hover/section:rotate-[-6deg]">
+                      <g.Icon width={20} height={20} />
+                    </span>
                     {g.title}
                   </h2>
                   <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-white/55 sm:mt-0 sm:text-right">{g.blurb}</p>

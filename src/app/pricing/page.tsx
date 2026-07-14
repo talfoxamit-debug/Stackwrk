@@ -7,6 +7,7 @@ import Reveal from "@/components/Reveal";
 import CardSpotlight from "@/components/CardSpotlight";
 import SectionSeam from "@/components/SectionSeam";
 import BrushWord from "@/components/BrushWord";
+import CountUp from "@/components/CountUp";
 import { ArrowRight, Check, Bolt, TrendUp } from "@/components/icons";
 import { PLAN_PRESETS } from "@/lib/agreement";
 
@@ -112,7 +113,7 @@ export default function PricingPage() {
                     <h2 className="relative z-10 font-display text-xl uppercase tracking-wide text-white">{t.key}</h2>
                     <p className="relative z-10 mt-1 text-sm text-white/50">{t.tagline}</p>
                     <p className="relative z-10 mt-5 flex items-baseline gap-2">
-                      <span className="font-display text-5xl text-white">{money(p.fee)}</span>
+                      <CountUp value={p.fee} prefix="$" className="font-display text-5xl text-white" />
                       <span className="text-sm text-white/40 line-through">{money(p.listFee)}</span>
                     </p>
                     <p className="relative z-10 mt-1 text-xs font-semibold uppercase tracking-wide text-lime">Founding-client rate</p>

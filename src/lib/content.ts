@@ -18,11 +18,11 @@ export const site = {
 };
 
 export const nav = [
-  { label: "Work", href: "#work" },
+  { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
   { label: "Pricing", href: "/pricing" },
   { label: "Free tools", href: "/tools" },
-  { label: "Contact", href: "#mockup" },
+  { label: "Contact", href: "/contact" },
 ];
 
 // Limited-time offer surfaced in the entry popup + audit section.
