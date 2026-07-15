@@ -41,6 +41,12 @@ nothing to give but works as the same green light, so it lowers the delete-refle
 
 ## 3. The sequence: paste these in
 
+> **Before you send:** replace `[YOUR MAILING ADDRESS]` in every signature with a
+> real physical postal address. US law (CAN-SPAM) requires one in every commercial
+> email. Use the Fox Solutions LLC business address, or a PO box / virtual mailbox
+> if you don't want your home address out there. Instantly does NOT add this for
+> you, so it has to be in the copy. Phone goes on steps 2 and 3 only, not step 1.
+
 ### Step 1: Day 0 (NO links, plain text)
 **Subject:** quick idea for {{company_name}}
 
@@ -58,7 +64,8 @@ Would it be a bad idea to send it over? If you like it we talk, if not no hard f
 
 - Tal
 Stackwrk
-Reply STOP and I'll leave you alone.
+[YOUR MAILING ADDRESS]
+Not interested? Just reply and I'll stop.
 ```
 *Why it works: leads with the give (a free concept), and the ask is a "no" question. A "no, not a bad idea" is far easier to send than committing to "yes."*
 
@@ -72,11 +79,14 @@ Here's the kind of site I build for fence pros: stackwrk.com/demos/apex-fence,
 with an instant-quote form, reviews, financing, and quick load on mobile. Yours
 would have your name, your photos, your number.
 
-Would it be unreasonable for me to build you the free concept so you can see yours
-the same way? One reply and I'll start.
+Would it be unreasonable for me to build you the concept, free, so you can see
+yours the same way? One reply and I'll start.
 
 - Tal
-Reply STOP to opt out.
+Stackwrk
+(754) 551-2828
+[YOUR MAILING ADDRESS]
+Not interested? Just reply and I'll stop.
 ```
 
 ### Step 3: Day 6 (breakup)
@@ -92,7 +102,10 @@ If it is: reply "mockup" and I'll build you a free homepage from your own photos
 Costs you nothing to look, and it takes me about a day.
 
 - Tal
-Stackwrk · Reply STOP to opt out.
+Stackwrk
+(754) 551-2828
+[YOUR MAILING ADDRESS]
+Not interested? Just reply and I'll stop.
 ```
 *The breakup gives them explicit permission to opt out by silence, which,
 counter-intuitively, pulls the on-the-fence ones off the fence to reply.*
