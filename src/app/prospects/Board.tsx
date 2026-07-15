@@ -396,7 +396,7 @@ export default function Board({ user }: { user: string }) {
             <button onClick={toggleTheme} title="Toggle day / night" className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">{theme === "day" ? "🌙 Night" : "☀️ Day"}</button>
             <button onClick={() => { setDraft(emptyLead()); setShowAdd(true); }} className="rounded-lg bg-lime px-3 py-2 text-xs font-bold text-ink">+ Add lead</button>
             <button onClick={() => setShowImport(true)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Import CSV</button>
-            <button onClick={exportCSV} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Export</button>
+            <button onClick={exportCSV} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn" title="Download every prospect as a spreadsheet (backup / records). This is NOT the email campaign file.">⬇ Export all</button>
             {emailHunt ? (
               <button disabled className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn opacity-60">🔍 Checking {emailHunt.done}/{emailHunt.total} · {emailHunt.found} found</button>
             ) : uncheckedWithSite > 0 ? (
@@ -404,9 +404,9 @@ export default function Board({ user }: { user: string }) {
             ) : triedEmptyWithSite > 0 ? (
               <button onClick={() => findMissingEmails(true)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn" title="Re-scan the sites that had no email last time">↻ Re-check {triedEmptyWithSite}</button>
             ) : null}
-            <button onClick={() => exportInstantlyCSV(true)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn" title="Only leads not yet sent to Instantly">✉️ Export new{unexportedWithEmail > 0 ? ` (${unexportedWithEmail})` : ""}</button>
+            <button onClick={() => exportInstantlyCSV(true)} className="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-bold text-white dark:bg-lime dark:text-ink" title="Only leads that HAVE an email and haven't been sent yet. Formatted for Instantly with the personalized icebreaker line. Upload THIS to your email campaign.">✉️ Export to email campaign{unexportedWithEmail > 0 ? ` (${unexportedWithEmail})` : ""}</button>
             {exportedCount > 0 && (
-              <button onClick={() => exportInstantlyCSV(false)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn" title="Re-download every emailed lead, including ones already exported">Export all</button>
+              <button onClick={() => exportInstantlyCSV(false)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn" title="Re-download every lead with an email, including ones already sent to the campaign">↻ Re-export all emails</button>
             )}
             <button onClick={logout} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Sign out</button>
           </div>
