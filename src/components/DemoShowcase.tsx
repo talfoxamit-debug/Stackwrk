@@ -442,7 +442,7 @@ function BeforeAfterDemo() {
         aria-valuemax={100}
         tabIndex={0}
         onKeyDown={onKeyDown}
-        className={`relative aspect-[16/10] w-full touch-none select-none overflow-hidden rounded-xl border border-white/12 ${
+        className={`relative aspect-[4/3] w-full touch-none select-none overflow-hidden rounded-xl border border-white/12 sm:aspect-[16/10] ${
           dragging ? "cursor-grabbing" : "cursor-ew-resize"
         }`}
       >
@@ -484,7 +484,7 @@ function BeforeAfterDemo() {
 
           {/* hero copy: right-anchored so the punchline shows at a middle split */}
           <div className="absolute right-4 top-[52%] z-10 max-w-[70%] -translate-y-1/2 text-right sm:right-6 sm:max-w-[60%]">
-            <div className="mb-1.5 flex items-center justify-end gap-1.5">
+            <div className="mb-1.5 hidden items-center justify-end gap-1.5 sm:flex">
               <span className="text-[0.75rem] leading-none tracking-tight text-lime">★★★★★</span>
               <span className="text-[0.75rem] text-white/60">5.0 · 240 reviews</span>
             </div>
@@ -598,15 +598,15 @@ function BeforeAfterDemo() {
           >
             ↔
           </div>
-          {/* explicit drag hint above the handle */}
-          <span
-            className={`absolute left-1/2 top-2 -translate-x-1/2 rounded-full bg-lime px-2 py-0.5 text-[0.75rem] font-bold uppercase tracking-wider text-ink shadow transition-opacity ${
-              dragging ? "opacity-0" : "opacity-100"
-            }`}
-          >
-            Drag
-          </span>
         </div>
+        {/* drag hint: anchored to the frame (top-center) so it never clips at the slider edges */}
+        <span
+          className={`pointer-events-none absolute left-1/2 top-2 z-20 -translate-x-1/2 rounded-full bg-lime px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wider text-ink shadow transition-opacity ${
+            dragging ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          ⟷ Drag
+        </span>
       </div>
       <p className="mt-3 text-center text-xs text-white/45">
         Drag anywhere on the image. Same business, redesigned to sell.
