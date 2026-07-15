@@ -5,6 +5,7 @@ import { PROSPECT_STAGES, TEMPLATES, TEMPLATE_FLOWS, TIER_META, QUICK_TAGS, CALL
 import TodayDriver from "./TodayDriver";
 import LeadAudit from "./LeadAudit";
 import CallHistory from "./CallHistory";
+import CallConsole from "./CallConsole";
 import AgreementGen from "./AgreementGen";
 import { useTheme } from "./useTheme";
 
@@ -65,6 +66,11 @@ async function syncLeadToQuo(p: Prospect): Promise<boolean> {
     method: "POST", headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id: p.id, name: p.owner, company: p.name, email: p.email, phone: p.phone }),
   }).then((r) => r.json()).then((j) => Boolean(j.ok)).catch(() => false);
+}
+
+/** Signature of the fields we push to Quo, so auto-sync only fires on change. */
+function quoSyncSig(p: Prospect): string {
+  return `${phoneDigits(p.phone)}|${(p.owner || "").trim()}|${p.name.trim()}|${(p.email || "").trim()}`.toLowerCase();
 }
 
 function gapFor(p: Prospect | null): string {
@@ -169,6 +175,26 @@ export default function Board({ user }: { user: string }) {
   }
   const patch = (id: string, d: Partial<Prospect>) => setItems((xs) => xs.map((x) => (x.id === id ? { ...x, ...d } : x)));
   const copy = (t: string) => { navigator.clipboard?.writeText(t); flash("Copied"); };
+
+  // Push to Quo and remember what we sent, so identical data isn't re-pushed.
+  const pushToQuo = async (p: Prospect): Promise<boolean> => {
+    const ok = await syncLeadToQuo(p);
+    if (ok) patch(p.id, { quoSyncedSig: quoSyncSig(p) });
+    return ok;
+  };
+  // Auto-sync a lead you've actually worked (has a name + you've engaged with
+  // it) when its details changed since the last push — so names land in Quo
+  // without pressing anything, while the raw scraped rows you never touch stay
+  // out of your Quo contacts.
+  const maybeAutoSyncQuo = (p: Prospect) => {
+    const engaged = Boolean(p.owner?.trim() || p.stage !== "new" || p.lastContacted || p.source === "manual" || p.source === "quo");
+    if (phoneDigits(p.phone).length === 10 && engaged && quoSyncSig(p) !== (p.quoSyncedSig || "")) void pushToQuo(p);
+  };
+  // Closing the drawer is the natural "I'm done with this lead" moment — sync then.
+  const closeDrawer = () => {
+    if (sel) { const cur = items.find((x) => x.id === sel.id); if (cur) maybeAutoSyncQuo(cur); }
+    setSel(null);
+  };
   const toggleTag = (p: Prospect, t: string) => {
     const cur = p.tags || [];
     patch(p.id, { tags: cur.includes(t) ? cur.filter((x) => x !== t) : [...cur, t] });
@@ -260,7 +286,7 @@ export default function Board({ user }: { user: string }) {
     };
     setItems((xs) => [lead, ...xs]);
     setShowAdd(false); setDraft(emptyLead());
-    syncLeadToQuo(lead); // a lead added because you just called/dealt with them directly — worth naming in Quo right away
+    pushToQuo(lead); // a lead added because you just called/dealt with them directly — worth naming in Quo right away
     flash(`Added ${name}`);
   }
 
@@ -485,14 +511,14 @@ export default function Board({ user }: { user: string }) {
       {sel && (() => {
         const p = items.find((x) => x.id === sel.id) || sel;
         return (
-          <div className="fixed inset-0 z-50 flex justify-end bg-black/50" onClick={() => setSel(null)}>
+          <div className="fixed inset-0 z-50 flex justify-end bg-black/50" onClick={closeDrawer}>
             <div className="h-full w-full max-w-md overflow-y-auto border-l p-5 crm-drawer" onClick={(e) => e.stopPropagation()}>
               <div className="flex items-start justify-between">
                 <div>
                   <h2 className="text-lg font-extrabold crm-strong">{p.name}</h2>
                   <p className="text-xs crm-muted">{p.city} {p.street && `· ${p.street}`}</p>
                 </div>
-                <button onClick={() => setSel(null)} className="rounded-md px-2 py-1 crm-muted hover:bg-black/5 dark:hover:bg-white/5">✕</button>
+                <button onClick={closeDrawer} className="rounded-md px-2 py-1 crm-muted hover:bg-black/5 dark:hover:bg-white/5">✕</button>
               </div>
 
               {p.tier
@@ -549,7 +575,7 @@ export default function Board({ user }: { user: string }) {
                   <a href={lookup(p, "fb")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">📘 Facebook ↗</a>
                   {p.phone && (
                     <button
-                      onClick={async () => flash((await syncLeadToQuo(p)) ? "Synced to Quo" : "Couldn't sync to Quo — check it's connected")}
+                      onClick={async () => flash((await pushToQuo(p)) ? "Synced to Quo" : "Couldn't sync to Quo — check it's connected")}
                       className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn"
                       title="Push this name into Quo as a contact"
                     >
@@ -565,23 +591,8 @@ export default function Board({ user }: { user: string }) {
               {/* past calls with this number, synced from Quo */}
               {p.phone && <CallHistory key={p.phone} phone={p.phone} />}
 
-              {/* call script — exactly what to say, filled in for this lead */}
-              <div className="mt-5 rounded-lg border border-emerald-200 bg-emerald-50/60 p-3 dark:border-lime/25 dark:bg-lime/[0.06]">
-                <p className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-lime">📞 Call script — {p.owner || "them"}</p>
-                {["call_open", "call_gatekeeper", "call_vm", "call_objections"].map((key) => {
-                  const t = TEMPLATES.find((x) => x.key === key);
-                  if (!t) return null;
-                  return (
-                    <div key={key} className="mt-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[0.68rem] font-bold crm-strong">{t.label}</span>
-                        <button onClick={() => copy(fill(t.body, p))} className="rounded bg-slate-100 px-2 py-0.5 text-[0.62rem] font-bold text-slate-700 hover:bg-slate-200 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/20">Copy</button>
-                      </div>
-                      <p className="mt-1 whitespace-pre-wrap text-[0.72rem] leading-relaxed crm-muted">{fill(t.body, p)}</p>
-                    </div>
-                  );
-                })}
-              </div>
+              {/* live call console — tappable chapters, filled in for this lead */}
+              <CallConsole p={p} fill={fill} onCopy={copy} />
 
               {/* tags */}
               <div className="mt-4">
@@ -665,7 +676,9 @@ export default function Board({ user }: { user: string }) {
               <div className="mt-5">
                 <p className="text-xs font-bold uppercase tracking-wide crm-muted">Templates (auto-filled for {p.name})</p>
                 {TEMPLATE_FLOWS.map((flow) => {
-                  const group = TEMPLATES.filter((t) => t.flow === flow.key);
+                  // Call scripts live in the console above now; here we only
+                  // list the copy-and-send messages (email / text).
+                  const group = TEMPLATES.filter((t) => t.flow === flow.key && t.channel !== "call");
                   if (!group.length) return null;
                   return (
                     <div key={flow.key} className="mt-3">

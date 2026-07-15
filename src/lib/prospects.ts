@@ -51,6 +51,7 @@ export type Prospect = {
   // Automation bookkeeping — so work never repeats itself.
   emailCheckedAt?: number; // ms epoch: when "Find emails" last scanned this site (found or not)
   exportedAt?: number; // ms epoch: when last included in an Instantly export
+  quoSyncedSig?: string; // signature of what was last pushed to Quo (auto-sync dedupe)
 };
 
 /** Structured outcome of the last call — a dropdown, not freeform. */
@@ -123,6 +124,126 @@ export function tagStyle(tag: string): string {
   if (t === "callback") return "bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300";
   return "bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-slate-200";
 }
+
+// ---- Live call script (the in-drawer "call console") ---------------------
+// Structured so the CRM can render it as tappable chapters/steps you navigate
+// live on a call — not one wall of text. Each move = a `cue` (when/why, or the
+// objection you just heard) and the `say` line to speak. {{merge}} fields are
+// filled per lead. `only` shows a move for just has-site or no-site leads.
+
+export type CallMove = {
+  cue: string; // the trigger / when-to-use — doubles as the tappable header
+  say: string; // the words to say (filled with {{merge}} fields)
+  note?: string; // tiny reminder under the line
+  only?: "site" | "nosite"; // show only for leads with / without a website
+};
+
+export type CallChapter = {
+  key: string;
+  tab: string; // short tab label (with emoji) for the console
+  title: string;
+  when: string; // one-liner: when you're in this part of the call
+  why?: string; // collapsible coaching (tonality / strategy), hidden by default
+  moves: CallMove[];
+};
+
+export const CALL_SCRIPT: CallChapter[] = [
+  {
+    key: "opener",
+    tab: "☎️ Opener",
+    title: "Opener — the owner picked up",
+    when: "A person answered and it's the owner (or could be).",
+    why: "Say it relaxed and a little bored, like a peer calling back — NOT chipper. That tone is 80% of why it lands. And frame each ask as a \"no\" question: a \"yes\" question asks them to commit (guard up); a \"no\" question just asks them not to reject you (feels safe, same green light).",
+    moves: [
+      {
+        cue: "Open — they HAVE a website (run the audit first so it's true)",
+        say: `"Hey, is this {{owner}}? ... {{owner}}, it's just Tal — I'm actually looking at your website right now and noticed {{gap}}. That's the only reason I called — is now a terrible time?"`,
+        note: "Referencing something REAL about them is the pattern interrupt that stops the hang-up.",
+        only: "site",
+      },
+      {
+        cue: "Open — they have NO website (a hole they can't see)",
+        say: `"Hey {{owner}}, it's just Tal — I was searching fence companies in {{city}} and noticed you don't really come up anywhere. Figured you'd want to know — is this a bad time?"`,
+        only: "nosite",
+      },
+      {
+        cue: "They said go ahead — make the GIVE (don't pitch)",
+        say: `"So I actually put together a rough concept of what {{business}}'s site could look like. Would it be crazy for me to just text you the link so you can look whenever?"`,
+      },
+      {
+        cue: "\"No, not crazy\" = yes — get the number, get off",
+        say: `"Perfect, what's the best cell? ... Sending it now. No pressure at all, take a look and if you like it we'll talk."`,
+      },
+    ],
+  },
+  {
+    key: "gatekeeper",
+    tab: "🚪 Gatekeeper",
+    title: "Gatekeeper — a receptionist / answering service",
+    when: "Someone who isn't the owner picked up.",
+    why: "Goal is to get routed to the owner, NOT to pitch her. Sound casual and a little humble — like you're just trying to find the right person. Explaining yourself reads as 'salesperson' and gets you blocked.",
+    moves: [
+      {
+        cue: "Best case — you know the owner's name, just ask",
+        say: `"Hey, is {{owner}} around?"`,
+        note: "No explanation. Most gatekeepers just transfer.",
+      },
+      {
+        cue: "\"What's this about?\" — frame THEIR problem, not your product",
+        say: `"Sure — I'm honestly not sure who I should be talking to. I'm trying to reach whoever's responsible for how {{business}} shows up when a homeowner Googles a fence company in {{city}} — because there could be quote requests slipping to competitors every month that nobody there even sees. Who would that be?"`,
+      },
+      {
+        cue: "She hesitates to transfer — shrink the ask, flip to a \"no\"",
+        say: `"No worries — would it be a problem if I just left a quick voicemail for him? Takes 20 seconds, he can call back if he wants."`,
+        note: "\"No, not a problem\" is easy to say — and often rings him live anyway.",
+      },
+      {
+        cue: "It's an answering service (can't transfer) — get the asset",
+        say: `"No problem — what's the best cell or email to reach {{owner}} directly? I've got something to send over for him."`,
+      },
+    ],
+  },
+  {
+    key: "objections",
+    tab: "🛡️ Objections",
+    title: "Objections — tap the one you just heard",
+    when: "Any pushback. Jump straight to it.",
+    moves: [
+      {
+        cue: "\"Not interested\"",
+        say: `"Totally fair, most guys I call already get plenty of referrals. Quick one though: when a homeowner Googles you before they call, what do they find? ... That's the only reason I reached out. Mind if I just text you the free mockup? Zero obligation."`,
+      },
+      {
+        cue: "\"How much?\"",
+        say: `"Sites start at $2,000, but honestly the mockup's free and there's no commitment. Want to just see it first, before we even talk price?"`,
+      },
+      {
+        cue: "\"I'm busy / on a job\"",
+        say: `"I hear you, that's exactly why I'll just text it instead of taking your time now. What's the best cell?"`,
+      },
+      {
+        cue: "\"I already have a website\"",
+        say: `"Saw it. Real quick, is it actually bringing you quote requests, or mostly just sitting there? ... I built a version focused on turning 'near me' searches into calls, want me to text it so you can compare?"`,
+      },
+      {
+        cue: "\"Just email me\"",
+        say: `"Will do. So it doesn't get buried, I'll text the link too, cool? Best number?"`,
+      },
+    ],
+  },
+  {
+    key: "voicemail",
+    tab: "📼 Voicemail",
+    title: "Voicemail — no answer",
+    when: "It went to voicemail. Keep it short.",
+    moves: [
+      {
+        cue: "Leave this, then send the text",
+        say: `"Hey {{owner}}, this is Tal with Stackwrk, I build websites for fence companies in {{city}}. I put together a quick concept of what your site could look like and wanted to send it over, no charge. Shoot me a text at (754) 551-2828 and I'll get it right to you. Thanks {{owner}}."`,
+      },
+    ],
+  },
+];
 
 /** The two outreach pipelines. Templates are tagged with the flow they belong
  *  to so the CRM can present them as ordered sequences, not a flat pile. */
