@@ -40,11 +40,11 @@ export const freeTools: FreeTool[] = [
     icon: "bolt",
     h1: "Free Instant Website Audit",
     intro:
-      "Drop in any website and get a 0–100 scorecard in seconds: load speed, mobile-friendliness, SEO basics and the conversion gaps that lose you customers. No signup to see your score.",
+      "Drop in any website and get a 0 to 100 scorecard in seconds: load speed, mobile-friendliness, SEO basics and the conversion gaps that lose you customers. No signup to see your score.",
     cta: "Audit my website",
     metaTitle: "Free Instant Website Audit: Speed, SEO & Mobile Score | Stackwrk",
     metaDescription:
-      "Run a free instant website audit. Get a 0–100 score for speed, mobile-friendliness, SEO and conversion in seconds, no signup. See exactly what's costing you customers.",
+      "Run a free instant website audit. Get a 0 to 100 score for speed, mobile-friendliness, SEO and conversion in seconds, no signup. See exactly what's costing you customers.",
     keywords: [
       "free website audit",
       "website speed test",
@@ -56,7 +56,7 @@ export const freeTools: FreeTool[] = [
     faq: [
       {
         q: "Is the website audit really free?",
-        a: "Yes. You can run the audit and see your full 0–100 scorecard for free, with no signup. If you want the detailed report emailed to you with fixes, you just add your name and email.",
+        a: "Yes. You can run the audit and see your full 0 to 100 scorecard for free, with no signup. If you want the detailed report emailed to you with fixes, you just add your name and email.",
       },
       {
         q: "What does the audit check?",
@@ -64,7 +64,7 @@ export const freeTools: FreeTool[] = [
       },
       {
         q: "How is the score calculated?",
-        a: "Each category (speed, mobile, SEO, conversion) is scored 0–100 and weighted into an overall grade. Hard problems like a missing HTTPS certificate or a page blocked from search engines cap the score, the way a real Lighthouse-grade audit would.",
+        a: "Each category (speed, mobile, SEO, conversion) is scored 0 to 100 and weighted into an overall grade. Hard problems like a missing HTTPS certificate or a page blocked from search engines cap the score, the way a real Lighthouse-grade audit would.",
       },
       {
         q: "Will you fix the issues it finds?",
@@ -100,11 +100,53 @@ export const freeTools: FreeTool[] = [
       },
       {
         q: "Where do the conversion rates come from?",
-        a: "The defaults are conservative industry benchmarks: around 1–2% for a dated or slow site and 4–5% for a fast, conversion-focused one. Your real numbers depend on your traffic quality and offer, so treat the result as an illustrative estimate.",
+        a: "The defaults are conservative industry benchmarks: around 1 to 2% for a dated or slow site and 4 to 5% for a fast, conversion-focused one. Your real numbers depend on your traffic quality and offer, so treat the result as an illustrative estimate.",
       },
       {
         q: "Is a better website really worth it?",
         a: "For most small businesses, recovering even one or two extra conversions a week pays for the site many times over within a year. The calculator makes that trade-off concrete before you spend a dollar.",
+      },
+    ],
+  },
+  {
+    slug: "saas-vs-custom-calculator",
+    name: "SaaS vs Custom Software Calculator",
+    short: "See when owning beats renting",
+    blurb:
+      "Compare years of stacked monthly software subscriptions against a one-time custom build, and see the point where owning your software costs less than renting it.",
+    icon: "trend",
+    h1: "SaaS vs Custom Software Calculator",
+    intro:
+      "Stacking monthly subscriptions forever, or building custom software once? Enter your real numbers and see the total cost of each over time, when a custom build breaks even, and whether owning actually wins for you (sometimes it does not, and this will tell you honestly).",
+    cta: "Compare the cost",
+    metaTitle:
+      "SaaS vs Custom Software Cost Calculator: When Owning Wins | Stackwrk",
+    metaDescription:
+      "Free calculator comparing years of SaaS subscriptions against a one-time custom software build. See the 5-year cost of each, the break-even point, and whether building beats renting for your business.",
+    keywords: [
+      "saas vs custom software cost",
+      "build vs buy software calculator",
+      "cost of custom software vs subscriptions",
+      "when is custom software worth it",
+      "software subscription cost calculator",
+      "5 year saas cost calculator",
+    ],
+    faq: [
+      {
+        q: "How does the SaaS vs custom calculator work?",
+        a: "It projects your current monthly software spend forward over the years you choose, growing it each year for seat growth and price increases, and adds it up. Then it compares that running total against a one-time custom build plus small monthly hosting. Where the custom line drops below the subscription line is your break-even point.",
+      },
+      {
+        q: "What numbers should I put in?",
+        a: "Use the total monthly cost of only the tools a single custom system could realistically replace (count every seat), a realistic yearly growth for that spend (seat growth plus price creep, often 10 to 15 percent), and an estimated one-time build cost. If you are unsure of the build cost, start with a low-five-figure estimate and adjust.",
+      },
+      {
+        q: "Does custom software always come out cheaper?",
+        a: "No, and this calculator will show you when it does not. With one or two users or a small, flat subscription bill, renting is usually the cheaper, lower-risk choice. Owning tends to win once your replaceable per-seat spend is a few hundred dollars a month and climbing, and the longer your time horizon, the sooner it pays off.",
+      },
+      {
+        q: "Is the result exact?",
+        a: "It is an honest estimate, not a quote. Real build costs depend on scope and real subscription costs depend on your exact tools and growth. Use it to see the shape of the decision and roughly where break-even lands, then get a real build estimate before committing.",
       },
     ],
   },

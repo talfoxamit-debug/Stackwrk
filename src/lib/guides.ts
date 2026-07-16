@@ -109,6 +109,360 @@ export const clusterById = (id: string) => CLUSTERS.find((c) => c.id === id);
 
 export const GUIDES: Guide[] = [
   {
+    slug: "tired-of-per-user-crm-fees",
+    clusterId: "crm",
+    title: "Tired of Per-User CRM Fees? How to Own Your CRM Instead",
+    metaTitle: "Tired of Per-User CRM Fees? Own Your CRM Instead",
+    description:
+      "Per-seat CRM pricing punishes you for growing: every hire adds another monthly bill, forever. Here is how owning a custom CRM works instead, and the seat count where it starts to pay off.",
+    targetQuery:
+      "tired of paying per-user monthly crm fees can i own my own crm instead",
+    intent: "commercial",
+    readMins: 6,
+    date: "2026-07-16",
+    updated: "2026-07-16",
+    takeaways: [
+      "Per-user pricing charges you more for the thing you want most: more people using the system. Every hire raises the bill, and it never comes back down.",
+      "Yes, you can own a CRM instead: a one-time build plus small hosting, with unlimited logins and no per-seat fee.",
+      "The math flips when your per-seat bill is a few hundred a month and climbing. Below that, keep renting.",
+      "You keep your data and your rules, and adding your tenth or twentieth user costs nothing more.",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Per-user CRM pricing has a quiet cruelty to it: the more your team grows, the more you pay, for the exact same software. Hire an estimator, add a bill. Bring on office help, add a bill. Add a second crew lead who just needs to see the schedule, add a bill. You are being charged for success, and the meter only ever runs up. If that is starting to sting, here is the honest picture of the alternative.",
+      },
+      { type: "h2", text: "Why per-seat pricing gets painful" },
+      {
+        type: "p",
+        text: "It is not that any single seat is expensive. It is how they stack and compound:",
+      },
+      {
+        type: "ul",
+        items: [
+          "It taxes growth. The healthier your business gets, the bigger the bill. That is backwards.",
+          "It never resets. Unlike a build you pay for once, a seat is rent. Five years in, you have paid five years of it and own nothing.",
+          "It pushes you to ration access. You end up not giving the crew logins to avoid the fee, which defeats the point of everyone being on the same system.",
+          "Tiers hide jumps. The 'per user' number often also forces you up a plan tier at a certain headcount, so the real cost per person steps up, not just scales.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "The pattern",
+        text: "Per-seat SaaS is priced to grow with your headcount because that is what makes it lucrative for the vendor. It is a great model for them and a worsening deal for you the bigger you get.",
+      },
+      { type: "h2", text: "What owning your CRM actually means" },
+      {
+        type: "p",
+        text: "Owning a CRM does not mean buying a license once. It means having one built for you that runs on infrastructure you control:",
+      },
+      {
+        type: "ol",
+        items: [
+          "A one-time build. You pay to have the CRM built around your workflow, once.",
+          "Small, flat hosting. It runs on cloud hosting that typically costs under $30 a month total, no matter how many people use it.",
+          "Unlimited logins. Add your whole crew, your office, a new hire on their first day. It costs nothing more.",
+          "Your data, your rules. The customer list, the pipeline, the history: yours, exportable, not held hostage by a subscription.",
+        ],
+      },
+      {
+        type: "p",
+        text: "The trade is simple: you swap a forever-growing monthly bill for a one-time cost plus near-zero hosting. What used to be a tax on every hire becomes free.",
+      },
+      { type: "h2", text: "The seat count where it flips" },
+      {
+        type: "p",
+        text: "Owning is not automatically cheaper on day one. It is not. Here is roughly where the lines cross, using a common per-seat price:",
+      },
+      {
+        type: "table",
+        caption: "Illustrative. At ~$50 per user per month.",
+        head: ["Users", "Per-seat CRM / year", "Over 5 years"],
+        rows: [
+          ["2 users", "~$1,200", "~$6,000"],
+          ["4 users", "~$2,400", "~$12,000 and rising"],
+          ["6 users", "~$3,600", "~$18,000 and rising"],
+          ["10 users", "~$6,000", "~$30,000 and rising"],
+          ["Each new hire", "+$600/year", "adds to the total forever"],
+        ],
+      },
+      {
+        type: "p",
+        text: "A custom CRM in the low five figures, plus about $360 a year of hosting, does not beat two users. It clearly beats six users over five years, and it beats four users somewhere in between while giving you unlimited seats after that. The more people you have and the longer your horizon, the more lopsided it gets. We walk through the full tipping-point math in the guide on when custom software beats subscriptions.",
+      },
+      { type: "h2", text: "When you should keep renting" },
+      {
+        type: "ul",
+        items: [
+          "You have one or two users and no plan to grow the team soon. The math does not clear yet.",
+          "Your process is still changing month to month. Build once it is stable.",
+          "Your current CRM genuinely fits and the seat cost is small. Do not fix what is not costing you.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "The honest trigger",
+        text: "Once your per-seat CRM bill is a few hundred dollars a month and you can see it climbing with every hire, owning starts to win. Below that, a subscription is the cheaper, lower-risk choice, and anyone telling you otherwise is selling.",
+      },
+      {
+        type: "p",
+        text: "If you want, tell me your seat count and what you pay per user, and I will tell you honestly whether owning beats renting for you yet, or whether you are better off waiting.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Can I really own a CRM instead of paying per user every month?",
+        a: "Yes. Instead of a per-seat subscription, you have a CRM built for you that runs on hosting you control, usually under $30 a month total, with unlimited logins and no per-user fee. You pay once to build it and own the software and your data, rather than renting access forever.",
+      },
+      {
+        q: "At how many users does owning a CRM beat per-seat pricing?",
+        a: "Roughly, once your per-seat bill is a few hundred dollars a month and climbing. At about $50 per user, a custom CRM in the low five figures tends to beat six users clearly over five years and four users somewhere in between, after which every extra seat is free. With one or two users, keep renting.",
+      },
+      {
+        q: "Isn't a custom CRM riskier than a known product?",
+        a: "There is up-front cost and a build to get right, but the ongoing risk is lower in one key way: you own the data and code, so you are not exposed to price hikes, forced tier jumps, or a vendor changing terms. The right move is to build once your process is stable and your seat count makes the math clear.",
+      },
+      {
+        q: "What happens when I add new employees?",
+        a: "With a custom, owned CRM, adding a user costs nothing extra: unlimited logins are part of owning it. That is the opposite of per-seat pricing, where every hire raises your monthly bill permanently.",
+      },
+    ],
+    related: [
+      "custom-crm-for-fencing-exterior-contractors",
+      "how-many-saas-subscriptions-before-custom-software-is-worth-it",
+      "outgrew-jobber-or-housecall-pro",
+    ],
+    cta: {
+      heading: "Stop paying more every time you hire.",
+      body: "Send me your seat count and per-user price. I will tell you honestly whether owning your CRM beats renting it yet.",
+      button: "Run my seat math",
+    },
+  },
+
+  {
+    slug: "why-do-i-enter-the-same-customer-info-twice",
+    clusterId: "integrations",
+    title: "Why Do I Have to Enter the Same Customer Info Twice?",
+    metaTitle: "Why Do I Enter the Same Customer Info Twice? (And the Fix)",
+    description:
+      "Typing the same customer into your CRM and then again into QuickBooks (or your scheduler) is not just annoying. It is a sign your tools are not connected, and it quietly creates errors. Here is why it happens and how to end it.",
+    targetQuery:
+      "why do i have to enter the same customer info twice in two different systems",
+    intent: "informational",
+    readMins: 5,
+    date: "2026-07-16",
+    updated: "2026-07-16",
+    takeaways: [
+      "You enter customers twice because your tools do not share a source of truth. Each one keeps its own separate list.",
+      "It is not just wasted time. Double entry creates mismatched records, typos, and numbers that never quite agree between systems.",
+      "The fix is a connection (an integration or sync) that copies a new customer from one system to the other automatically, or one system that both jobs use.",
+      "You do not have to replace your tools to stop it. Usually you just connect the two you already have.",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "You win the job, type the customer into your CRM or scheduler, then open QuickBooks and type the exact same name, address, and email all over again. It feels like the software is wasting your time on purpose. It sort of is, but the reason is fixable, and you do not need to throw anything out to fix it. Here is what is actually going on.",
+      },
+      { type: "h2", text: "Why it happens" },
+      {
+        type: "p",
+        text: "Every tool you use keeps its own private list of customers. Your CRM has one. QuickBooks has one. Your booking tool has one. None of them knows the others exist, so when a customer is new to one, it is new to all of them, and there is nobody to copy the details across but you.",
+      },
+      {
+        type: "ul",
+        items: [
+          "No shared source of truth. There is no single master list that all your tools read from, so each one starts blank.",
+          "The tools were never connected. Out of the box, your CRM and your accounting software have no link telling one to create the customer in the other.",
+          "Manual is the default. Unless someone set up a sync, the only bridge between two systems is a human retyping.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "The real cost is not the minutes",
+        text: "It is the drift. Type the address slightly differently in each system, misspell an email in one, update a phone number in only one place, and now your tools disagree about who the customer is. That is where mismatched invoices, bounced emails, and 'why are our numbers different?' come from.",
+      },
+      { type: "h2", text: "The three ways to end it" },
+      { type: "h3", text: "1. Connect the two tools with a sync" },
+      {
+        type: "p",
+        text: "The most common fix. A sync watches for a new (or updated) customer in one system and automatically creates or updates them in the other. Add the customer once in your CRM, and they appear in QuickBooks a moment later, spelled exactly the same. This is usually the fastest, lowest-disruption option because you keep both tools.",
+      },
+      { type: "h3", text: "2. Make one tool the source of truth" },
+      {
+        type: "p",
+        text: "Decide which system is the master (often the CRM, where the customer first lands), and have every other tool take its customer data from there rather than holding its own separate copy. The sync still does the moving, but everyone agrees on who is right when they disagree, which prevents the drift.",
+      },
+      { type: "h3", text: "3. Use one system for both jobs" },
+      {
+        type: "p",
+        text: "If the double entry is between two tools that a single custom system could cover, the cleanest answer is to stop having two lists at all. One system where the customer, the job, and the invoice all live means there is nothing to copy. This is the bigger move, and it makes sense when the tools fight you in more than one place.",
+      },
+      {
+        type: "table",
+        caption: "Which fix fits.",
+        head: ["Your situation", "Best fix"],
+        rows: [
+          ["Two tools you both like, just not linked", "Connect them with a sync"],
+          ["Records keep drifting out of agreement", "Pick a source of truth, then sync"],
+          ["Several tools with overlapping customer lists", "Consolidate into one system"],
+          ["One-off, low volume", "A sync is still worth it; it is cheap"],
+        ],
+      },
+      { type: "h2", text: "You do not have to replace anything" },
+      {
+        type: "p",
+        text: "The key thing to know: the fix is usually a connection, not a rebuild. Most CRMs and accounting tools can be synced so a customer entered once flows everywhere automatically. You keep the software you already use; you just stop being the bridge between them. Where the double entry is specifically between Jobber and QuickBooks, there is a common right way to do it that also avoids creating duplicates.",
+      },
+      {
+        type: "callout",
+        title: "Do this first",
+        text: "List every place you type a customer. For each pair where you type the same one twice, that is a sync waiting to be built. Start with the pair you touch most; it will save the most time and prevent the most drift.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Why do I have to enter customers twice in two systems?",
+        a: "Because each tool keeps its own separate customer list and the tools are not connected. There is no shared master list, so a customer who is new to one system is new to all of them, and nothing but manual retyping bridges the gap until you set up a sync.",
+      },
+      {
+        q: "How do I stop entering the same customer in my CRM and QuickBooks?",
+        a: "Connect them with a sync that automatically creates or updates the customer in one system when you add them to the other. Pick one tool as the source of truth so records never drift, and let the sync copy the data across. You enter the customer once and it appears everywhere, spelled the same.",
+      },
+      {
+        q: "Do I need to replace my software to fix double entry?",
+        a: "Usually not. Most CRM and accounting tools can be connected so customer data flows automatically. Replacing tools only makes sense when several of them have overlapping lists and a single custom system would serve better. For most people, a sync between the two tools they already use is enough.",
+      },
+      {
+        q: "Isn't double entry just a minor annoyance?",
+        a: "The time is the small part. The real damage is drift: slightly different spellings, a typo in one system, an update made in only one place. That creates mismatched invoices, bounced emails, and reports that disagree. Ending double entry keeps your records consistent, not just faster.",
+      },
+    ],
+    related: [
+      "stop-duplicate-customers-jobber-quickbooks",
+      "stop-copying-leads-into-a-spreadsheet-by-hand",
+      "custom-operations-system-field-service",
+    ],
+    cta: {
+      heading: "Enter every customer once.",
+      body: "Tell me which two tools you keep retyping into and I will show you how to sync them so it only happens once.",
+      button: "Book a fit call",
+    },
+  },
+
+  {
+    slug: "stop-duplicate-customers-jobber-quickbooks",
+    clusterId: "integrations",
+    title: "Stop Duplicate Customers When Syncing Jobber and QuickBooks",
+    metaTitle: "Stop Duplicate Customers Syncing Jobber and QuickBooks",
+    description:
+      "The Jobber and QuickBooks sync is supposed to save time, but it often creates duplicate customers that wreck your reports. Here is why duplicates happen and how to set the sync up so they stop.",
+    targetQuery: "how to stop duplicate customers when syncing jobber and quickbooks",
+    intent: "commercial",
+    readMins: 6,
+    date: "2026-07-16",
+    updated: "2026-07-16",
+    takeaways: [
+      "Duplicates happen because the sync matches customers on an exact field (usually name or email), so any small difference makes it create a new record instead of matching the existing one.",
+      "The fastest wins: standardize how names and emails are entered, merge the duplicates you already have, and decide which system is the source of truth.",
+      "For messy or high-volume data, a smarter custom sync that matches on multiple fields beats the built-in one.",
+      "Clean this up once and your revenue reports stop lying to you.",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "The Jobber-to-QuickBooks sync promises to end double entry, and then you open QuickBooks and find three versions of the same customer: 'Bob Smith', 'Robert Smith', and 'Bob Smith LLC', each with part of the history. Now your revenue reports are split across duplicates and you trust the numbers less than before. This is a known, fixable problem. Here is why it happens and how to make it stop.",
+      },
+      { type: "h2", text: "Why the sync creates duplicates" },
+      {
+        type: "p",
+        text: "A sync has to decide, for each customer coming from Jobber, whether they already exist in QuickBooks or are new. It makes that decision by matching on a field, usually the display name or the email. If that field does not match exactly, it assumes 'new' and creates a duplicate. The usual culprits:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Name formatting differs. 'Bob' in one, 'Robert' in the other. 'Smith Fence' versus 'Smith Fence Co.' The sync sees two different strings.",
+          "Email missing or different. If the match key is email and one record has none, or a different one, it cannot match.",
+          "A customer existed in both before the sync. The very first sync often duplicates everyone who was already in both systems separately.",
+          "Someone edited a name after the link was made. Change it in one system and the sync can lose the thread and spawn a new record.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "The root issue",
+        text: "The built-in sync matches on one exact field. Real customer data is messy, so exact-match on a single field is fragile. Every tiny inconsistency becomes a duplicate.",
+      },
+      { type: "h2", text: "How to stop them, in order" },
+      {
+        type: "ol",
+        items: [
+          "Merge the duplicates you already have. In QuickBooks, merge each set of duplicates into one record so history consolidates. Do this before you tune the sync, so you start clean.",
+          "Standardize how you enter names and emails. Agree on one format (legal name or common name, company or person) and always capture an email. Consistent input is what lets any sync match reliably.",
+          "Pick a source of truth. Decide that Jobber (or QuickBooks) is the master for customer details, and stop editing the same customer's core info in both. One-directional truth prevents new drift.",
+          "Set the match key deliberately. If your sync lets you choose what it matches on, match on the most reliable field you actually keep clean (often email). If email is spotty, fix that first.",
+          "Check the first big sync carefully. Right after setup, review new customers created in QuickBooks for a week and merge any duplicates before they collect history.",
+        ],
+      },
+      { type: "h2", text: "When the built-in sync is not enough" },
+      {
+        type: "p",
+        text: "If your customer data is genuinely messy, or you do enough volume that manual cleanup is a chore, the built-in one-field match will keep leaking duplicates no matter how careful you are. That is when a smarter sync earns its keep:",
+      },
+      {
+        type: "table",
+        caption: "Built-in versus a custom sync.",
+        head: ["", "Built-in Jobber/QuickBooks sync", "Custom sync"],
+        rows: [
+          ["Match logic", "One exact field", "Multiple fields (name + email + phone), fuzzy"],
+          ["Handles messy names", "Poorly", "Designed for it"],
+          ["Duplicate prevention", "You police it", "Built into the matching"],
+          ["Fits your rules", "Fixed", "Yours"],
+        ],
+      },
+      {
+        type: "p",
+        text: "A custom sync matches on several fields at once and can be told your specific rules (treat these as the same, always prefer this system, flag anything uncertain instead of guessing). It is a small, targeted build, and for a business drowning in duplicates it pays for itself in clean reports and hours not spent merging. This is the same idea as ending double entry between any two systems: connect them properly so the data stays consistent.",
+      },
+      {
+        type: "callout",
+        title: "Why it is worth the effort",
+        text: "Duplicates do not just clutter a list. They split a customer's revenue and history across records, so your 'top customers', your totals, and your tax numbers are all quietly wrong. Cleaning it up is really about being able to trust your own reports.",
+      },
+      {
+        type: "p",
+        text: "If duplicates keep coming back no matter how carefully you enter data, tell me your volume and how messy the list is, and I will tell you whether tuning the built-in sync is enough or whether a small custom sync is the real fix.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Why does syncing Jobber and QuickBooks create duplicate customers?",
+        a: "Because the sync matches customers on one exact field, usually the name or email. If that field differs even slightly between the two systems (Bob versus Robert, a missing email, a company suffix), the sync assumes the customer is new and creates a duplicate instead of matching the existing record.",
+      },
+      {
+        q: "How do I stop the duplicates?",
+        a: "Merge the duplicates you already have in QuickBooks, standardize how you enter names and always capture an email, pick one system as the source of truth for customer details, and set the sync to match on the most reliable field you keep clean. Then watch the first big sync and merge any strays before they collect history.",
+      },
+      {
+        q: "Can I merge customers that are already duplicated?",
+        a: "Yes. QuickBooks lets you merge duplicate customer records so their history consolidates into one. Do this cleanup before tuning the sync, so you start from a clean list and only have to prevent new duplicates going forward.",
+      },
+      {
+        q: "When should I use a custom sync instead of the built-in one?",
+        a: "When your customer data is messy or high-volume and the built-in one-field match keeps leaking duplicates. A custom sync matches on several fields at once (name, email, phone), follows your specific rules, and flags uncertain matches instead of guessing. It is a small build that pays off in clean, trustworthy reports.",
+      },
+    ],
+    related: [
+      "why-do-i-enter-the-same-customer-info-twice",
+      "custom-operations-system-field-service",
+      "outgrew-jobber-or-housecall-pro",
+    ],
+    cta: {
+      heading: "Make your customer list (and your reports) trustworthy again.",
+      body: "Tell me how messy the list is and your volume. I will tell you whether tuning the sync is enough or a custom one is the fix.",
+      button: "Book a fit call",
+    },
+  },
+
+  {
     slug: "custom-job-tracking-for-contractors",
     clusterId: "internal-tools",
     title: "Custom Job Tracking for Contractors (Ditch the Whiteboard)",
