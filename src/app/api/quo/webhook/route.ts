@@ -49,7 +49,12 @@ export async function POST(req: Request) {
 
   const ownDigits = phoneDigits((context.phoneNumber as string) || "");
   const allowlist = (process.env.QUO_ALLOWED_NUMBERS || "").split(",").map((s) => phoneDigits(s)).filter(Boolean);
-  if (allowlist.length && ownDigits && !allowlist.includes(ownDigits)) return NextResponse.json({ received: true });
+  // Fail closed: when an allowlist is set, drop any event whose own number is
+  // missing or not on the list (an unresolvable own number must not slip
+  // through, or another business's line in a shared workspace could leak in).
+  if (allowlist.length && (!ownDigits || !allowlist.includes(ownDigits))) {
+    return NextResponse.json({ received: true });
+  }
 
   if (sb) {
     if (type.startsWith("call.")) await handleCall(sb, type, resource, context, ownDigits, event);
@@ -71,19 +76,27 @@ function otherParty(ownDigits: string, ...raws: unknown[]): string {
 async function handleCall(sb: SupabaseClient, type: string, resource: Json, context: Json, ownDigits: string, event: QuoEvent) {
   const callId = (resource.id || resource.callId || context.callId) as string | undefined;
   if (!callId) return;
+  const isPrimary = type === "call.completed" || type === "call.missed";
   const digits = otherParty(ownDigits, context.from, context.to, resource.from, resource.to);
-  if (digits.length !== 10) return; // nothing usable to file this under
 
-  const patch: Json = {
-    id: callId,
-    phone_digits: digits,
-    phone_pretty: prettyPhone(digits),
-    direction: resource.direction || context.direction || null,
-    status: resource.status || type.replace(/^call\./, ""),
-    occurred_at: (resource.createdAt as string) || (context.createdAt as string) || new Date().toISOString(),
-    raw: event,
-  };
-  if (type === "call.completed") patch.duration_seconds = resource.duration ?? null;
+  // A primary event (the call itself) must have a party to file it under.
+  // Enrichment events (transcript / summary / recording) only merge their own
+  // column onto the existing row by id, so they proceed even without one, and
+  // they never rewrite the call's status or occurred_at (that would corrupt the
+  // real call record and its ordering in the log).
+  if (isPrimary && digits.length !== 10) return;
+
+  const patch: Json = { id: callId, raw: event };
+  if (digits.length === 10) {
+    patch.phone_digits = digits;
+    patch.phone_pretty = prettyPhone(digits);
+  }
+  if (isPrimary) {
+    patch.direction = resource.direction || context.direction || null;
+    patch.status = resource.status || type.replace(/^call\./, "");
+    patch.occurred_at = (resource.createdAt as string) || (context.createdAt as string) || new Date().toISOString();
+    if (type === "call.completed") patch.duration_seconds = resource.duration ?? null;
+  }
   if (type === "call.recording.completed") patch.recording_url = resource.url || resource.recordingUrl || null;
   if (type === "call.transcript.completed") {
     const dialogue = resource.dialogue;

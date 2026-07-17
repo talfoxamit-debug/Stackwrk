@@ -145,6 +145,9 @@ export default function Board({ user }: { user: string }) {
   const [emailHunt, setEmailHunt] = useState<{ done: number; total: number; found: number } | null>(null);
   const [presenting, setPresenting] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Version of the shared doc we last loaded, sent back on save so the server
+  // can reject a concurrent clobber. Null until a load succeeds.
+  const baseUpdatedAt = useRef<string | null>(null);
 
   // Load the shared team pipeline + merge in inbound audited sites (page is
   // already gated server-side). Anyone who runs the site audit shows up here as
@@ -152,9 +155,10 @@ export default function Board({ user }: { user: string }) {
   useEffect(() => {
     (async () => {
       let base: Prospect[] = [];
+      let teamOk = false;
       try {
         const res = await fetch("/api/team").then((r) => r.json());
-        if (res.ok) base = res.data || [];
+        if (res.ok) { base = res.data || []; teamOk = true; baseUpdatedAt.current = res.updatedAt ?? null; }
       } catch { /* transient */ }
       try {
         const au = await fetch("/api/team/audits").then((r) => r.json());
@@ -192,16 +196,35 @@ export default function Board({ user }: { user: string }) {
         }
       } catch { /* quo sync optional */ }
       setItems(base);
-      setReady(true);
+      // Only enable auto-save once the shared pipeline actually loaded. If the
+      // load failed, saving would overwrite the real pipeline with an empty or
+      // partial list, so we stay read-only until a refresh succeeds.
+      if (teamOk) setReady(true);
+      else flash("Could not load the shared pipeline. Not saving so it is not overwritten. Refresh to retry.");
     })();
   }, []);
 
-  // Persist: debounced save to the shared DB.
+  // Persist: debounced save to the shared DB. Sends the loaded version so the
+  // server can reject a concurrent or empty-overwriting write; on conflict we
+  // resync from the server rather than clobber it.
   useEffect(() => {
     if (!ready) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(() => {
-      fetch("/api/team", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ data: items }) }).catch(() => {});
+    saveTimer.current = setTimeout(async () => {
+      try {
+        const r = await fetch("/api/team", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ data: items, baseUpdatedAt: baseUpdatedAt.current }),
+        }).then((res) => res.json());
+        if (r.ok) {
+          baseUpdatedAt.current = r.updatedAt ?? baseUpdatedAt.current;
+        } else if (r.error === "conflict" || r.error === "refuse_empty_overwrite") {
+          flash("Pipeline changed elsewhere. Reloading the latest to avoid overwriting it.");
+          const fresh = await fetch("/api/team").then((res) => res.json());
+          if (fresh.ok) { baseUpdatedAt.current = fresh.updatedAt ?? null; setItems(fresh.data || []); }
+        }
+      } catch { /* transient network, will retry on next change */ }
     }, 800);
   }, [items, ready]);
 
