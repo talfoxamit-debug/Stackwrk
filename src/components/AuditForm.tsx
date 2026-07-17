@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { ArrowRight, Check } from "./icons";
 import { finalCta } from "@/lib/content";
 import { getAttribution } from "@/lib/attribution";
+import { track } from "@/lib/track";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -29,6 +30,7 @@ export default function AuditForm() {
       const json = await res.json().catch(() => ({}));
 
       if (res.ok && json.ok) {
+        track("lead_submitted", { form: "mockup_request" });
         setStatus("success");
         form.reset();
         return;

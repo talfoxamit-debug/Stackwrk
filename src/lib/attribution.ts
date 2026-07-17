@@ -12,6 +12,8 @@ export type Attribution = {
   utm_campaign?: string;
   referrer?: string;
   landing_path?: string;
+  fbclid?: string; // Meta ad click id
+  gclid?: string;  // Google ad click id
 };
 
 const KEY = "swrk_attr";
@@ -27,6 +29,8 @@ export function captureAttribution(): void {
     const src = p.get("utm_source"); if (src) attr.utm_source = cap(src, 120);
     const med = p.get("utm_medium"); if (med) attr.utm_medium = cap(med, 120);
     const camp = p.get("utm_campaign"); if (camp) attr.utm_campaign = cap(camp, 160);
+    const fbclid = p.get("fbclid"); if (fbclid) attr.fbclid = cap(fbclid, 255);
+    const gclid = p.get("gclid"); if (gclid) attr.gclid = cap(gclid, 255);
     const ref = document.referrer;
     if (ref && !ref.includes(window.location.host)) attr.referrer = cap(ref, 300);
     attr.landing_path = cap(window.location.pathname, 200);

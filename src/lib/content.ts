@@ -9,7 +9,9 @@ export const site = {
   domain: "stackwrk.com",
   legalEntity: "Fox Solutions LLC",
   email: "hello@stackwrk.com",
-  calendlyUrl: "https://calendly.com/tal-foxamit-seatophomes/30min",
+  // TODO(Tal): swap this seatophomes-branded Calendly for a Stackwrk one.
+  // UTM appended so Calendly can attribute the booking channel.
+  calendlyUrl: "https://calendly.com/tal-foxamit-seatophomes/30min?utm_source=stackwrk&utm_medium=website",
   // TODO(Tal): drop in the real Stackwrk LinkedIn / GitHub profile URLs. Left
   // blank on purpose so the footer does not link to bare linkedin.com/github.com
   // homepages (which read as broken placeholders). Blank links are hidden.

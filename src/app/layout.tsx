@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import AttributionCapture from "@/components/AttributionCapture";
+import MetaPixel from "@/components/MetaPixel";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/CustomCursor";
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <ScrollToTop />
         <AttributionCapture />
+        <MetaPixel />
         <Analytics />
       </body>
     </html>

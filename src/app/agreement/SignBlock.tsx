@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { AgreementConfig } from "@/lib/agreement";
+import { getAttribution } from "@/lib/attribution";
 
 const GREEN = "#18894C";
 const NAVY = "#0C2333";
@@ -55,7 +56,7 @@ export default function SignBlock({ config, depositLabel, depositAmount }: { con
     try {
       const r = await fetch("/api/checkout", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: "deposit", amount: depositAmount, label: config.pkg, client: config.clientName, email: config.email }),
+        body: JSON.stringify({ kind: "deposit", amount: depositAmount, label: config.pkg, client: config.clientName, email: config.email, ref: config.email, utm: getAttribution() }),
       });
       const j = await r.json().catch(() => ({}));
       if (j.ok && j.url) { window.location.href = j.url; return; }

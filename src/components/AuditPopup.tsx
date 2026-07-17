@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check } from "./icons";
 import { promo } from "@/lib/content";
+import { getAttribution } from "@/lib/attribution";
+import { track } from "@/lib/track";
 
 const SEEN_KEY = "stackwrk_audit_popup_seen";
 // Module-level guard: survives any component remount within a page load, so the
@@ -24,6 +26,7 @@ export default function AuditPopup() {
   const [agree, setAgree] = useState(false);
   const [company, setCompany] = useState(""); // honeypot
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [emailed, setEmailed] = useState(false); // did the report email actually send
   const [err, setErr] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
   const firstFieldRef = useRef<HTMLInputElement>(null);
@@ -93,23 +96,28 @@ export default function AuditPopup() {
 
       if (auditRes.ok && audit.ok) {
         // 2) Email the report + store the lead, flagged for the 10% discount.
-        await fetch("/api/audit-report", {
+        const rep = await fetch("/api/audit-report", {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: name.trim(), email: email.trim(), result: audit,
             source: "popup_audit", note: "Popup: wants 10% founding discount",
+            ...getAttribution(),
           }),
-        });
+        }).then((r) => r.json()).catch(() => ({}));
+        if (rep && rep.ok) setEmailed(true);
       } else {
         // Site unreachable, still capture the lead so we can follow up.
         await fetch("/api/leads", {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: name.trim(), email: email.trim(), website: url.trim(),
+            source: "popup_audit",
             message: "Free-audit popup: wants 10% founding discount (site unreachable at submit).",
+            ...getAttribution(),
           }),
         });
       }
+      track("audit_lead", { channel: "entry_popup" });
       setStatus("done");
       try { sessionStorage.setItem(SEEN_KEY, "1"); } catch { /* ignore */ }
     } catch {
@@ -149,8 +157,12 @@ export default function AuditPopup() {
             </span>
             <h3 className="mt-4 font-display text-2xl uppercase text-white">You&rsquo;re all set</h3>
             <p className="mt-2 text-sm leading-relaxed text-white/70">
-              Your audit is on its way to <span className="text-lime">{email.trim()}</span>. And your{" "}
-              <span className="font-semibold text-lime">10% founding discount</span> is locked in. We&rsquo;ll be in touch shortly.
+              {emailed ? (
+                <>Your audit is on its way to <span className="text-lime">{email.trim()}</span>. </>
+              ) : (
+                <>We&rsquo;ve got your details and we&rsquo;ll send your audit to <span className="text-lime">{email.trim()}</span> shortly. </>
+              )}
+              Your <span className="font-semibold text-lime">10% founding discount</span> is locked in, and we&rsquo;ll be in touch soon.
             </p>
             <button onClick={close} className="btn-primary mt-6 !rounded-md">Done</button>
           </div>

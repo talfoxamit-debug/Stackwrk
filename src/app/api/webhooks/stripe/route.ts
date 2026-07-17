@@ -30,26 +30,41 @@ export async function POST(req: Request) {
   }
 
   // Extract a compact record for the events we care about.
-  let record: { type: string; email: string | null; amount: number | null; status: string } | null = null;
+  type Meta = { utm_source?: string; utm_medium?: string; utm_campaign?: string; referrer?: string };
+  let record: {
+    type: string; email: string | null; amount: number | null; status: string;
+    ref: string | null; meta: Meta;
+  } | null = null;
   if (event.type === "checkout.session.completed") {
-    const s = event.data.object as { customer_details?: { email?: string }; customer_email?: string; amount_total?: number; mode?: string };
-    record = { type: `checkout.${s.mode}`, email: s.customer_details?.email ?? s.customer_email ?? null, amount: s.amount_total ?? null, status: "paid" };
+    const s = event.data.object as { customer_details?: { email?: string }; customer_email?: string; amount_total?: number; mode?: string; client_reference_id?: string | null; metadata?: Meta };
+    record = { type: `checkout.${s.mode}`, email: s.customer_details?.email ?? s.customer_email ?? null, amount: s.amount_total ?? null, status: "paid", ref: s.client_reference_id ?? null, meta: s.metadata ?? {} };
   } else if (event.type === "invoice.paid" || event.type === "invoice.payment_failed") {
     const inv = event.data.object as { customer_email?: string; amount_paid?: number; amount_due?: number };
-    record = { type: event.type, email: inv.customer_email ?? null, amount: (inv.amount_paid ?? inv.amount_due) ?? null, status: event.type === "invoice.paid" ? "paid" : "failed" };
+    record = { type: event.type, email: inv.customer_email ?? null, amount: (inv.amount_paid ?? inv.amount_due) ?? null, status: event.type === "invoice.paid" ? "paid" : "failed", ref: null, meta: {} };
   }
 
   if (record) {
     const sb = getSupabaseAdmin();
     if (sb) {
-      await sb.from("payments").insert({
+      const base = {
         id: event.id,
         type: record.type,
         email: record.email,
         amount_cents: record.amount,
         status: record.status,
         created_at: new Date().toISOString(),
-      }).then(() => {}, () => {}); // table optional; ignore if it doesn't exist
+      };
+      const attribution = {
+        client_reference_id: record.ref,
+        utm_source: record.meta.utm_source ?? null,
+        utm_medium: record.meta.utm_medium ?? null,
+        utm_campaign: record.meta.utm_campaign ?? null,
+      };
+      // Store with attribution; if those columns are absent, retry base only so
+      // a payment is never lost.
+      let { error } = await sb.from("payments").insert({ ...base, ...attribution });
+      if (error) ({ error } = await sb.from("payments").insert(base));
+      void error; // table optional; nothing more to do if it still fails
     }
   }
 
