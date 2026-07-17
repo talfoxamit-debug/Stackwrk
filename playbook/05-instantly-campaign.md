@@ -32,9 +32,9 @@ nothing to give but works as the same green light, so it lowers the delete-refle
 
 ## 2. Campaign settings
 - **Sending accounts:** attach your warmed inboxes. Spread the send across all of them.
-- **Daily limit:** 25–30/inbox/day to start (you only have 47 leads, this list
+- **Daily limit:** 25 to 30/inbox/day to start (you only have 47 leads, this list
   finishes in ~1 day across 2 inboxes; that's fine, keep the per-inbox cap low).
-- **Schedule:** Tue–Thu, 8–11am ET is best for contractors. Skip weekends.
+- **Schedule:** Tue - Thu, 8 to 11am ET is best for contractors. Skip weekends.
 - **Step delays:** in the sequence editor, set step 2 to send **2 days** after
   step 1, and step 3 **2 days** after step 2 (so Day 0 / Day 2 / Day 4). Instantly
   asks for this wait time when you add each step. Weekends are skipped automatically
@@ -79,7 +79,7 @@ Not interested? Just reply and I'll stop.
 ```
 Following up, {{company_name}}
 
-Here's the kind of site I build for fence pros: stackwrk.com/demos/apex-fence,
+Here's the kind of site I build for fence pros: stackwrk.com/demos/apex-fence?utm_source=instantly&utm_medium=email&utm_campaign=cold,
 with an instant-quote form, reviews, financing, and quick load on mobile. Yours
 would have your name, your photos, your number.
 

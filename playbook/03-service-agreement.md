@@ -19,18 +19,18 @@ Developer will design, build, and launch a website for Client per the **`[Launch
 - Lead capture: quote form + click-to-call. `[Online booking / financing page / service-area pages, per package]`
 - On-page SEO basics, Google Business Profile setup assistance, analytics.
 - One (1) round of revisions at design stage and one (1) round before launch.
-- Target launch: **within 10 business days** of receiving all Client content (Section 4).
+- Target launch: **within 14 business days** of receiving all Client content (Section 4).
 
 Anything not listed above is out of scope and quoted separately.
 
 ## 2. Price & Payment
-- **Project fee:** `$[2,500 / 3,900 / 6,500]`, payable **50% deposit** to start and **50% on launch**.
+- **Project fee:** `$[2,000 / 4,500 / 8,000]`, payable **50% deposit** to start and **50% on launch**.
   *(Or the $0-down plan: `$0` down + `$[199]`/mo for 12 months, then care-plan rate.)*
-- **Care plan (recurring):** `$[99 / 199 / 399]`/month, billed monthly, starting at launch. Covers hosting, updates, security, backups, monitoring, and `[X]` of changes per month. Cancel any time with 30 days' notice.
+- **Care plan (recurring):** `$[99 / 249 / 499]`/month, billed monthly, starting at launch. Covers hosting, updates, security, backups, monitoring, and `[X]` of changes per month. Cancel any time with 30 days' notice.
 - Late balances over 10 days may pause the site. Payment via `[Stripe link]`.
 
 ## 3. Guarantee
-- **Launch guarantee:** if the site isn't live within 10 business days of receiving all content, Client's **first care-plan month is free**.
+- **Launch guarantee:** if the site isn't live within 14 business days of receiving all content, Client's **first care-plan month is free**.
 - **30-day money-back:** within 30 days of launch, if Client isn't satisfied and Developer can't make it right, Client may cancel for a refund of the **project fee** (Client keeps nothing / site is taken down; care-plan fees are non-refundable).
 
 ## 4. Client Responsibilities

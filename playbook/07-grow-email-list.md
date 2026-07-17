@@ -23,7 +23,7 @@ all 52 site-but-no-email leads: **`guessed-emails-to-verify.csv`**.
    state, phone, website, **icebreaker**), so the survivors upload straight into
    the same campaign and sequence. Map the columns the same way as before.
 
-Expect roughly **30–50%** to come back valid, that's ~15–25 more real leads for
+Expect roughly **30 to 50%** to come back valid, that's ~15 to 25 more real leads for
 about $0.
 
 > ⚠️ Never send to a guessed email you haven't verified. One batch of bounces on a

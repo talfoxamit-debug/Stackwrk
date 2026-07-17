@@ -1,8 +1,8 @@
 # Stackwrk: Launch Runbook (A→Z)
 
 **Business:** Websites for fence & exterior contractors, South Florida.
-**Goal:** First paid deal in ~2–3 weeks. $10k+/mo run-rate by month 3.
-**Offer:** Free mockup → build ($2,500 / $3,900 / $6,500) + care plan ($99/$199/$399/mo).
+**Goal:** First paid deal in ~2 to 3 weeks. $10k+/mo run-rate by month 3.
+**Offer:** Free mockup → build ($2,000 / $4,500 / $8,000) + care plan ($99/$249/$499/mo).
 
 You already have: the site (stackwrk.com), the Apex fence demo, a 254-lead list,
 a working CRM (/prospects), scripts, sequences, and a contract. This is how you
@@ -14,7 +14,7 @@ run it.
 > Pull a list of fence contractors → reach them (phone for the 50 with no site,
 > email for the rest) → offer a **free mockup of their site** → build it fast →
 > hop on a call → quote 3 tiers → take the deposit → sign the contract → launch
-> in 10 days → collect monthly. Then ask for a referral and repeat.
+> in ~14 business days, then collect monthly. Then ask for a referral and repeat.
 
 The website's job is credibility. The **mockup you send** is what closes.
 
@@ -29,12 +29,12 @@ The website's job is credibility. The **mockup you send** is what closes.
 
 **Block 2, Prep 3 mockups (60 min)**
 - [ ] In the CRM, filter **🔥 No-website only**. Pick your **3 best** (established, good reviews, real jobs, check their Google listing).
-- [ ] For each: duplicate the Apex demo look, swap in their **name + phone**, and grab 3–4 of their project photos from their Google/Facebook. ~15 min each.
+- [ ] For each: duplicate the Apex demo look, swap in their **name + phone**, and grab 3 to 4 of their project photos from their Google/Facebook. ~15 min each.
 - [ ] Record a 60-sec **Loom** per mockup.
 
-**Block 3, Outreach (60–75 min)**
+**Block 3, Outreach (60 to 75 min)**
 - [ ] **Call** your 3 mockup prospects first (you have something real to show them). Use the opener in `02-call-scripts.md`. Goal: "can I text you the concept?" → send Loom.
-- [ ] Then **dial the rest of the no-site list**, aim for 30–50 dials. Log every call in the CRM (auto-sets a 3-day follow-up).
+- [ ] Then **dial the rest of the no-site list**, aim for 30 to 50 dials. Log every call in the CRM (auto-sets a 3-day follow-up).
 - [ ] End of day: **Export** the CRM (backup).
 
 > First-day win = 3 mockups sent + 30+ dials + at least one "yeah, send it over."
@@ -42,20 +42,20 @@ The website's job is credibility. The **mockup you send** is what closes.
 ---
 
 ## WEEK 1
-- **Mon–Fri:** 50–100 manual dials/day through the no-site list. 3–5 fresh mockups/day for anyone who bites.
-- Get your **first 2–3 "founder" clients** at a discounted **$1,500** in exchange for a video testimonial + before/after case study + 2 referral intros. Speed > margin right now, you need proof.
+- **Mon - Fri:** 50 to 100 manual dials/day through the no-site list. 3 to 5 fresh mockups/day for anyone who bites.
+- Get your **first 2 to 3 "founder" clients** at a discounted **$1,500** in exchange for a video testimonial + before/after case study + 2 referral intros. Speed > margin right now, you need proof.
 - Deliver those builds fast (dupe Apex, real content). Screenshot before/after.
 - Instantly domain finishes warming.
 
-## WEEK 2–4
-- Turn on the **email sequences** (Sequence A for no-site, B for weak-site) in Instantly, 30–50/day per inbox.
-- Keep dialing. Now you have testimonials → raise to **full price ($3,900 Growth)**.
+## WEEK 2 to 4
+- Turn on the **email sequences** (Sequence A for no-site, B for weak-site) in Instantly, 30 to 50/day per inbox.
+- Keep dialing. Now you have testimonials → raise to **full price ($4,500 Growth)**.
 - Every delivered site: swap your CC demo photos for the client's real ones, ask for the referral at the happy moment.
-- Target: **2–3 paying clients/month** by end of month 1.
+- Target: **2 to 3 paying clients/month** by end of month 1.
 
-## MONTH 2–3: compound
+## MONTH 2 to 3: compound
 - Rank your **own Google Business Profile** ("web designer {{city}}").
-- Sign **1–2 referral partners** (SEO/ad agencies who don't build sites, one can feed you 1–4 jobs/mo).
+- Sign **1 to 2 referral partners** (SEO/ad agencies who don't build sites, one can feed you 1 to 4 jobs/mo).
 - Add **siding** to your lead pulls (bigger tickets) now that you have fence proof.
 
 ---
@@ -65,7 +65,7 @@ The website's job is credibility. The **mockup you send** is what closes.
 |---|---|
 | Morning | 30 min: mockups for yesterday's "yes"es |
 | Midday | Deliver active builds |
-| 8–9am / 4–5:30pm | Call blocks (best pickup), 100 dials/day target |
+| 8 to 9am / 4 to 5:30pm | Call blocks (best pickup), 100 dials/day target |
 | Anytime | Instantly sends emails on autopilot; check replies 2×/day |
 | End of day | Update + **export** the CRM |
 

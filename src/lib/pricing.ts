@@ -29,7 +29,7 @@ export const priceItems: PriceItem[] = [
     id: "launch-site",
     label: "Launch Site",
     category: "build",
-    blurb: "5–7 pages, booking or lead capture, mobile-first, live in 2–3 weeks.",
+    blurb: "5 to 7 pages, booking or lead capture, mobile-first, live in 2 to 3 weeks.",
     founding: 2000,
     standard: 3000,
     from: true,

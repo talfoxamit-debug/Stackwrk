@@ -6,7 +6,7 @@ way to reach them, and it's the fastest path to a booked call.
 
 **Rules**
 - Call **manually** (no autodialer to cell numbers, that's a TCPA problem). Business lines from the list are fine.
-- Best windows: **Tue–Thu, 8–9am or 4–5:30pm** local (before/after job sites).
+- Best windows: **Tue - Thu, 8 to 9am or 4 to 5:30pm** local (before/after job sites).
 - Talk **less than 40%** of the time. Ask questions. Aim for ONE outcome: permission to send the mockup, or a booked 10-min call.
 - Smile, stand up, keep it under 90 seconds.
 
@@ -46,7 +46,7 @@ way to reach them, and it's the fastest path to a booked call.
 | "I'm too busy / on a job." | "Totally, that's exactly why I called instead of emailing. 20 seconds: can I text you a concept to look at tonight?" |
 | "I get all my work from referrals." | "Love that, referrals are the best. Thing is, the first thing a referral does is Google you before they call. A good site closes the referrals you're already getting. Want to see how?" |
 | "I already have a website." | "Saw it, that's why I called. `[Specific flaw]`. Takes me a day to show you a better version, free. Want the preview?" |
-| "How much?" | "Depends what you need, most fence guys land around $3,900 with a monthly plan that keeps it ranking. But let me build the free mockup first so you're not paying for something you haven't seen. Fair?" |
+| "How much?" | "Depends what you need, most fence guys land around $4,500 with a monthly plan that keeps it ranking. But let me build the free mockup first so you're not paying for something you haven't seen. Fair?" |
 | "Send me some info." | "Happy to, what's the best email? I'll send a 60-second video of your concept, not a brochure. What's the address?" |
 | "Not interested." | "No problem at all. If it changes this season, I'm Tal at Stackwrk. Have a good one." *(Mark Lost. Move on.)* |
 
@@ -57,4 +57,4 @@ way to reach them, and it's the fastest path to a booked call.
 2. Work the **New** column top to bottom.
 3. Each call → open the card → **Log call/email** (auto-sets a 3-day follow-up) or **Booked a call**.
 4. Jot the outcome in **Notes**. Move stage.
-5. Target: **~25 dials/hour**, 100/day. Expect ~2–4 conversations that convert per 100 dials early on.
+5. Target: **~25 dials/hour**, 100/day. Expect ~2 to 4 conversations that convert per 100 dials early on.

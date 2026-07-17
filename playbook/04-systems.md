@@ -1,18 +1,18 @@
 # Systems & Accounts: Set Up A→Z
 
-Total cost to run this: **~$150–250/month.** Set up in this order.
+Total cost to run this: **~$150 to 250/month.** Set up in this order.
 
 ## Do TODAY (the long-pole item)
-1. **Sending domain + email tool**, the 2–3 week warmup is the bottleneck, so start now.
+1. **Sending domain + email tool**, the 2 to 3 week warmup is the bottleneck, so start now.
    - Buy a lookalike domain: `getstackwrk.com` or `stackwrkhq.com` (~$12, Namecheap/Cloudflare).
-   - Sign up for **Instantly.ai** ($37–97/mo), it's your email sender *and* your email-reply CRM.
-   - Add the domain, create 1–2 inboxes, set SPF/DKIM/DMARC (Instantly walks you through it).
+   - Sign up for **Instantly.ai** ($37 to 97/mo), it's your email sender *and* your email-reply CRM.
+   - Add the domain, create 1 to 2 inboxes, set SPF/DKIM/DMARC (Instantly walks you through it).
    - Turn on **warmup**. Do not send a single cold email for ~2 weeks.
 
 ## This week
 2. **Business basics**
    - EIN (irs.gov, free, 10 min) → unblocks Stripe.
-   - **Stripe** → create 3 Payment Links: $2,500 / $3,900 / $6,500, plus the monthly care plans ($99/$199/$399). Paste the links into `src/lib/pricing.ts` and I'll wire the "Subscribe" buttons.
+   - **Stripe** → create 3 Payment Links: $2,000 / $4,500 / $8,000, plus the monthly care plans ($99/$249/$499). Paste the links into `src/lib/pricing.ts` and I'll wire the "Subscribe" buttons.
    - **Google Business Profile** for Stackwrk → start ranking yourself for "web designer {{city}}".
 3. **Prospecting stack**
    - **Your CRM: `stackwrk.com/prospects`**, already built. Click **Load starter list (254)**. This is your phone + pipeline hub. (Bookmark it. Export weekly as backup, data lives in your browser.)
@@ -38,7 +38,7 @@ Total cost to run this: **~$150–250/month.** Set up in this order.
                        │
               Calendly call → quote 3 tiers → Stripe deposit
                        │
-              Contract (playbook/03) → BUILD → launch in 10 days
+              Contract (playbook/03) -> BUILD -> launch in ~14 business days
                        │
               Care plan MRR starts. Ask for referral. Repeat.
 ```

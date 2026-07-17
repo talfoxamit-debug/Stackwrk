@@ -61,12 +61,12 @@ doubles as social proof. Here's the exact setup for Stackwrk.
 - Website Design · Website Redesign · Contractor Websites · Landing Pages ·
   Local SEO · Website Maintenance · Instant-Quote Forms
 
-**Photos** (huge for ranking, add 5–10):
+**Photos** (huge for ranking, add 5 to 10):
 - Your logo + a cover image
 - Screenshots of sites you've built: the fence demo, Above Air, Marco's, SeaTop
 - A photo of you (people hire people)
 
-**Hours:** set real business hours (e.g. Mon–Fri 9–6, Sat 10–2).
+**Hours:** set real business hours (e.g. Mon - Fri 9 to 6, Sat 10 to 2).
 
 **Booking link:** add your Calendly (`calendly.com/tal-foxamit-seatophomes/30min`).
 

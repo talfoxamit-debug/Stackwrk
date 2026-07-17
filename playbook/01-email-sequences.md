@@ -3,8 +3,8 @@
 **Golden rules**
 - Plain text only. No images, no logos, no HTML, no links in email #1 (links tank deliverability on a cold inbox).
 - One idea per email. Short. Written like a text from a busy human.
-- Send from a **secondary domain** (e.g. `getstackwrk.com`), never your main. Warm it 2–3 weeks first.
-- Max ~30–40 new cold emails/day per inbox while warming; scale to ~50 once healthy.
+- Send from a **secondary domain** (e.g. `getstackwrk.com`), never your main. Warm it 2 to 3 weeks first.
+- Max ~30 to 40 new cold emails/day per inbox while warming; scale to ~50 once healthy.
 - Personalize the first line of #1 with something real (their Google listing, a review count, "no website").
 
 ---
@@ -26,7 +26,7 @@ These have no site. This is the easiest pitch on the board.
 **Email 2, Day 3**
 > **Subject:** re: {{business}} + a website
 >
-> Following up, {{owner}}. Here's the kind of site I build for fence pros: stackwrk.com/demos/apex-fence, instant quote form, reviews, financing.
+> Following up, {{owner}}. Here's the kind of site I build for fence pros: stackwrk.com/demos/apex-fence?utm_source=instantly&utm_medium=email&utm_campaign=cold, instant quote form, reviews, financing.
 >
 > Yours would have your name, your photos, your number. Want a free mockup?
 >
@@ -60,7 +60,7 @@ Lead with the specific flaw. Look at their site for 10 seconds first.
 **Email 2, Day 3**
 > **Subject:** re: quick note on {{business}}'s website
 >
-> {{owner}}, here's a live example of what I mean: stackwrk.com/demos/apex-fence. Instant quote form, reviews up top, fast on mobile.
+> {{owner}}, here's a live example of what I mean: stackwrk.com/demos/apex-fence?utm_source=instantly&utm_medium=email&utm_campaign=cold. Instant quote form, reviews up top, fast on mobile.
 >
 > Happy to do the same for {{business}}, free mockup, no obligation. Worth a look?
 >
@@ -76,9 +76,9 @@ Lead with the specific flaw. Look at their site for 10 seconds first.
 ---
 
 ## After they reply "yes / mockup"
-1. Build the mockup: duplicate the Apex demo, swap the name + their real photos + phone. ~30–45 min.
+1. Build the mockup: duplicate the Apex demo, swap the name + their real photos + phone. ~30 to 45 min.
 2. Record a 60-sec Loom walking through it.
-3. Send: *"Here's {{business}}'s new homepage, [Loom link]. If you like it I can have the full thing live in ~10 business days. Got 10 min this week to walk through it?"*
+3. Send: *"Here's {{business}}'s new homepage, [Loom link]. If you like it I can have the full thing live in ~14 business days. Got 10 min this week to walk through it?"*
 4. On the call: show it, quote all 3 tiers, take the deposit. Send the contract (playbook/03).
 
 ## Subject-line bank (A/B test these)
@@ -91,7 +91,7 @@ Lead with the specific flaw. Look at their site for 10 seconds first.
 ## Deliverability checklist (do this BEFORE sending #1)
 - [ ] Buy a lookalike domain (e.g. `getstackwrk.com` / `stackwrkhq.com`).
 - [ ] Set up SPF, DKIM, DMARC records.
-- [ ] Create 1–2 inboxes on it; set a real signature + physical address (CAN-SPAM).
-- [ ] Turn on warmup in Instantly/Smartlead; wait 2–3 weeks.
+- [ ] Create 1 to 2 inboxes on it; set a real signature + physical address (CAN-SPAM).
+- [ ] Turn on warmup in Instantly/Smartlead; wait 2 to 3 weeks.
 - [ ] Keep bounce rate < 3% (verify emails with MillionVerifier first).
 - [ ] Always include a real opt-out line ("Reply STOP and I'll remove you.").
