@@ -75,6 +75,7 @@ export default function Nav() {
           type="button"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
           className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-white md:hidden"
         >
@@ -88,6 +89,8 @@ export default function Nav() {
 
       {/* Mobile menu */}
       <div
+        id="mobile-menu"
+        inert={!open}
         className={`overflow-hidden border-t border-white/[0.06] bg-[#070312]/95 backdrop-blur-xl transition-[max-height] duration-300 md:hidden ${
           open ? "max-h-96" : "max-h-0"
         }`}

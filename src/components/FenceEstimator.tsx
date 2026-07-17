@@ -75,6 +75,7 @@ export default function FenceEstimator({ phone }: { phone: string }) {
         <input
           type="range" min={20} max={500} step={10} value={feet}
           onChange={(e) => setFeet(Number(e.target.value))}
+          aria-label="Fence length in linear feet"
           className="mt-2 w-full accent-emerald-600"
         />
         <div className="flex justify-between text-[0.75rem] text-slate-400"><span>20 ft</span><span>500 ft</span></div>
@@ -100,9 +101,9 @@ export default function FenceEstimator({ phone }: { phone: string }) {
           <div>
             <label className="text-xs font-bold uppercase tracking-wide text-slate-500">Gates</label>
             <div className="mt-2 flex items-center gap-2">
-              <button onClick={() => setGates((g) => Math.max(0, g - 1))} className="h-9 w-9 rounded-lg border border-black/10 text-lg font-bold text-slate-600">–</button>
+              <button onClick={() => setGates((g) => Math.max(0, g - 1))} aria-label="Fewer gates" className="h-9 w-9 rounded-lg border border-black/10 text-lg font-bold text-slate-600">-</button>
               <span className="flex-1 text-center text-sm font-bold" style={{ color: NAVY }}>{gates}</span>
-              <button onClick={() => setGates((g) => Math.min(6, g + 1))} className="h-9 w-9 rounded-lg border border-black/10 text-lg font-bold text-slate-600">+</button>
+              <button onClick={() => setGates((g) => Math.min(6, g + 1))} aria-label="More gates" className="h-9 w-9 rounded-lg border border-black/10 text-lg font-bold text-slate-600">+</button>
             </div>
           </div>
         </div>
@@ -113,7 +114,7 @@ export default function FenceEstimator({ phone }: { phone: string }) {
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-white/60">Estimated project cost</p>
           <p className="mt-1 text-3xl font-extrabold leading-tight sm:text-[2.1rem]">
-            {money(low)}<span className="text-white/50"> – </span>{money(high)}
+            {money(low)}<span className="text-white/50"> to </span>{money(high)}
           </p>
           <p className="mt-3 inline-flex rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-emerald-300">
             or about ${Math.round(monthly).toLocaleString()}/mo

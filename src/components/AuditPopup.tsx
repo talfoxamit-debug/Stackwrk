@@ -26,6 +26,7 @@ export default function AuditPopup() {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [err, setErr] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
+  const firstFieldRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -38,6 +39,35 @@ export default function AuditPopup() {
     }, 2500);
     return () => clearTimeout(t);
   }, []);
+
+  // Accessibility: when open, lock body scroll, move focus into the dialog,
+  // trap Tab inside it, close on Escape, and restore focus on close.
+  useEffect(() => {
+    if (!open) return;
+    const prevFocus = document.activeElement as HTMLElement | null;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    firstFieldRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { close(); return; }
+      if (e.key === "Tab" && dialogRef.current) {
+        const f = dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href],button:not([disabled]),input:not([type="hidden"]),textarea,select,[tabindex]:not([tabindex="-1"])',
+        );
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+      prevFocus?.focus?.();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   function close() {
     popupHandled = true;
@@ -145,9 +175,9 @@ export default function AuditPopup() {
             <form onSubmit={submit} className="mt-5 space-y-3">
               {/* honeypot */}
               <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
-              <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="Your website (e.g. yoursite.com)" className={field} inputMode="url" />
-              <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" className={field} />
-              <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email" className={field} inputMode="email" />
+              <input ref={firstFieldRef} value={url} onChange={(e) => setUrl(e.target.value)} placeholder="Your website (e.g. yoursite.com)" aria-label="Your website" className={field} inputMode="url" />
+              <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" aria-label="Your name" className={field} />
+              <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email" aria-label="Your email" className={field} inputMode="email" />
 
               <label className="flex items-start gap-2.5 text-xs leading-relaxed text-white/60">
                 <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} className="mt-0.5 h-4 w-4 shrink-0 accent-lime" />
