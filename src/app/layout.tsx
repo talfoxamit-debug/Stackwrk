@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import AttributionCapture from "@/components/AttributionCapture";
 import MetaPixel from "@/components/MetaPixel";
 import Nav from "@/components/Nav";
