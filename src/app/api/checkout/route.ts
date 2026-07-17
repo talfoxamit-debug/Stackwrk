@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getStripe, siteOrigin } from "@/lib/stripe";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -11,6 +12,9 @@ export const runtime = "nodejs";
  * amount / monthly are in whole US dollars.
  */
 export async function POST(req: Request) {
+  if (!rateLimit(`checkout:${getClientIp(req)}`, 10, 60_000)) {
+    return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
+  }
   const stripe = getStripe();
   if (!stripe) return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
 

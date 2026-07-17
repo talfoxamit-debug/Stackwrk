@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { sendEmail, notifyEmail } from "@/lib/email";
 import { site } from "@/lib/content";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -38,6 +39,9 @@ function confirmationHtml(name: string, when: string, calUrl: string): string {
 }
 
 export async function POST(req: Request) {
+  if (!rateLimit(`book:${getClientIp(req)}`, 8, 60_000)) {
+    return NextResponse.json({ ok: false, error: "rate_limited", message: "Too many requests. Please wait a minute and try again." }, { status: 429 });
+  }
   let body: Record<string, unknown>;
   try {
     body = await req.json();

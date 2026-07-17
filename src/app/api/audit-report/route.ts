@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { sendEmail, notifyEmail } from "@/lib/email";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import {
   renderReportEmailHtml,
   reportSummaryText,
@@ -57,6 +58,9 @@ function parseAudit(raw: unknown): AuditResult | null {
 }
 
 export async function POST(req: Request) {
+  if (!rateLimit(`audit-report:${getClientIp(req)}`, 10, 60_000)) {
+    return NextResponse.json({ ok: false, error: "rate_limited", message: "Too many requests. Please wait a minute and try again." }, { status: 429 });
+  }
   let body: Record<string, unknown>;
   try {
     body = await req.json();

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { LEAD_STATUSES } from "@/lib/crm";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -93,6 +94,9 @@ export async function PATCH(req: Request) {
 }
 
 export async function POST(req: Request) {
+  if (!rateLimit(`leads:${getClientIp(req)}`, 12, 60_000)) {
+    return NextResponse.json({ ok: false, error: "rate_limited", message: "Too many submissions. Please wait a minute and try again." }, { status: 429 });
+  }
   let body: LeadBody;
   try {
     body = await req.json();
