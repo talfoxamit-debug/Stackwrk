@@ -14,7 +14,7 @@ import { PLAN_PRESETS } from "@/lib/agreement";
 export const metadata: Metadata = {
   title: "Pricing | Stackwrk",
   description:
-    "Fixed, honest pricing for fence & exterior contractor websites. Build tiers from $2,000, plus care plans that keep your site fast, secure, and improving.",
+    "Fixed, honest pricing for small and medium business websites and software. Build tiers from $2,000, plus care plans that keep your site fast, secure, and improving.",
   alternates: { canonical: "https://stackwrk.com/pricing" },
 };
 
@@ -34,7 +34,7 @@ const tiers = [
   },
   {
     key: "Growth" as const,
-    tagline: "The site most contractors need, with tools that sell.",
+    tagline: "The site most businesses need, with tools that sell.",
     highlight: true,
     includes: [
       "Everything in Launch, plus:",
@@ -156,7 +156,7 @@ export default function PricingPage() {
             <div>
               <p className="font-display text-xl uppercase text-white sm:text-2xl">A website that pays for itself</p>
               <p className="mt-1.5 text-sm leading-relaxed text-white/60">
-                Most contractors make back a Growth build with a handful of extra booked jobs. Start with a free audit and we&rsquo;ll show you exactly where the leads are leaking.
+                Most businesses make back a Growth build with a handful of extra customers. Start with a free audit and we&rsquo;ll show you exactly where the leads are leaking.
               </p>
             </div>
             <a href="/#audit" className="btn-primary shrink-0 !rounded-md">

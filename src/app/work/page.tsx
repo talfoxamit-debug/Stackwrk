@@ -9,7 +9,7 @@ import { Check } from "@/components/icons";
 export const metadata: Metadata = {
   title: "Our Work | Stackwrk",
   description:
-    "Real websites and web apps we've built for contractors and local businesses: instant-quote fence sites, HVAC estimate flows, booking platforms, and custom software.",
+    "Real websites and web apps we've built for small and medium businesses: instant-quote sites, estimate flows, booking platforms, custom CRMs, and automations.",
   alternates: { canonical: "https://stackwrk.com/work" },
 };
 
@@ -33,7 +33,7 @@ export default function WorkPage() {
             </h1>
             <p className="mt-8 text-lg leading-relaxed text-white/60">
               Every build is custom-coded and conversion-first. Here&rsquo;s a sample of what we ship
-              for contractors and local businesses across South Florida.
+              for small and medium businesses across South Florida and beyond.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-white/50">
               <span className="inline-flex items-center gap-1.5"><Check width={15} height={15} className="text-lime" /> Fence &amp; exterior</span>

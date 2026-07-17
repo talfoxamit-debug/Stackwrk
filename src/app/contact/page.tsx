@@ -10,7 +10,7 @@ import { site } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Contact | Stackwrk",
   description:
-    "Get a free website mockup or book a call with Stackwrk. We build conversion-first websites for fence & exterior contractors in South Florida.",
+    "Get a free website mockup or book a call with Stackwrk. We build conversion-first websites, software, and automations for small and medium businesses.",
   alternates: { canonical: "https://stackwrk.com/contact" },
 };
 

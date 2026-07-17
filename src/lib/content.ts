@@ -41,19 +41,19 @@ export const promo = {
 };
 
 export const hero = {
-  eyebrow: "Websites for fence & exterior contractors",
+  eyebrow: "Custom websites & software for small and medium businesses",
   // Hero mascot: transparent webp under /public (optimized from the original
   // upload). Renders via HeroMedia; falls back to the abstract gradient visual
   // if missing.
   image: "/fox.webp" as string | null,
   titleLines: ["DESIGNED TO", "GROW YOUR BUSINESS"],
   subtitle:
-    "Custom, mobile-first websites that turn “near me” searches into booked jobs for your fence or exterior business, so you win more work without the busywork. Live in about two weeks.",
+    "Custom, mobile-first websites, software, and automations that bring in more leads and cut the busywork, built around how your business actually works instead of half-fitting monthly subscriptions. Most projects live in about two weeks.",
   primaryCta: "Get a Free Site Mockup",
   secondaryCta: "See Live Examples",
   highlights: [
-    { title: "Live In ~2 Weeks", sub: "Your site up and earning fast" },
-    { title: "More Booked Jobs", sub: "Built to turn visitors into leads" },
+    { title: "Live In ~2 Weeks", sub: "Your project up and running fast" },
+    { title: "More Leads & Sales", sub: "Built to turn visitors into customers" },
     { title: "A Team Behind You", sub: "Direct access, no agency runaround" },
   ],
 };
@@ -88,7 +88,7 @@ export const projects: Project[] = [
       "A homeowner-facing fence company site with an instant quote widget, reviews, financing and service-area pages, all built to turn searches into quote requests.",
     features: ["Instant quote form + click-to-call", "Reviews, warranty & trust signals", "Financing + service-area pages"],
     href: "/demos/apex-fence",
-    result: "This is the exact site we build for fence & exterior contractors. Yours gets your name, your photos, your number.",
+    result: "A lead-first build for a fence company, one example of what we do. Yours gets your brand, your photos, your number, shaped to your business.",
     accent: "from-emerald-800 via-teal-900 to-ink-700",
     image: "/shots/apexfence.webp",
     badge: "Demo site",
@@ -102,7 +102,7 @@ export const projects: Project[] = [
       "A contractor site with an instant-estimate flow, live comfort slider, financing and bilingual support, built to book service calls.",
     features: ["Instant estimate flow", "Click-to-call + quote form", "English / Español"],
     href: "https://above-air-inc.vercel.app",
-    result: "Turns after-hours emergencies into booked service calls, using the same lead-first playbook as your fence site.",
+    result: "Turns after-hours emergencies into booked service calls, using the same lead-first playbook we bring to every build.",
     accent: "from-emerald-800 via-teal-900 to-ink-700",
     image: "/shots/aboveair.webp",
     tier: "main",
@@ -189,20 +189,20 @@ export const investment = {
   eyebrow: "Investment",
   headline: "Projects starting at",
   price: "$2,000",
-  sub: "Quality builds that pay for themselves in booked jobs.",
+  sub: "Quality builds that pay for themselves in new leads and revenue.",
   cta: "Get a Free Site Mockup",
 };
 
 export const finalCta = {
-  eyebrow: "Let’s book you more jobs",
-  heading: "Ready to book more jobs?",
-  body: "Send us your current site (or just your Facebook page) and we’ll rebuild your homepage from your own project photos. A free mockup, no obligation.",
+  eyebrow: "Let’s grow your business",
+  heading: "Ready to grow your business?",
+  body: "Send us your current site (or just your Facebook page) and we’ll rebuild your homepage from your own brand and photos. A free mockup, no obligation.",
   points: ["Free homepage mockup", "Built from your own photos", "No obligation"],
   formTitle: "Get a Free Site Mockup",
   formSub: "Tell us about your business, and we’ll reply within one business day.",
   formCta: "Get My Free Mockup",
   calendlyLabel: "Prefer to pick a time? Book a call",
-  trust: "Trusted by contractors and local businesses across South Florida.",
+  trust: "Trusted by small and medium businesses across South Florida and beyond.",
 };
 
 export const howItWorks = {

@@ -741,7 +741,7 @@ function CrmDemo() {
 
 /* ------------------------------------------------------------- Showcase */
 const TABS = [
-  { key: "booking", label: "Booking widget", note: "Let homeowners request quotes 24/7", render: <BookingDemo /> },
+  { key: "booking", label: "Booking widget", note: "Let customers request quotes 24/7", render: <BookingDemo /> },
   { key: "calc", label: "Revenue calculator", note: "Show ROI in real numbers", render: <CalculatorDemo /> },
   { key: "chat", label: "AI assistant", note: "Answer & capture leads", render: <ChatbotDemo /> },
   { key: "crm", label: "Lead CRM", note: "Track every lead to won", render: <CrmDemo /> },
