@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { ArrowRight, Check } from "./icons";
 import { finalCta } from "@/lib/content";
+import { getAttribution } from "@/lib/attribution";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -23,7 +24,7 @@ export default function AuditForm() {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, ...getAttribution() }),
       });
       const json = await res.json().catch(() => ({}));
 

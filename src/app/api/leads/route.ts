@@ -11,6 +11,12 @@ type LeadBody = {
   website?: string;
   message?: string;
   company?: string; // honeypot: real users never fill this
+  source?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  referrer?: string;
+  landing_path?: string;
 };
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -118,14 +124,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
   }
 
-  const { error } = await supabase.from("leads").insert({
+  const base = {
     name,
     email,
     website: website || null,
     message: message || null,
-    source: "audit_form",
-  });
+    source: clamp(body.source, 60) || "audit_form",
+  };
+  const attribution = {
+    utm_source: clamp(body.utm_source, 120) || null,
+    utm_medium: clamp(body.utm_medium, 120) || null,
+    utm_campaign: clamp(body.utm_campaign, 160) || null,
+    referrer: clamp(body.referrer, 300) || null,
+    landing_path: clamp(body.landing_path, 200) || null,
+  };
 
+  // Store with attribution. If those columns are not present yet (schema not
+  // migrated), retry with the base row only so a lead is never dropped.
+  let { error } = await supabase.from("leads").insert({ ...base, ...attribution });
+  if (error) {
+    console.warn("[leads] insert with attribution failed, retrying base only:", error.message);
+    ({ error } = await supabase.from("leads").insert(base));
+  }
   if (error) {
     console.error("[leads] insert failed:", error.message);
     return NextResponse.json({ ok: false, error: "insert_failed" }, { status: 500 });

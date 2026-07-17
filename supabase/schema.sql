@@ -7,15 +7,20 @@
 
 -- ---------------------------------------------------------------- leads
 create table if not exists public.leads (
-  id          uuid primary key default gen_random_uuid(),
-  created_at  timestamptz not null default now(),
-  name        text not null,
-  email       text not null,
-  website     text,
-  message     text,
-  source      text,                       -- 'audit_form' | 'instant_audit' | ...
-  status      text not null default 'new',-- new|contacted|call_booked|proposal|won|lost
-  notes       text
+  id           uuid primary key default gen_random_uuid(),
+  created_at   timestamptz not null default now(),
+  name         text not null,
+  email        text not null,
+  website      text,
+  message      text,
+  source       text,                       -- 'audit_form' | 'instant_audit' | ...
+  utm_source   text,                       -- channel attribution, captured client-side
+  utm_medium   text,
+  utm_campaign text,
+  referrer     text,                       -- first external referrer
+  landing_path text,                       -- first page the visitor landed on
+  status       text not null default 'new',-- new|contacted|call_booked|proposal|won|lost
+  notes        text
 );
 
 create index if not exists leads_created_at_idx on public.leads (created_at desc);
@@ -23,6 +28,14 @@ create index if not exists leads_status_idx     on public.leads (status);
 
 alter table public.leads enable row level security;
 -- (No policies on purpose, only the service-role key may touch this table.)
+
+-- If the leads table already exists from an earlier version, run this once so
+-- channel attribution can be stored (otherwise the API silently drops it):
+--   alter table public.leads add column if not exists utm_source   text;
+--   alter table public.leads add column if not exists utm_medium   text;
+--   alter table public.leads add column if not exists utm_campaign text;
+--   alter table public.leads add column if not exists referrer     text;
+--   alter table public.leads add column if not exists landing_path text;
 
 -- ---------------------------------------------------------------- audits
 -- Every audit run is logged here (a warm-lead signal: who's checking their score).
