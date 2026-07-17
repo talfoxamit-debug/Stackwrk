@@ -62,7 +62,7 @@ export default function ToolLayout({
         <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-[40rem] -translate-x-1/2 rounded-full bg-lime/[0.06] blur-[100px]" />
         <div className="container-content relative">
           {/* breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-white/40">
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-white/55">
             <Link href="/" className="transition-colors hover:text-lime">Home</Link>
             <span>/</span>
             <Link href="/tools" className="transition-colors hover:text-lime">Free tools</Link>

@@ -81,7 +81,7 @@ function ScoreRing({ score }: { score: number }) {
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="font-display text-4xl leading-none text-white">{shown}</span>
-        <span className="text-[0.75rem] uppercase tracking-widest text-white/45">/ 100</span>
+        <span className="text-[0.75rem] uppercase tracking-widest text-white/55">/ 100</span>
       </div>
     </div>
   );
@@ -129,7 +129,7 @@ function SampleScorecard() {
       <div className="absolute -inset-8 rounded-[2rem] bg-[radial-gradient(ellipse,rgba(203,255,60,0.07),rgba(124,58,237,0.08)_55%,transparent_75%)] blur-2xl" />
       <div className="relative rotate-2 rounded-2xl border border-white/12 bg-[#0b0616]/85 p-5 shadow-[0_50px_100px_-50px_rgba(0,0,0,0.9)] backdrop-blur-md transition-transform duration-500 hover:rotate-0">
         <div className="flex items-center justify-between">
-          <span className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-white/40">
+          <span className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-white/55">
             Sample scorecard
           </span>
           <span className="rounded-full border border-rose-400/30 bg-rose-500/10 px-2 py-0.5 text-[0.75rem] font-semibold text-rose-300">
@@ -147,7 +147,7 @@ function SampleScorecard() {
             <p className="font-display text-lg uppercase leading-tight text-white">
               Real gaps here, costing you customers.
             </p>
-            <p className="mt-1 truncate text-xs text-white/40">demo-site.com · 2.4 s · 890 KB</p>
+            <p className="mt-1 truncate text-xs text-white/55">demo-site.com · 2.4 s · 890 KB</p>
           </div>
         </div>
 
@@ -320,7 +320,7 @@ function ReportCapture({ result }: { result: Result }) {
             {error}
           </p>
         )}
-        <p className="mt-3 text-xs text-white/40">
+        <p className="mt-3 text-xs text-white/55">
           Your details are only used to send this report and follow up. No spam, unsubscribe anytime.
         </p>
       </form>
@@ -428,7 +428,7 @@ export default function AuditTool() {
               <h3 className="mt-1 font-display text-2xl uppercase leading-tight text-white sm:text-3xl">
                 {result.headline}
               </h3>
-              <p className="mt-2 break-all text-sm text-white/45">
+              <p className="mt-2 break-all text-sm text-white/55">
                 {result.finalUrl} · {result.loadMs} ms · {result.pageKb} KB
               </p>
             </div>
@@ -460,7 +460,7 @@ export default function AuditTool() {
                       <StatusDot status={c.status} />
                       <span className="text-sm">
                         <span className="text-white/85">{c.label}</span>
-                        <span className="block text-xs text-white/45">{c.detail}</span>
+                        <span className="block text-xs text-white/55">{c.detail}</span>
                       </span>
                     </li>
                   ))}

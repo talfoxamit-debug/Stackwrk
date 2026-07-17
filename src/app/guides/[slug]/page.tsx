@@ -110,7 +110,7 @@ function Block({ b }: { b: GuideBlock }) {
       return (
         <blockquote className="mt-7 border-l-2 border-lime/50 pl-5 text-lg italic leading-relaxed text-white/80">
           {b.text}
-          {b.cite && <cite className="mt-2 block text-sm not-italic text-white/45">{b.cite}</cite>}
+          {b.cite && <cite className="mt-2 block text-sm not-italic text-white/55">{b.cite}</cite>}
         </blockquote>
       );
     case "table":
@@ -149,7 +149,7 @@ function Block({ b }: { b: GuideBlock }) {
             </table>
           </div>
           {b.caption && (
-            <figcaption className="mt-2 px-1 text-xs text-white/40">{b.caption}</figcaption>
+            <figcaption className="mt-2 px-1 text-xs text-white/55">{b.caption}</figcaption>
           )}
         </figure>
       );
@@ -216,7 +216,7 @@ export default async function GuideArticle({
 
         <div className="container-content relative z-10 max-w-3xl">
           {/* breadcrumb */}
-          <nav className="flex flex-wrap items-center gap-1.5 text-xs text-white/40" aria-label="Breadcrumb">
+          <nav className="flex flex-wrap items-center gap-1.5 text-xs text-white/55" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-lime">Home</Link>
             <span>/</span>
             <Link href="/guides" className="hover:text-lime">Guides</Link>
@@ -228,7 +228,7 @@ export default async function GuideArticle({
           <h1 className="mt-3 font-display text-4xl uppercase leading-[0.98] text-white sm:text-5xl">
             {g.title}
           </h1>
-          <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/45">
+          <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/55">
             <span className="rounded-md border border-lime/25 bg-lime/[0.07] px-2 py-0.5 text-xs font-bold text-lime">
               {INTENT_LABEL[g.intent]}
             </span>
@@ -300,7 +300,7 @@ export default async function GuideArticle({
           </div>
 
           {/* byline for E-E-A-T */}
-          <p className="mt-10 text-sm text-white/40">
+          <p className="mt-10 text-sm text-white/55">
             Written by Tal, founder of Stackwrk. I build custom software, automations,
             CRMs, and lead-generating sites for small and mid-size businesses.
           </p>

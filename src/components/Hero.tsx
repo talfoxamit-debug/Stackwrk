@@ -144,7 +144,7 @@ export default function Hero() {
           {/* Built with: infinite marquee (pauses on hover, frozen by the
               global reduced-motion rule) */}
           <div className="mt-10 flex max-w-md animate-fade-up items-center gap-x-5" style={{ animationDelay: "320ms" }}>
-            <span className="shrink-0 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-white/40">
+            <span className="shrink-0 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-white/55">
               Built with
             </span>
             <div

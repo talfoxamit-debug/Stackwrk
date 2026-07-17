@@ -236,9 +236,9 @@ function CalculatorDemo() {
 
       <div className="mt-6 grid grid-cols-2 gap-3">
         <div className="rounded-xl border border-white/10 bg-ink-800/60 p-4">
-          <p className="text-[0.75rem] uppercase tracking-widest text-white/40">Your site now</p>
+          <p className="text-[0.75rem] uppercase tracking-widest text-white/55">Your site now</p>
           <p className="mt-1 font-display text-2xl text-white/70">{money(currentRev)}</p>
-          <p className="text-xs text-white/40">/mo · {current}% convert</p>
+          <p className="text-xs text-white/55">/mo · {current}% convert</p>
         </div>
         <div className="rounded-xl border border-lime/30 bg-lime/[0.06] p-4">
           <p className="text-[0.75rem] uppercase tracking-widest text-lime">With a Stackwrk site</p>
@@ -421,7 +421,7 @@ function BeforeAfterDemo() {
     <div className="p-5 sm:p-7">
       {/* legend: makes it unmistakable which side is which */}
       <div className="mb-3 flex items-center justify-between text-[0.75rem] font-bold uppercase tracking-wider">
-        <span className="flex items-center gap-1.5 text-white/45">
+        <span className="flex items-center gap-1.5 text-white/55">
           <span aria-hidden="true">◀</span> Before · dated
         </span>
         <span className="flex items-center gap-1.5 text-lime">
@@ -608,7 +608,7 @@ function BeforeAfterDemo() {
           ⟷ Drag
         </span>
       </div>
-      <p className="mt-3 text-center text-xs text-white/45">
+      <p className="mt-3 text-center text-xs text-white/55">
         Drag anywhere on the image. Same business, redesigned to sell.
       </p>
       <DemoCTA label="Get a redesign like this" />
@@ -662,7 +662,7 @@ function CrmDemo() {
       {/* live totals */}
       <div className="mb-4 flex items-center gap-3">
         <div className="flex-1 rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3">
-          <p className="text-[0.75rem] uppercase tracking-widest text-white/40">Open pipeline</p>
+          <p className="text-[0.75rem] uppercase tracking-widest text-white/55">Open pipeline</p>
           <p className="font-display text-xl text-white">{money(pipeline)}</p>
         </div>
         <div className="flex-1 rounded-xl border border-lime/30 bg-lime/[0.06] px-4 py-3">
@@ -712,7 +712,7 @@ function CrmDemo() {
                           )}
                         </div>
                         <div className="mt-1 flex items-center justify-between gap-1">
-                          <span className="truncate text-[0.75rem] text-white/40">{d.source}</span>
+                          <span className="truncate text-[0.75rem] text-white/55">{d.source}</span>
                           <span className="shrink-0 text-[0.75rem] font-medium tabular-nums text-lime/80">
                             {money(d.value)}
                           </span>
@@ -728,8 +728,8 @@ function CrmDemo() {
       </div>
 
       <div className="mt-3 flex items-center justify-between px-0.5">
-        <p className="text-[0.75rem] text-white/40">Tap a lead to move it down the pipeline.</p>
-        <button onClick={reset} className="text-[0.75rem] font-medium text-white/45 transition-colors hover:text-lime">
+        <p className="text-[0.75rem] text-white/55">Tap a lead to move it down the pipeline.</p>
+        <button onClick={reset} className="text-[0.75rem] font-medium text-white/55 transition-colors hover:text-lime">
           Reset
         </button>
       </div>
@@ -768,7 +768,7 @@ export default function DemoShowcase() {
               Real features we build into client sites. Pick one and try it. Every click works.
             </p>
             {/* Mobile hint that the tools scroll sideways */}
-            <p className="mt-2 flex items-center gap-1.5 text-[0.75rem] font-medium text-white/40 lg:hidden">
+            <p className="mt-2 flex items-center gap-1.5 text-[0.75rem] font-medium text-white/55 lg:hidden">
               Swipe for more tools <ArrowRight width={12} height={12} />
             </p>
             <div className="mt-2 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 [mask-image:linear-gradient(to_right,#000_84%,transparent)] lg:mt-5 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0 lg:[mask-image:none]">
@@ -783,7 +783,7 @@ export default function DemoShowcase() {
                     }`}
                   >
                     <span className={`whitespace-nowrap text-sm font-semibold ${on ? "text-lime" : "text-white/80"}`}>{t.label}</span>
-                    <span className="hidden text-xs text-white/40 lg:block">{t.note}</span>
+                    <span className="hidden text-xs text-white/55 lg:block">{t.note}</span>
                   </button>
                 );
               })}
@@ -792,7 +792,7 @@ export default function DemoShowcase() {
 
           {/* Right: the live demo */}
           <div className="relative min-w-0 p-4 sm:p-5">
-            <div className="mb-3 flex items-center gap-2 px-1 text-xs text-white/45">
+            <div className="mb-3 flex items-center gap-2 px-1 text-xs text-white/55">
               <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_6px_rgba(203,255,60,0.9)]" />
               {current.note}. Go ahead, try it
             </div>

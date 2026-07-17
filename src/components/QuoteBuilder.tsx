@@ -205,7 +205,7 @@ export default function QuoteBuilder() {
               </button>
             </>
           ) : (
-            <p className="mt-5 text-sm text-white/40">
+            <p className="mt-5 text-sm text-white/55">
               Select services on the left to build a quote.
             </p>
           )}

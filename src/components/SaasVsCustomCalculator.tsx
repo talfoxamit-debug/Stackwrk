@@ -63,7 +63,7 @@ export default function SaasVsCustomCalculator() {
             onChange={(e) => setMonthlySpend(Number(e.target.value))}
             className="mt-2 w-full accent-lime"
           />
-          <span className="mt-1 block text-xs font-normal text-white/40">
+          <span className="mt-1 block text-xs font-normal text-white/55">
             Only the tools one custom system could replace, counting every seat.
           </span>
         </label>
@@ -75,7 +75,7 @@ export default function SaasVsCustomCalculator() {
             onChange={(e) => setGrowthPct(Number(e.target.value))}
             className="mt-2 w-full accent-lime"
           />
-          <span className="mt-1 block text-xs font-normal text-white/40">
+          <span className="mt-1 block text-xs font-normal text-white/55">
             Seat growth plus price increases. Often 10 to 15%.
           </span>
         </label>
@@ -87,7 +87,7 @@ export default function SaasVsCustomCalculator() {
             onChange={(e) => setBuildCost(Number(e.target.value))}
             className="mt-2 w-full accent-lime"
           />
-          <span className="mt-1 block text-xs font-normal text-white/40">
+          <span className="mt-1 block text-xs font-normal text-white/55">
             Estimate. Plus ~{money(HOSTING_PER_MONTH)}/mo hosting, built in.
           </span>
         </label>
@@ -99,7 +99,7 @@ export default function SaasVsCustomCalculator() {
             onChange={(e) => setYears(Number(e.target.value))}
             className="mt-2 w-full accent-lime"
           />
-          <span className="mt-1 block text-xs font-normal text-white/40">
+          <span className="mt-1 block text-xs font-normal text-white/55">
             How long you will actually run this system.
           </span>
         </label>
@@ -108,9 +108,9 @@ export default function SaasVsCustomCalculator() {
       {/* totals */}
       <div className="mt-7 grid grid-cols-2 gap-3">
         <div className="rounded-xl border border-white/10 bg-ink-800/60 p-4">
-          <p className="text-[0.75rem] uppercase tracking-widest text-white/40">Keep renting (SaaS)</p>
+          <p className="text-[0.75rem] uppercase tracking-widest text-white/55">Keep renting (SaaS)</p>
           <p className="mt-1 font-display text-2xl text-white/80">{money(result.saasTotal)}</p>
-          <p className="text-xs text-white/40">total over {years} years</p>
+          <p className="text-xs text-white/55">total over {years} years</p>
         </div>
         <div className="rounded-xl border border-lime/30 bg-lime/[0.06] p-4">
           <p className="text-[0.75rem] uppercase tracking-widest text-lime">Own it (custom)</p>
@@ -122,7 +122,7 @@ export default function SaasVsCustomCalculator() {
       {/* comparison bars */}
       <div className="mt-5 space-y-2.5">
         <div>
-          <div className="mb-1 flex justify-between text-xs text-white/40">
+          <div className="mb-1 flex justify-between text-xs text-white/55">
             <span>SaaS</span><span>{money(result.saasTotal)}</span>
           </div>
           <div className="h-3 w-full overflow-hidden rounded-full bg-white/[0.06]">
@@ -130,7 +130,7 @@ export default function SaasVsCustomCalculator() {
           </div>
         </div>
         <div>
-          <div className="mb-1 flex justify-between text-xs text-white/40">
+          <div className="mb-1 flex justify-between text-xs text-white/55">
             <span>Custom</span><span>{money(result.customTotal)}</span>
           </div>
           <div className="h-3 w-full overflow-hidden rounded-full bg-white/[0.06]">

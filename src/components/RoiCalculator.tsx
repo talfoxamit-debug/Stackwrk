@@ -47,7 +47,7 @@ export default function RoiCalculator() {
             onChange={(e) => setCurrent(Number(e.target.value))}
             className="mt-2 w-full accent-lime"
           />
-          <span className="mt-1 block text-xs font-normal text-white/40">
+          <span className="mt-1 block text-xs font-normal text-white/55">
             Most small-business sites convert 1 to 2%. A fast, focused site targets ~{improved.toFixed(1)}%.
           </span>
         </label>
@@ -55,9 +55,9 @@ export default function RoiCalculator() {
 
       <div className="mt-7 grid grid-cols-2 gap-3">
         <div className="rounded-xl border border-white/10 bg-ink-800/60 p-4">
-          <p className="text-[0.75rem] uppercase tracking-widest text-white/40">Your site now</p>
+          <p className="text-[0.75rem] uppercase tracking-widest text-white/55">Your site now</p>
           <p className="mt-1 font-display text-2xl text-white/70">{money(currentRev)}</p>
-          <p className="text-xs text-white/40">/mo · {current.toFixed(1)}% convert</p>
+          <p className="text-xs text-white/55">/mo · {current.toFixed(1)}% convert</p>
         </div>
         <div className="rounded-xl border border-lime/30 bg-lime/[0.06] p-4">
           <p className="text-[0.75rem] uppercase tracking-widest text-lime">With a Stackwrk site</p>

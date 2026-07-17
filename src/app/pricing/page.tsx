@@ -114,7 +114,7 @@ export default function PricingPage() {
                     <p className="relative z-10 mt-1 text-sm text-white/50">{t.tagline}</p>
                     <p className="relative z-10 mt-5 flex items-baseline gap-2">
                       <CountUp value={p.fee} prefix="$" className="font-display text-5xl text-white" />
-                      <span className="text-sm text-white/40 line-through">{money(p.listFee)}</span>
+                      <span className="text-sm text-white/55 line-through">{money(p.listFee)}</span>
                     </p>
                     <p className="relative z-10 mt-1 text-xs font-semibold uppercase tracking-wide text-lime">Founding-client rate</p>
                     <ul className="relative z-10 mt-5 flex-1 space-y-2.5">
@@ -137,7 +137,7 @@ export default function PricingPage() {
               );
             })}
           </div>
-          <p className="mt-6 text-center text-sm text-white/45">
+          <p className="mt-6 text-center text-sm text-white/55">
             Every build includes a refundable deposit, a love-the-design guarantee, and 100% ownership of your site.
           </p>
         </div>

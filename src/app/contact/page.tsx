@@ -59,13 +59,13 @@ export default function ContactPage() {
                   <Icon width={20} height={20} />
                 </span>
                 <span className="relative z-10 min-w-0">
-                  <span className="block text-[0.7rem] font-semibold uppercase tracking-wide text-white/40">{label}</span>
+                  <span className="block text-[0.7rem] font-semibold uppercase tracking-wide text-white/55">{label}</span>
                   <span className="block truncate font-semibold text-white">{value}</span>
                 </span>
                 <ArrowRight width={16} height={16} className="relative z-10 ml-auto shrink-0 text-white/30 transition-colors group-hover:text-lime" />
               </a>
             ))}
-            <p className="px-1 pt-2 text-sm leading-relaxed text-white/45">
+            <p className="px-1 pt-2 text-sm leading-relaxed text-white/55">
               We reply within one business day. Prefer to talk it through? Book a call and we&rsquo;ll
               review your site and goals together, no pressure.
             </p>

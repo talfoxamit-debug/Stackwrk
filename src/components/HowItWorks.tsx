@@ -26,7 +26,7 @@ function MiniAudit() {
       <div className="min-w-0 flex-1 space-y-1.5">
         {cats.map(([label, w, color]) => (
           <div key={label} className="flex items-center gap-2">
-            <span className="w-12 shrink-0 text-[0.75rem] uppercase tracking-wide text-white/40">{label}</span>
+            <span className="w-12 shrink-0 text-[0.75rem] uppercase tracking-wide text-white/55">{label}</span>
             <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.07]">
               <div className="h-full rounded-full" style={{ width: `${w}%`, background: color }} />
             </div>
@@ -126,7 +126,7 @@ export default function HowItWorks() {
           <h2 className="mt-3 font-display text-4xl uppercase leading-[0.95] text-white sm:text-5xl">
             {howItWorks.heading[0]}
             <br />
-            <span className="text-white/45">{howItWorks.heading[1]}</span>
+            <span className="text-white/55">{howItWorks.heading[1]}</span>
           </h2>
         </Reveal>
 

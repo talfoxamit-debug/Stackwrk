@@ -12,7 +12,7 @@ export default function WhatYouGet() {
           <h2 className="mt-3 font-display text-4xl uppercase leading-[0.95] text-white sm:text-5xl">
             {whatYouGet.heading[0]}
             <br />
-            <span className="text-white/45">{whatYouGet.heading[1]}</span>
+            <span className="text-white/55">{whatYouGet.heading[1]}</span>
           </h2>
         </Reveal>
 

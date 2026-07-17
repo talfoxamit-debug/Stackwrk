@@ -9,7 +9,7 @@ export default function LegalDoc({ title, updated, intro, blocks }: { title: str
       <div className="container-content max-w-3xl py-14 sm:py-20">
         <Link href="/" className="text-sm font-bold uppercase tracking-wide text-lime">← Stackwrk</Link>
         <h1 className="mt-5 font-display text-4xl uppercase leading-[0.95] text-white sm:text-5xl">{title}</h1>
-        <p className="mt-3 text-sm text-white/40">Last updated {updated}</p>
+        <p className="mt-3 text-sm text-white/55">Last updated {updated}</p>
         <p className="mt-6 text-[0.95rem] leading-relaxed text-white/70">{intro}</p>
 
         <div className="mt-8 space-y-6">

@@ -102,7 +102,7 @@ export default function ServicesPage() {
       </section>
 
       <div className="container-content pb-6 text-center">
-        <p className="text-sm text-white/45">
+        <p className="text-sm text-white/55">
           Looking for website + care-plan pricing?{" "}
           <a href="/pricing" className="text-lime underline-offset-4 hover:underline">See pricing →</a>
         </p>

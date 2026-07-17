@@ -46,7 +46,7 @@ export default function Plans() {
               <p className="relative z-10 mt-1 text-sm text-white/50">{plan.tagline}</p>
               <p className="relative z-10 mt-5">
                 <span className="inline-block font-display text-5xl text-white transition-transform duration-300 group-hover:scale-105">{money(plan.price)}</span>
-                <span className="text-sm text-white/45">/mo</span>
+                <span className="text-sm text-white/55">/mo</span>
               </p>
               <ul className="relative z-10 mt-6 flex-1 space-y-2.5">
                 {plan.features.map((f) => (
@@ -93,7 +93,7 @@ export default function Plans() {
             Start with a free audit
             <ArrowRight width={16} height={16} />
           </a>
-          <p className="mt-3 text-sm text-white/45">
+          <p className="mt-3 text-sm text-white/55">
             Need more than a website?{" "}
             <a href="/services" className="text-lime underline-offset-4 hover:underline">See all services →</a>
           </p>

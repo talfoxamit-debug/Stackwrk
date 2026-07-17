@@ -117,7 +117,7 @@ export default function ToolsHubPage() {
             })}
           </div>
 
-          <p className="mt-10 text-center text-sm text-white/45">
+          <p className="mt-10 text-center text-sm text-white/55">
             More free tools on the way.{" "}
             <a href={site.calendlyUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-lime hover:underline">
               Book a free call

@@ -7,7 +7,7 @@ export default function Testimonials() {
       <div className="container-content relative">
         <Reveal className="mb-7 flex items-center gap-3">
           <span className="h-px w-8 bg-white/20" />
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/55">
             What clients say
           </p>
         </Reveal>
@@ -26,7 +26,7 @@ export default function Testimonials() {
                 ))}
               </div>
               <p className="mt-3 flex-1 text-[0.82rem] leading-relaxed text-white/70">&ldquo;{t.quote}&rdquo;</p>
-              <p className="mt-4 text-xs"><span className="font-semibold text-white/80">{t.name}</span> <span className="text-white/40">· {t.role}</span></p>
+              <p className="mt-4 text-xs"><span className="font-semibold text-white/80">{t.name}</span> <span className="text-white/55">· {t.role}</span></p>
             </Reveal>
           ))}
         </div>

@@ -175,7 +175,7 @@ export default function AuditPopup() {
               Free website audit
             </h2>
             <div className="mt-2 flex flex-wrap items-baseline gap-x-2 font-display uppercase leading-none">
-              <span className="text-2xl text-white/40">+</span>
+              <span className="text-2xl text-white/55">+</span>
               <span className="text-accent-glow text-5xl">10% off</span>
               <span className="text-2xl text-white">your new site</span>
             </div>

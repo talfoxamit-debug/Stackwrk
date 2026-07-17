@@ -135,7 +135,7 @@ export default function CrmBoard() {
       </div>
 
       {leads.length === 0 ? (
-        <p className="mt-10 text-center text-sm text-white/45">
+        <p className="mt-10 text-center text-sm text-white/55">
           No leads yet. They'll appear here the moment someone submits the audit form.
         </p>
       ) : (
@@ -150,7 +150,7 @@ export default function CrmBoard() {
               <div>
                 <p className="text-sm font-semibold text-white">
                   {lead.name}{" "}
-                  <span className="font-normal text-white/45">· {lead.email}</span>
+                  <span className="font-normal text-white/55">· {lead.email}</span>
                 </p>
                 {lead.website && (
                   <a

@@ -41,7 +41,7 @@ export default function IndustryGreeting() {
         <button
           onClick={() => setDismissed(true)}
           aria-label="Dismiss"
-          className="shrink-0 rounded-md px-2 py-1 text-white/40 transition-colors hover:text-white"
+          className="shrink-0 rounded-md px-2 py-1 text-white/55 transition-colors hover:text-white"
         >
           ✕
         </button>

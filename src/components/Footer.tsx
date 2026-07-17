@@ -14,7 +14,7 @@ export default function Footer() {
       <div className="container-content flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
         <div className="flex flex-col items-center gap-1 sm:flex-row sm:items-center sm:gap-4">
           <Logo compact />
-          <span className="text-xs text-white/40">{footer.copyright}</span>
+          <span className="text-xs text-white/55">{footer.copyright}</span>
         </div>
 
         <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white/50">
@@ -26,7 +26,7 @@ export default function Footer() {
           <a href="/terms" className="transition-colors hover:text-lime">Terms</a>
         </nav>
 
-        <p className="order-last text-xs text-white/40 sm:order-none">{footer.tagline}</p>
+        <p className="order-last text-xs text-white/55 sm:order-none">{footer.tagline}</p>
 
         <div className="flex items-center gap-2">
           {socials.filter((s) => s.href).map(({ href, label, Icon, external }) => (
