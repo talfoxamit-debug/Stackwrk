@@ -71,8 +71,8 @@ export const CALL_OUTCOMES = [
 export const BEST_TIMES = ["Morning", "Afternoon", "Evening", "Weekend"] as const;
 
 // ---- Phone-number quality ------------------------------------------------
-// South-Florida area codes we actually sell into. A local fence contractor
-// has a local number; toll-free / out-of-area numbers are usually a chain,
+// South-Florida area codes we actually sell into. A local small business has
+// a local number; toll-free / out-of-area numbers are usually a chain,
 // aggregator, or answering service, not the owner you want on the phone.
 // South Florida area codes: Broward (954/754), Palm Beach (561, overlay 728),
 // Miami-Dade (305/786, overlay 645). 472 was never assigned, so it is not here.
@@ -165,7 +165,7 @@ export const CALL_SCRIPT: CallChapter[] = [
       },
       {
         cue: "Open: they have NO website (a hole they can't see)",
-        say: `"Hey {{owner}}, it's just Tal, I was searching fence companies in {{city}} and noticed you don't really come up anywhere. Figured you'd want to know. Is this a bad time?"`,
+        say: `"Hey {{owner}}, it's just Tal, I was looking up {{business}} online and noticed you don't really come up anywhere. Figured you'd want to know. Is this a bad time?"`,
         only: "nosite",
       },
       {
@@ -192,7 +192,7 @@ export const CALL_SCRIPT: CallChapter[] = [
       },
       {
         cue: "\"What's this about?\" Frame THEIR problem, not your product",
-        say: `"Sure, I'm honestly not sure who I should be talking to. I'm trying to reach whoever's responsible for how {{business}} shows up when a homeowner Googles a fence company in {{city}}, because there could be quote requests slipping to competitors every month that nobody there even sees. Who would that be?"`,
+        say: `"Sure, I'm honestly not sure who I should be talking to. I'm trying to reach whoever's responsible for how {{business}} shows up online, because there could be customers slipping to competitors every month that nobody there even sees. Who would that be?"`,
       },
       {
         cue: "She hesitates to transfer: shrink the ask, flip to a \"no\"",
@@ -213,7 +213,7 @@ export const CALL_SCRIPT: CallChapter[] = [
     moves: [
       {
         cue: "\"Not interested\"",
-        say: `"Totally fair, most guys I call already get plenty of referrals. Quick one though: when a homeowner Googles you before they call, what do they find? ... That's the only reason I reached out. Mind if I just text you the free mockup? Zero obligation."`,
+        say: `"Totally fair, most guys I call already get plenty of referrals. Quick one though: when someone searches for you before they call, what do they find? ... That's the only reason I reached out. Mind if I just text you the free mockup? Zero obligation."`,
       },
       {
         cue: "\"How much?\"",
@@ -225,7 +225,7 @@ export const CALL_SCRIPT: CallChapter[] = [
       },
       {
         cue: "\"I already have a website\"",
-        say: `"Saw it. Real quick, is it actually bringing you quote requests, or mostly just sitting there? ... I built a version focused on turning 'near me' searches into calls, want me to text it so you can compare?"`,
+        say: `"Saw it. Real quick, is it actually bringing you leads, or mostly just sitting there? ... I built a version focused on turning 'near me' searches into calls, want me to text it so you can compare?"`,
       },
       {
         cue: "\"Just email me\"",
@@ -241,7 +241,7 @@ export const CALL_SCRIPT: CallChapter[] = [
     moves: [
       {
         cue: "Leave this, then send the text",
-        say: `"Hey {{owner}}, this is Tal with Stackwrk, I build websites for fence companies in {{city}}. I put together a quick concept of what your site could look like and wanted to send it over, no charge. Shoot me a text at (754) 551-2828 and I'll get it right to you. Thanks {{owner}}."`,
+        say: `"Hey {{owner}}, this is Tal with Stackwrk, I build websites and software for small businesses here in {{city}}. I put together a quick concept of what your site could look like and wanted to send it over, no charge. Shoot me a text at (754) 551-2828 and I'll get it right to you. Thanks {{owner}}."`,
       },
     ],
   },
@@ -274,7 +274,7 @@ export const TEMPLATES: { key: string; label: string; channel: "email" | "call" 
 "Hey, is this {{owner}}? ... {{owner}}, it's just Tal, I'm actually looking at your website right now and noticed {{gap}}. That's the only reason I called. Is now a terrible time?"
 
 [No website? Even stronger, a hole they can't see:]
-"Hey {{owner}}, it's just Tal, I was searching fence companies in {{city}} and noticed you don't really come up anywhere. Figured you'd want to know. Is this a bad time?"
+"Hey {{owner}}, it's just Tal, I was looking up {{business}} online and noticed you don't really come up anywhere. Figured you'd want to know. Is this a bad time?"
 
 [They'll say "no, go ahead": that's your green light. Go straight to the GIVE, not a pitch:]
 "So I actually put together a rough concept of what {{business}}'s site could look like. Would it be crazy for me to just text you the link so you can look whenever?"
@@ -294,7 +294,7 @@ BEST CASE: you know the owner's name. Just ask, warm and confident, no explanati
 (Explaining yourself = 'salesperson' = blocked. Most gatekeepers just transfer.)
 
 IF SHE ASKS "what's this about?" Frame THEIR problem, never your product:
-"Sure, I'm honestly not sure who I should be talking to. I'm trying to reach whoever's responsible for how {{business}} shows up when a homeowner Googles a fence company in {{city}}, because there could be quote requests slipping to competitors every month that nobody there even sees. Who would that be?"
+"Sure, I'm honestly not sure who I should be talking to. I'm trying to reach whoever's responsible for how {{business}} shows up online, because there could be customers slipping to competitors every month that nobody there even sees. Who would that be?"
 
 IF SHE HESITATES to transfer: shrink the ask AND flip it to a "no" question:
 "No worries, would it be a problem if I just left a quick voicemail for him? Takes 20 seconds, he can call back if he wants."
@@ -311,20 +311,20 @@ Once you're actually on with {{owner}}, drop the routing talk and go direct. Use
     label: "1b. Voicemail (no answer)",
     channel: "call",
     flow: "phone",
-    body: `"Hey {{owner}}, this is Tal with Stackwrk, I build websites for fence companies in {{city}}. I put together a quick concept of what your site could look like and wanted to send it over, no charge. Shoot me a text at (754) 551-2828 and I'll get it right to you. Thanks {{owner}}."`,
+    body: `"Hey {{owner}}, this is Tal with Stackwrk, I build websites and software for small businesses here in {{city}}. I put together a quick concept of what your site could look like and wanted to send it over, no charge. Shoot me a text at (754) 551-2828 and I'll get it right to you. Thanks {{owner}}."`,
   },
   {
     key: "call_objections",
     label: "1c. Objection handlers",
     channel: "call",
     flow: "phone",
-    body: `"Not interested" → "Totally fair, most guys I call already get plenty of referrals. Quick one though: when a homeowner Googles you before they call, what do they find? ... That's the only reason I reached out. Mind if I just text you the free mockup? Zero obligation."
+    body: `"Not interested" → "Totally fair, most guys I call already get plenty of referrals. Quick one though: when someone searches for you before they call, what do they find? ... That's the only reason I reached out. Mind if I just text you the free mockup? Zero obligation."
 
 "How much?" → "Sites start at $2,000, but honestly the mockup's free and there's no commitment. Want to just see it first, before we even talk price?"
 
 "I'm busy / on a job" → "I hear you, that's exactly why I'll just text it instead of taking your time now. What's the best cell?"
 
-"I already have a website" → "Saw it. Real quick, is it actually bringing you quote requests, or mostly just sitting there? ... I built a version focused on turning 'near me' searches into calls, want me to text it so you can compare?"
+"I already have a website" → "Saw it. Real quick, is it actually bringing you leads, or mostly just sitting there? ... I built a version focused on turning 'near me' searches into calls, want me to text it so you can compare?"
 
 "Just email me" → "Will do. So it doesn't get buried, I'll text the link too, cool? Best number?"`,
   },
@@ -336,15 +336,15 @@ Once you're actually on with {{owner}}, drop the routing talk and go direct. Use
     subject: "Stackwrk: what I can build for {{business}}",
     body: `Hi {{owner}},
 
-Great talking with you just now. As promised, here's exactly what I do for fence companies like {{business}}:
+Great talking with you just now. As promised, here's exactly what I do for businesses like {{business}}:
 
-• A fast, mobile-first website built to turn "fence company near me" searches into quote requests
-• Instant quote form + click-to-call so a homeowner reaches you in one tap
-• Reviews, financing, warranty and service-area pages that build trust and rank on Google
+• A fast, mobile-first website built to turn "near me" searches into leads
+• Instant quote or contact form + click-to-call so a customer reaches you in one tap
+• Reviews, trust signals and service-area pages that build trust and rank on Google
 • Live in about 2 weeks, and you own 100% of it, no lock-in
 
-Here's the exact kind of site I build (yours gets your name, photos and number):
-stackwrk.com/demos/apex-fence
+Here's a sample of the kind of sites I build (yours gets your name, photos and number):
+stackwrk.com/work
 
 Simple, fixed pricing:
 • Launch: $2,000 (5-page lead-capture site)
@@ -362,7 +362,7 @@ stackwrk.com · (754) 551-2828 · hello@stackwrk.com`,
     label: "2b. Text after a call/VM",
     channel: "sms",
     flow: "phone",
-    body: `Hi {{owner}}, Tal from Stackwrk here. Here's that fence-website concept I mentioned: stackwrk.com/demos/apex-fence. Happy to build you a free mockup with your own photos. Worth a quick call?`,
+    body: `Hi {{owner}}, Tal from Stackwrk here. Here's the concept I mentioned: stackwrk.com/work. Happy to build you a free mockup with your own photos. Worth a quick call?`,
   },
 
   // ---------- EMAIL-FIRST pipeline ----------
@@ -372,9 +372,9 @@ stackwrk.com · (754) 551-2828 · hello@stackwrk.com`,
     channel: "email",
     flow: "email",
     subject: "quick idea for {{business}}'s website",
-    body: `Hi {{owner}}, I build websites for fence companies here in {{city}}.
+    body: `Hi {{owner}}, I build websites for small and medium businesses here in {{city}}.
 
-I saw {{business}} on Google and noticed {{gap}}. Homeowners comparing fence contractors almost always check the website first, so that's real jobs slipping to whoever looks most legit.
+I saw {{business}} on Google and noticed {{gap}}. Customers comparing businesses like yours almost always check the website first, so that's real business slipping to whoever looks most legit.
 
 I put together a quick concept of what your homepage could look like, and it takes 30 seconds to look at. Want me to send the link?
 
@@ -387,9 +387,9 @@ Stackwrk · stackwrk.com · (754) 551-2828`,
     channel: "email",
     flow: "email",
     subject: "re: quick idea for {{business}}'s website",
-    body: `Hi {{owner}}, following up on the fence-website concept I mentioned.
+    body: `Hi {{owner}}, following up on the website concept I mentioned.
 
-Here's a live example of the kind of site I build for fence pros: stackwrk.com/demos/apex-fence, with an instant quote form, reviews, financing, the works. Yours would have your name, your photos, your number.
+Here's a sample of the kind of sites I build: stackwrk.com/work, with an instant quote or contact form, reviews, the works. Yours would have your name, your photos, your number.
 
 Worth a 10-minute call this week? Reply here, or call or text me at (754) 551-2828.
 

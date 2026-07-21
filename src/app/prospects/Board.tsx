@@ -75,8 +75,8 @@ function quoSyncSig(p: Prospect): string {
 
 function gapFor(p: Prospect | null): string {
   return p?.hasSite
-    ? "your website could be doing a lot more to turn visitors into quote requests"
-    : `you don't have a website yet, so you're invisible when homeowners search "fence company ${p?.city?.split(",")[0] || "near me"}"`;
+    ? "your website could be doing a lot more to turn visitors into leads"
+    : `you don't have a website yet, so you're invisible when someone searches for "${p?.name || "your business"}" online`;
 }
 
 function fill(t: string, p: Prospect | null) {
@@ -92,7 +92,7 @@ function fill(t: string, p: Prospect | null) {
 // Structure stays real (stage, tier, source, badges, dates, tags) so it still
 // shows the product; only the PII is faked, and the same lead always maps to
 // the same fake identity so a screenshot stays internally consistent.
-const FAKE_COMPANIES = ["Ridgeline Fence Co.", "Coastal Exteriors", "Summit Outdoor", "BlueLine Contracting", "Evergreen Fence & Deck", "Harbor Point Services", "Ironwood Builders", "Cypress Home Pros", "Anchor Exterior Group", "Sunstate Fencing", "Trailhead Renovations", "Meridian Outdoor Living", "Copperfield Contracting", "Northgate Fence", "Palmetto Exteriors", "Vanguard Home Services"];
+const FAKE_COMPANIES = ["Ridgeline Property Group", "Coastal Exteriors", "Summit Outdoor", "BlueLine Contracting", "Evergreen Home Services", "Harbor Point Services", "Ironwood Builders", "Cypress Home Pros", "Anchor Exterior Group", "Sunstate Business Solutions", "Trailhead Renovations", "Meridian Outdoor Living", "Copperfield Contracting", "Northgate Ventures", "Palmetto Exteriors", "Vanguard Home Services"];
 const FAKE_FIRST = ["Mike", "Dave", "Chris", "Tony", "Sam", "Rob", "Nick", "Alex", "Joe", "Ray", "Luis", "Carlos", "Frank", "Pete", "Dan", "Steve"];
 const FAKE_CITIES = ["Fort Lauderdale, FL", "Coral Springs, FL", "Pompano Beach, FL", "Plantation, FL", "Davie, FL", "Boca Raton, FL", "Sunrise, FL", "Hollywood, FL"];
 const FAKE_STREETS = ["1420 Oak Ridge Rd", "88 Palmetto Ave", "305 Harbor Dr", "742 Sunset Ln", "19 Birchwood Ct", "560 Coral Way", "231 Meadow St", "77 Anchor Blvd"];
@@ -796,7 +796,7 @@ export default function Board({ user }: { user: string }) {
           <div className="w-full max-w-lg rounded-2xl border p-5 crm-drawer" onClick={(e) => e.stopPropagation()}>
             <h2 className="text-lg font-bold crm-strong">Import CSV</h2>
             <p className="mt-1 text-xs crm-muted">Paste a CSV with a header row (name, phone, website, has_website, city, email…). Duplicates by name+phone are skipped.</p>
-            <textarea value={csv} onChange={(e) => setCsv(e.target.value)} rows={8} className="mt-3 w-full rounded-lg px-3 py-2 font-mono text-xs crm-input" placeholder="name,phone,website,has_website,city&#10;Apex Fence,(954)…,,NO,Fort Lauderdale" />
+            <textarea value={csv} onChange={(e) => setCsv(e.target.value)} rows={8} className="mt-3 w-full rounded-lg px-3 py-2 font-mono text-xs crm-input" placeholder="name,phone,website,has_website,city&#10;Acme Roofing,(954)…,,NO,Fort Lauderdale" />
             <div className="mt-3 flex justify-end gap-2">
               <button onClick={() => setShowImport(false)} className="rounded-lg px-4 py-2 text-sm crm-btn">Cancel</button>
               <button onClick={doImport} className="rounded-lg bg-lime px-4 py-2 text-sm font-bold text-ink">Import</button>
@@ -813,7 +813,7 @@ export default function Board({ user }: { user: string }) {
             <p className="mt-1 text-xs crm-muted">A business you called or found that isn&rsquo;t in the list. It drops into the New column, ready to work.</p>
             <div className="mt-4 grid grid-cols-2 gap-3">
               <label className="col-span-2 text-xs font-semibold crm-muted">Business name *
-                <input autoFocus value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} onKeyDown={(e) => { if (e.key === "Enter") addLead(); }} placeholder="e.g. Apex Fence Co." className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
+                <input autoFocus value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} onKeyDown={(e) => { if (e.key === "Enter") addLead(); }} placeholder="e.g. Acme Roofing Co." className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
               </label>
               <label className="text-xs font-semibold crm-muted">Phone
                 <input type="tel" value={draft.phone} onChange={(e) => setDraft({ ...draft, phone: e.target.value })} placeholder="(954) 555-0100" className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
