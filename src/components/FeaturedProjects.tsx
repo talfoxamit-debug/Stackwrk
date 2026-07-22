@@ -31,6 +31,8 @@ function Shot({ project, ratio = "aspect-[16/11]" }: { project: Project; ratio?:
           <img
             src={project.image}
             alt={`${project.name} website`}
+            width={880}
+            height={495}
             loading="lazy"
             decoding="async"
             className="h-full w-full object-cover object-top brightness-[1.16] contrast-[1.04] saturate-[1.06] transition-transform duration-[1400ms] ease-out group-hover:scale-[1.05]"

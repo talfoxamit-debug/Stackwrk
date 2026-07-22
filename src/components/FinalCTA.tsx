@@ -42,6 +42,8 @@ export default function FinalCTA() {
           <img
             src="/fox-proud.webp"
             alt=""
+            width={820}
+            height={1230}
             loading="lazy"
             decoding="async"
             className="relative w-60 opacity-90 drop-shadow-[0_0_45px_rgba(203,255,60,0.14)]"
@@ -54,7 +56,7 @@ export default function FinalCTA() {
           {/* Mobile: proud fox in-flow above the pitch (centered, no overflow). */}
           <div className="pointer-events-none mx-auto mb-6 w-40 xl:hidden" aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element -- decorative */}
-            <img src="/fox-proud.webp" alt="" loading="lazy" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_35px_rgba(203,255,60,0.14)]" />
+            <img src="/fox-proud.webp" alt="" width={820} height={1230} loading="lazy" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_35px_rgba(203,255,60,0.14)]" />
           </div>
           <p className="eyebrow">{finalCta.eyebrow}</p>
           <h2 className="mt-3 font-display text-4xl uppercase leading-[0.95] text-white sm:text-5xl lg:text-6xl">

@@ -108,7 +108,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
       {/* HERO */}
       <section className="relative min-h-[560px] overflow-hidden lg:min-h-[640px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={c.heroImg} alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "center 62%" }} />
+        <img src={c.heroImg} alt="" width={1400} height={800} className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "center 62%" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,20,30,0.82) 0%, rgba(8,20,30,0.55) 48%, rgba(8,20,30,0.28) 100%)" }} />
         <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: "linear-gradient(180deg, rgba(8,20,30,0) 0%, rgba(8,20,30,0.35) 100%)" }} />
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-16 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:pb-20 lg:pt-20">
@@ -166,7 +166,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
             <div key={s.t} className="group overflow-hidden rounded-2xl border border-black/[0.07] bg-white shadow-sm transition-shadow hover:shadow-lg">
               <div className="relative h-40 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={s.img} alt={s.t} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <img src={s.img} alt={s.t} width={760} height={500} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(12,35,51,0) 45%, rgba(12,35,51,0.72) 100%)" }} />
                 <h3 className="absolute inset-x-0 bottom-0 p-4 text-lg font-bold text-white">{s.t}</h3>
               </div>
@@ -223,7 +223,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
         <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-black/[0.07] bg-white shadow-sm lg:grid-cols-2">
           <div className="relative h-64 lg:h-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/demo/fence/g-gate.webp" alt="Our crew on the job" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+            <img src="/demo/fence/g-gate.webp" alt="Our crew on the job" width={760} height={500} loading="lazy" decoding="async" className="h-full w-full object-cover" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(12,35,51,0.15), rgba(12,35,51,0.55))" }} />
             <span className="absolute bottom-4 left-4 rounded-full bg-black/45 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">On the job in {c.region}</span>
           </div>
@@ -254,7 +254,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
             <div key={g.title} className="group relative overflow-hidden rounded-2xl border border-black/[0.07] shadow-sm">
               <div className="relative h-52 overflow-hidden bg-slate-200">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={g.img} alt={g.title} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <img src={g.img} alt={g.title} width={760} height={500} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
               </div>
               <div className="absolute inset-x-0 bottom-0 p-4 text-white"><p className="text-sm font-bold">{g.title}</p><p className="text-xs text-white/75">{g.city}</p></div>

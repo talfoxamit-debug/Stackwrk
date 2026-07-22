@@ -70,7 +70,7 @@ export default function ToolsHubPage() {
         <div className="pointer-events-none absolute right-[1%] top-16 z-0 hidden w-44 opacity-90 xl:block 2xl:w-52" aria-hidden="true">
           <div className="animate-float-y">
             {/* eslint-disable-next-line @next/next/no-img-element -- static decorative asset */}
-            <img src="/fox-alert.webp" alt="" loading="lazy" decoding="async" className="w-full drop-shadow-[0_0_40px_rgba(203,255,60,0.16)]" />
+            <img src="/fox-alert.webp" alt="" width={760} height={1140} loading="lazy" decoding="async" className="w-full drop-shadow-[0_0_40px_rgba(203,255,60,0.16)]" />
           </div>
         </div>
         <div className="container-content relative">
@@ -90,7 +90,7 @@ export default function ToolsHubPage() {
           {/* Mobile: alert fox in-flow above the tool cards (centered, no overflow). */}
           <div className="pointer-events-none mx-auto mt-8 w-40 xl:hidden" aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element -- decorative */}
-            <img src="/fox-alert.webp" alt="" loading="lazy" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_35px_rgba(203,255,60,0.16)]" />
+            <img src="/fox-alert.webp" alt="" width={760} height={1140} loading="lazy" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_35px_rgba(203,255,60,0.16)]" />
           </div>
 
           <div className="mx-auto mt-12 grid max-w-4xl gap-5 sm:grid-cols-2">

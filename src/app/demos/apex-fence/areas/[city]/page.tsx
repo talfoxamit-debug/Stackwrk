@@ -61,7 +61,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       {/* hero */}
       <section className="relative overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={c.heroImg} alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "center 60%" }} />
+        <img src={c.heroImg} alt="" width={1400} height={800} className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "center 60%" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,20,30,0.85) 0%, rgba(8,20,30,0.5) 100%)" }} />
         <div className="relative mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-20">
           <p className="text-sm font-bold uppercase tracking-wide text-emerald-300">Serving {rule.city} · {rule.county} County</p>

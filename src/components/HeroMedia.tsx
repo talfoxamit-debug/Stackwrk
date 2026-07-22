@@ -37,6 +37,8 @@ export default function HeroMedia({ variant = "panel" }: { variant?: "panel" | "
         srcSet="/fox-620.webp 620w, /fox.webp 1000w"
         sizes="(max-width: 1024px) 0px, 46vw"
         alt=""
+        width={1000}
+        height={1500}
         loading="eager"
         decoding="async"
         fetchPriority="high"
@@ -68,6 +70,8 @@ export default function HeroMedia({ variant = "panel" }: { variant?: "panel" | "
           srcSet="/fox-620.webp 620w, /fox.webp 1000w"
           sizes="(max-width: 640px) 300px, 384px"
           alt=""
+          width={1000}
+          height={1500}
           // This "panel" variant is hidden on desktop (where the "bleed" variant
           // is the LCP). Lazy so desktop does not redundantly download it; on
           // mobile it is in-viewport and still loads promptly.

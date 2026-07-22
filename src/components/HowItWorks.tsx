@@ -114,6 +114,8 @@ export default function HowItWorks() {
           <img
             src="/fox-run.webp"
             alt=""
+            width={1200}
+            height={800}
             loading="lazy"
             decoding="async"
             className="w-full opacity-90 drop-shadow-[0_0_40px_rgba(255,90,40,0.18)]"
@@ -133,7 +135,7 @@ export default function HowItWorks() {
         {/* Mobile: the running fox in-flow (centered, can't overflow). */}
         <div className="pointer-events-none mx-auto mt-6 w-56 max-w-[72%] xl:hidden" aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element -- decorative */}
-          <img src="/fox-run.webp" alt="" loading="lazy" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_30px_rgba(255,90,40,0.18)]" />
+          <img src="/fox-run.webp" alt="" width={1200} height={800} loading="lazy" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_30px_rgba(255,90,40,0.18)]" />
         </div>
 
         <div ref={ref} className="relative mt-10">
