@@ -2,6 +2,42 @@
 
 Living list of open items. Grouped by who owns each.
 
+## 🚨 Why the site gets no traffic (diagnosed 2026-07-22)
+
+The site is almost certainly **not in Google's index yet**. Evidence: searching
+the brand name "Stackwrk" (a unique, made-up word with zero competition)
+returns nothing about stackwrk.com. A new domain gets discovered two ways,
+and right now neither is happening:
+
+1. **Search Console submission** (see below). Never done, so Google was never
+   told the site exists.
+2. **Inbound links** from sites Google already crawls. Currently ~zero.
+
+Nothing else (more guides, more tools, better copy) produces a single visitor
+until the site is indexed. Fix these three first, in order:
+
+- [ ] **1. Search Console + sitemap** (Tal, ~5 min). Detailed steps below.
+- [ ] **2. Link to stackwrk.com from the other live sites Tal owns.** This is
+      how Google finds and starts trusting a new domain, and it costs nothing.
+      Add a "Built by Stackwrk" (or similar) footer link on:
+      seatophomes.com, yathub.com, fortlauderdaledockrental.com,
+      above-air-inc.vercel.app, nagarifogel.vercel.app.
+      The FOX5 referral link from fortlauderdaledockrental.com counts as one.
+- [ ] **3. Fix the www / apex mismatch** (Tal, ~30 sec, Vercel dashboard).
+      Right now stackwrk.com 308-redirects to www.stackwrk.com, but every
+      canonical tag and all 32 sitemap URLs point at the non-www version. So
+      every URL we hand Google immediately redirects, and the canonical tag
+      names a URL that does not serve 200. Conflicting signals slow indexing.
+      Fix: Vercel -> stackwrk project -> Settings -> Domains -> make
+      **stackwrk.com** (no www) the primary, so www redirects to it instead.
+      That matches all existing marketing ("🌐 stackwrk.com") and needs zero
+      code changes. Tell Claude if you would rather standardize on www and the
+      code will be updated to match instead.
+
+**Realistic timeline:** even done perfectly, SEO traffic takes ~3 to 6 months
+to matter on a new domain. For clients *this month*, the outbound channels
+(call list, WhatsApp, DMs) are the answer, not the website.
+
 ## Tal (setup, no code)
 - [ ] **Google Search Console** (biggest SEO item): verify stackwrk.com and submit the sitemap. Steps:
       1. Go to search.google.com/search-console, click "Add property".
