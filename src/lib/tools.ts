@@ -150,6 +150,129 @@ export const freeTools: FreeTool[] = [
       },
     ],
   },
+  {
+    slug: "cost-per-lead-calculator",
+    name: "Cost Per Lead Calculator",
+    short: "Know what a lead is worth",
+    blurb:
+      "Work out what one lead is actually worth to your business, and the most you can afford to pay for one before advertising stops making money.",
+    icon: "target",
+    h1: "Cost Per Lead Calculator",
+    intro:
+      "Most owners buy leads without knowing what one is worth. Enter your average sale, your close rate and your lead volume to see the real value of a single lead, and the maximum you can pay for one and still come out ahead.",
+    cta: "Calculate lead value",
+    metaTitle: "Cost Per Lead Calculator: What a Lead Is Worth | Stackwrk",
+    metaDescription:
+      "Free cost per lead calculator. Enter your average sale value, close rate and monthly leads to see what one lead is worth and the maximum you can afford to pay per lead.",
+    keywords: [
+      "cost per lead calculator",
+      "what is a lead worth",
+      "lead value calculator",
+      "max cost per lead",
+      "cpl calculator",
+      "how much should i pay per lead",
+    ],
+    faq: [
+      {
+        q: "How do you calculate the value of a lead?",
+        a: "Multiply your average sale value by your close rate. If your average job is $4,000 and you close one in four leads, each lead is worth $1,000 in revenue on average. That single number is what makes every other advertising decision straightforward.",
+      },
+      {
+        q: "What is a good cost per lead?",
+        a: "There is no universal number, it depends entirely on what a lead is worth to you. A $400 cost per lead is a bargain if leads are worth $2,000 and a disaster if they are worth $300. Work out your lead value first, then decide what share of it you are willing to spend to acquire one.",
+      },
+      {
+        q: "How much of a lead's value should I spend acquiring it?",
+        a: "Commonly somewhere between 10 and 30 percent, depending on your margins and how much you want to grow. Spending a larger share buys faster growth with thinner profit; spending less protects margin but slows you down. The calculator lets you set this and see the number it implies.",
+      },
+      {
+        q: "Does this account for repeat customers and referrals?",
+        a: "No, and that makes it deliberately conservative. It values a lead on the first sale only. If your customers come back or refer others, each lead is genuinely worth more than this shows, so treat the result as a floor rather than a ceiling.",
+      },
+    ],
+  },
+  {
+    slug: "speed-to-lead-calculator",
+    name: "Speed to Lead Calculator",
+    short: "What slow replies cost you",
+    blurb:
+      "Replying first wins a large share of jobs. Estimate the revenue your business loses every month to slow follow-up, and what closing that gap is worth.",
+    icon: "bolt",
+    h1: "Speed to Lead Calculator",
+    intro:
+      "In service businesses, whoever replies first usually wins the job. Enter your lead volume, average sale and how fast you typically respond to estimate what slow follow-up is quietly costing you every month.",
+    cta: "Calculate the cost",
+    metaTitle: "Speed to Lead Calculator: What Slow Replies Cost | Stackwrk",
+    metaDescription:
+      "Free speed to lead calculator. Estimate the revenue lost to slow follow-up each month, and what replying to every lead within minutes would be worth to your business.",
+    keywords: [
+      "speed to lead calculator",
+      "lead response time",
+      "cost of slow lead follow up",
+      "how fast should i respond to leads",
+      "lead response time revenue",
+      "first responder wins",
+    ],
+    faq: [
+      {
+        q: "Why does response time matter so much?",
+        a: "Because someone requesting a quote is usually contacting several businesses at once, and they are most interested in the minutes right after they hit send. The company that replies while that intent is still hot tends to win a disproportionate share of the work, often before the others reply at all.",
+      },
+      {
+        q: "What counts as a fast response?",
+        a: "Minutes, not hours. Replying within about five minutes is the widely cited benchmark for service businesses. An hour later you are usually competing against someone who already spoke to them, and the next morning the job is frequently gone.",
+      },
+      {
+        q: "Where does the uplift number in this calculator come from?",
+        a: "It is an assumption you control, not a claim we are making. The default is deliberately conservative and you can adjust it to match what you believe about your own market. The calculator is meant to show you the shape and rough scale of the problem, not to produce a precise forecast.",
+      },
+      {
+        q: "How do I actually reply faster without watching my phone all day?",
+        a: "You automate the first touch. An instant automatic reply confirms you received the request within seconds, and every lead from every source lands in one inbox that alerts you immediately, so nothing waits unseen while you are on a job. That is a system, not more discipline.",
+      },
+    ],
+  },
+  {
+    slug: "software-spend-auditor",
+    name: "Software Spend Auditor",
+    short: "Add up what your tools really cost",
+    blurb:
+      "List every subscription your business pays for and see the real monthly, yearly and five-year total, including the price increases nobody budgets for.",
+    icon: "trend",
+    h1: "Software Spend Auditor",
+    intro:
+      "Most owners underestimate their software bill because it arrives in a dozen small pieces. List your subscriptions here and see the honest total: what you pay a month, a year, and over five years once normal price increases are included.",
+    cta: "Add up my software",
+    metaTitle: "Software Spend Auditor: Your Real Subscription Cost | Stackwrk",
+    metaDescription:
+      "Free software spend auditor. List your business subscriptions to see the true monthly, yearly and 5-year cost, including price increases, and what you could own instead.",
+    keywords: [
+      "software spend calculator",
+      "subscription cost calculator",
+      "saas spend audit",
+      "how much do i spend on software",
+      "business subscription tracker",
+      "software cost per year",
+    ],
+    faq: [
+      {
+        q: "Why does my software bill feel bigger than it looks?",
+        a: "Because it arrives in small pieces. A dozen tools at $40 to $90 a month each never feels like a major expense individually, but together they are often one of the larger line items in a small business, and unlike most costs it grows every year without you agreeing to anything.",
+      },
+      {
+        q: "Why does the total include price increases?",
+        a: "Because ignoring them understates what you will actually pay. Subscription prices rise, tiers get restructured, and per-seat tools cost more every time you hire. A five-year projection at today's prices is a fiction, so this adds a modest yearly increase you can adjust.",
+      },
+      {
+        q: "Which subscriptions should I actually cut?",
+        a: "Usually none of the cheap, excellent, fixed-price ones like accounting or payments. The candidates worth examining are the expensive per-seat tools that only half fit how you work, especially where you keep a spreadsheet alongside them to make them usable. That combination is where the money is being wasted.",
+      },
+      {
+        q: "What is the alternative to renting all these tools?",
+        a: "For the expensive, ill-fitting ones, having a single system built around your actual workflow, which you then own outright and run on cheap flat hosting. It is not always the right answer, and it rarely makes sense for cheap or best-in-class tools. The SaaS versus custom calculator will tell you honestly which side your numbers land on.",
+      },
+    ],
+  },
 ];
 
 export const getTool = (slug: string): FreeTool | undefined =>

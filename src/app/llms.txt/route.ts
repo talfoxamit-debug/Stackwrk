@@ -1,6 +1,7 @@
 import { GUIDES } from "@/lib/guides";
 import { freeTools } from "@/lib/tools";
 import { site } from "@/lib/content";
+import { PLAN_PRESETS } from "@/lib/agreement";
 
 export const dynamic = "force-static";
 
@@ -13,6 +14,15 @@ export function GET() {
   const base = `https://${site.domain}`;
   const guides = GUIDES.map((g) => `- [${g.title}](${base}/guides/${g.slug}): ${g.description}`).join("\n");
   const tools = freeTools.map((t) => `- [${t.name}](${base}/tools/${t.slug}): ${t.short}`).join("\n");
+  // Generated from the real plan presets so published pricing cannot drift out
+  // of sync with what clients are actually quoted.
+  const money = (n: number) => "$" + n.toLocaleString("en-US");
+  const pricing = Object.entries(PLAN_PRESETS)
+    .map(
+      ([name, p]) =>
+        `- ${name}: ${money(p.fee)} one-time (${p.pages} pages), plus the optional ${p.careName} care plan at ${money(p.careMonthly)}/month.`,
+    )
+    .join("\n");
 
   const body = `# Stackwrk (Fox Solutions LLC)
 
@@ -30,6 +40,10 @@ ${guides}
 
 ## Free tools
 ${tools}
+
+## Pricing
+${pricing}
+Care plans cover hosting, updates, security, backups, monitoring, and the plan's included changes. Cancel any time with 30 days' notice.
 
 ## Contact
 - Book a call: ${site.calendlyUrl}
