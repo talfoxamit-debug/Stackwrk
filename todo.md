@@ -16,23 +16,24 @@ and right now neither is happening:
 Nothing else (more guides, more tools, better copy) produces a single visitor
 until the site is indexed. Fix these three first, in order:
 
-- [ ] **1. Search Console + sitemap** (Tal, ~5 min). Detailed steps below.
-- [ ] **2. Link to stackwrk.com from the other live sites Tal owns.** This is
-      how Google finds and starts trusting a new domain, and it costs nothing.
-      Add a "Built by Stackwrk" (or similar) footer link on:
-      seatophomes.com, yathub.com, fortlauderdaledockrental.com,
-      above-air-inc.vercel.app, nagarifogel.vercel.app.
-      The FOX5 referral link from fortlauderdaledockrental.com counts as one.
-- [ ] **3. Fix the www / apex mismatch** (Tal, ~30 sec, Vercel dashboard).
-      Right now stackwrk.com 308-redirects to www.stackwrk.com, but every
-      canonical tag and all 32 sitemap URLs point at the non-www version. So
-      every URL we hand Google immediately redirects, and the canonical tag
-      names a URL that does not serve 200. Conflicting signals slow indexing.
-      Fix: Vercel -> stackwrk project -> Settings -> Domains -> make
-      **stackwrk.com** (no www) the primary, so www redirects to it instead.
-      That matches all existing marketing ("🌐 stackwrk.com") and needs zero
-      code changes. Tell Claude if you would rather standardize on www and the
-      code will be updated to match instead.
+- [x] **1. Search Console + sitemap** (done 2026-07-27). Domain property
+      `sc-domain:stackwrk.com` verified, sitemap submitted and read
+      successfully: **Success, 32 pages discovered**.
+- [x] **2. Link to stackwrk.com from the other live sites Tal owns** (done).
+- [x] **3. Fix the www / apex mismatch** (done 2026-07-27). Flipped in Vercel
+      so stackwrk.com now serves Production (200) and www.stackwrk.com
+      308-redirects to it. Verified live: canonical tag, all 32 sitemap URLs,
+      and the served URL now agree, and every sitemap URL returns 200 instead
+      of redirecting.
+
+### Next step now that discovery works
+- [ ] **URL Inspection -> Request Indexing** on the highest-value pages
+      (homepage, /guides, /tools, /services, /pricing). Daily quota is roughly
+      10 to 12 URLs. "Discovered" is not the same as "indexed": the sitemap
+      told Google the pages exist, this asks it to actually crawl and rank
+      them. Expect days to weeks, not hours.
+- [ ] Check **Indexing -> Pages** in a week to see how many of the 32 actually
+      got indexed, and what Google says about any that did not.
 
 **Realistic timeline:** even done perfectly, SEO traffic takes ~3 to 6 months
 to matter on a new domain. For clients *this month*, the outbound channels
