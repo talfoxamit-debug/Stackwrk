@@ -42,6 +42,14 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   alternates: { canonical: "https://stackwrk.com" },
+  // Google Search Console "HTML tag" verification. Dormant until
+  // GOOGLE_SITE_VERIFICATION is set in Vercel, so verification can be done
+  // without a code change: paste the content value from Search Console into
+  // that env var and redeploy. Only needed if the faster Google Analytics
+  // verification method is unavailable (GA4 is already live on the site).
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export const viewport: Viewport = {
