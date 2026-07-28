@@ -4,6 +4,7 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 import { LEAD_STATUSES } from "@/lib/crm";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { sendEmail, notifyEmail } from "@/lib/email";
+import { notifyTelegram, leadAlert } from "@/lib/telegram";
 import { PROMO_CODES } from "@/lib/promo";
 
 export const runtime = "nodejs";
@@ -165,6 +166,25 @@ export async function POST(req: Request) {
     console.error("[leads] insert failed:", error.message);
     return NextResponse.json({ ok: false, error: "insert_failed" }, { status: 500 });
   }
+
+  // Instant phone alert (best-effort). Fired before email because speed to
+  // first reply is what actually wins the job.
+  void notifyTelegram(
+    leadAlert({
+      title: "New lead",
+      name,
+      email,
+      website: website || undefined,
+      source: base.source,
+      extra: {
+        Referral: promo.promo_code
+          ? `${promo.promo_code} (+${promo.promo_extra_pct}% off)`
+          : undefined,
+        Channel: attribution.utm_source || undefined,
+      },
+      message,
+    }),
+  );
 
   // Notify Tal of the new lead (best-effort, only if configured). Without
   // this, a mockup-request submission landed in the DB with no one told.

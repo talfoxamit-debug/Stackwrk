@@ -11,6 +11,7 @@ import {
 } from "@/lib/audit-report";
 import { site } from "@/lib/content";
 import { PROMO_CODES } from "@/lib/promo";
+import { notifyTelegram, leadAlert } from "@/lib/telegram";
 
 export const runtime = "nodejs";
 export const maxDuration = 15;
@@ -136,7 +137,25 @@ export async function POST(req: Request) {
     replyTo: site.email,
   });
 
-  // 3) Notify Tal of the new lead (best-effort, only if configured).
+  // 3) Instant phone alert (best-effort). An audit lead is warm inbound, so
+  // this is the one worth reaching fast.
+  void notifyTelegram(
+    leadAlert({
+      title: `New audit lead (${result.score}/100)`,
+      name,
+      email,
+      website: result.finalUrl || undefined,
+      source,
+      extra: {
+        Referral: promo.promo_code
+          ? `${promo.promo_code} (+${promo.promo_extra_pct}% off)`
+          : undefined,
+      },
+      message: note || undefined,
+    }),
+  );
+
+  // 4) Notify Tal of the new lead (best-effort, only if configured).
   const notify = notifyEmail();
   if (notify) {
     const promoLine = promo.promo_code

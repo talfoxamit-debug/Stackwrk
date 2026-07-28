@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
+import NewsletterStrip from "@/components/NewsletterStrip";
 import JsonLd from "@/components/JsonLd";
 import { ArrowRight, Check } from "@/components/icons";
 import {
@@ -338,6 +339,8 @@ export default async function GuideArticle({
           </div>
         </div>
       </article>
+
+      <NewsletterStrip source="newsletter_guide_article" />
 
       <Footer />
     </>

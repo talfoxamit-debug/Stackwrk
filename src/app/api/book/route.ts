@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { sendEmail, notifyEmail } from "@/lib/email";
+import { notifyTelegram, leadAlert } from "@/lib/telegram";
 import { site } from "@/lib/content";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
@@ -85,6 +86,19 @@ export async function POST(req: Request) {
   } catch (e) {
     console.error("[book] supabase error:", (e as Error).message);
   }
+
+  // Instant phone alert (best-effort): a booked call is the highest-intent
+  // signal on the site, so it should reach the phone immediately.
+  void notifyTelegram(
+    leadAlert({
+      title: "New call booked",
+      name,
+      email,
+      phone: phone || undefined,
+      source: "booking",
+      extra: { When: when },
+    }),
+  );
 
   const send = await sendEmail({
     to: email,

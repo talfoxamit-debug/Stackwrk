@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
+import NewsletterStrip from "@/components/NewsletterStrip";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
 import BrushWord from "@/components/BrushWord";
@@ -155,6 +156,8 @@ export default function GuidesHub() {
           </div>
         </div>
       </section>
+
+      <NewsletterStrip source="newsletter_guides_hub" />
 
       <Footer />
     </>

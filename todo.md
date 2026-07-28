@@ -32,8 +32,64 @@ until the site is indexed. Fix these three first, in order:
       10 to 12 URLs. "Discovered" is not the same as "indexed": the sitemap
       told Google the pages exist, this asks it to actually crawl and rank
       them. Expect days to weeks, not hours.
-- [ ] Check **Indexing -> Pages** in a week to see how many of the 32 actually
+- [ ] Check **Indexing -> Pages** in a week to see how many of the 35 actually
       got indexed, and what Google says about any that did not.
+
+---
+
+# ✅ Step-by-step: do these in order
+
+Everything below is a manual step only you can do. Roughly 20 minutes total.
+
+## Step 1: Telegram lead alerts (~5 min)
+The code is live and dormant until these two values exist. Once set, every
+form fill on the site pings your phone within seconds.
+
+1. Open Telegram and search for **@BotFather** (the one with the blue check).
+2. Send `/newbot`. It asks for a display name (e.g. `Stackwrk Leads`) and then
+   a username, which must end in `bot` (e.g. `stackwrk_leads_bot`).
+3. BotFather replies with a **token** that looks like
+   `8123456789:AAH_xxxxxxxxxxxxxxxxxxxxxxxxxxxx`. Copy it.
+4. **Send your new bot a message.** Tap the `t.me/...` link in BotFather's
+   reply, press Start, and send it anything, e.g. `hi`. This is required:
+   Telegram bots cannot message you until you message them first.
+5. Open this URL in a browser, pasting your token in place of `<TOKEN>`:
+   `https://api.telegram.org/bot<TOKEN>/getUpdates`
+   Find `"chat":{"id":123456789` and copy that **number** (it is your chat id).
+6. In Vercel -> stackwrk -> Settings -> Environment Variables, add:
+   - `TELEGRAM_BOT_TOKEN` = the token from step 3
+   - `TELEGRAM_CHAT_ID` = the number from step 5
+7. Redeploy (Deployments -> latest -> Redeploy).
+8. **Test it:** go to stackwrk.com, submit the mockup form with your own
+   email. Your phone should buzz within a few seconds. If it does not, tell
+   Claude and it will check the logs.
+
+## Step 2: Request indexing in Search Console (~5 min)
+1. Search Console -> **URL inspection** (left sidebar).
+2. Paste each URL below, wait for it to load, click **Request Indexing**:
+   - `https://stackwrk.com`
+   - `https://stackwrk.com/guides`
+   - `https://stackwrk.com/tools`
+   - `https://stackwrk.com/services`
+   - `https://stackwrk.com/pricing`
+   - `https://stackwrk.com/tools/cost-per-lead-calculator`
+   - `https://stackwrk.com/tools/speed-to-lead-calculator`
+   - `https://stackwrk.com/tools/software-spend-auditor`
+3. Daily quota is about 10 to 12 URLs, so stop if it starts refusing and
+   finish the rest tomorrow.
+
+## Step 3: Confirm the newsletter works (~2 min)
+1. Go to `stackwrk.com/guides` and scroll to the bottom.
+2. Enter your own email in the newsletter strip and subscribe.
+3. Check it arrived: the subscriber shows in Supabase under `leads` with
+   source `newsletter`, and (once Step 1 is done) pings your Telegram.
+
+## Step 4: Ongoing, once a week
+- [ ] Search Console -> **Performance**: which queries are you appearing for?
+      That data decides which guides to write next.
+- [ ] Search Console -> **Indexing -> Pages**: how many pages are indexed, and
+      why any are excluded.
+- [ ] CRM: work the leads. The alerts only matter if the reply is fast.
 
 **Realistic timeline:** even done perfectly, SEO traffic takes ~3 to 6 months
 to matter on a new domain. For clients *this month*, the outbound channels
