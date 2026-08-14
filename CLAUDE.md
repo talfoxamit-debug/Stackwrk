@@ -4,6 +4,11 @@ Next.js 15 App Router + TypeScript + Tailwind site and CRM for a web-dev
 business serving fence and exterior contractors in South Florida. `main` is
 production (Vercel auto-deploys). Push work to `main`.
 
+## Read first
+
+1. **docs/QUALITY_SYSTEM.md**: fix classes, not instances. Read before fixing
+   or auditing anything.
+
 ## Writing style (strict, applies to everything)
 
 **Never use em dashes (the "—" character). Ever.** This is a standing rule from
